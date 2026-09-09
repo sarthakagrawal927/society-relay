@@ -101,7 +101,7 @@ uv run python -m scripts.evaluate_agent --case consent
 
 Each result includes explicit checks, actual tool calls, observed model names, duration and final persisted state. A failed check is recorded as a failure.
 
-The current local build passes 44 deterministic tests and six targeted live-model cases. The consent case contains two actual model runs separated by a resident refusal; it checks that the next request involves a different household, the quote stays fixed, and general availability remains unchanged.
+The current local build passes 44 deterministic tests and six targeted live-model cases. Two separate hosted end-to-end runs passed (71.28s and 53.18s for AI coordination); both then verified exact proposal approval and closure only after both households confirmed. The later requested-model configuration is recorded in [hosted acceptance evidence](docs/hosted-pinned-acceptance.json). Intermittent provider failures were also observed and retained in [failed hosted checks](docs/hosted-pinned-verification.json); these successes are not an uptime guarantee. The consent case contains two actual model runs separated by a resident refusal; it checks that the next request involves a different household, the quote stays fixed, and general availability remains unchanged.
 
 ## Scope and limitations
 

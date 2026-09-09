@@ -1,0 +1,159 @@
+{
+  "url": "https://society-relay.onrender.com",
+  "verified_at": "2026-09-09T18:21:44Z",
+  "state": {
+    "society": "Gulmohar Heights",
+    "demo": true,
+    "incidents": [
+      {
+        "id": "SR-51bcb14b1a",
+        "title": "No water from the taps in Tower A since this morning. The shared supply appears to be down",
+        "description": "No water from the taps in Tower A since this morning. The shared supply appears to be down.",
+        "unit": "A-304",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "reported",
+        "reporters": [
+          "A-304"
+        ],
+        "reports": [
+          {
+            "text": "No water from the taps in Tower A since this morning. The shared supply appears to be down.",
+            "unit": "A-304"
+          }
+        ],
+        "confirmed": [],
+        "created_at": "2026-09-09T18:21:15.765378+00:00",
+        "updated_at": "2026-09-09T18:21:15.765426+00:00",
+        "proposal": null,
+        "vendor_note": "",
+        "next_check": null,
+        "merged_into": null
+      },
+      {
+        "id": "SR-bcd41b5903",
+        "title": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+        "description": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+        "unit": "A-502",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "reported",
+        "reporters": [
+          "A-502"
+        ],
+        "reports": [
+          {
+            "text": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+            "unit": "A-502"
+          }
+        ],
+        "confirmed": [],
+        "created_at": "2026-09-09T18:21:15.765442+00:00",
+        "updated_at": "2026-09-09T18:21:15.765458+00:00",
+        "proposal": null,
+        "vendor_note": "",
+        "next_check": null,
+        "merged_into": null
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-daa6769f0a",
+        "incident_id": "SR-51bcb14b1a",
+        "title": "Report received",
+        "detail": "A-304 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-09T18:21:15.765426+00:00"
+      },
+      {
+        "id": "evt-f60c17fd67",
+        "incident_id": "SR-bcd41b5903",
+        "title": "Report received",
+        "detail": "A-502 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-09T18:21:15.765458+00:00"
+      }
+    ],
+    "receipts": {},
+    "separate_pairs": [],
+    "availability": {
+      "A-304": [
+        "morning",
+        "afternoon"
+      ],
+      "A-502": [
+        "afternoon",
+        "evening"
+      ]
+    },
+    "blocked_slots": [
+      "midday"
+    ],
+    "vendor_slots": [
+      "morning",
+      "afternoon",
+      "evening"
+    ],
+    "policy": {
+      "approval_required": true,
+      "currency": "INR",
+      "max_quote": 5000,
+      "closure": "All reporting households must confirm restoration.",
+      "dispatch": "A committee member must approve a fixed quote before dispatch.",
+      "emergency": "Hazards are escalated to a human; Relay does not diagnose or dispatch emergency services."
+    },
+    "vendors": [
+      {
+        "id": "waterworks",
+        "name": "ClearFlow Maintenance",
+        "trade": "water",
+        "quote": 1800
+      },
+      {
+        "id": "electrical",
+        "name": "Brightline Electrical",
+        "trade": "electricity",
+        "quote": 1200
+      },
+      {
+        "id": "general",
+        "name": "Neighbourhood Services",
+        "trade": "general",
+        "quote": 900
+      }
+    ],
+    "runs": [
+      {
+        "id": "run-a46709c7f2",
+        "at": "2026-09-09T18:21:40.249971+00:00",
+        "provider": "gateway",
+        "model": "groq-gpt-oss-120b",
+        "seconds": 17.34,
+        "observed_models": [],
+        "calls": [],
+        "stages": [],
+        "summary": "The agent could not finish. Completed tool actions are preserved; retry is safe.",
+        "error": "InternalServerError",
+        "status": "failed"
+      },
+      {
+        "id": "run-7eeb051423",
+        "at": "2026-09-09T18:21:41.194941+00:00",
+        "provider": "gateway",
+        "model": "groq-gpt-oss-120b",
+        "seconds": 0.42,
+        "observed_models": [],
+        "calls": [],
+        "stages": [],
+        "summary": "The agent could not finish. Completed tool actions are preserved; retry is safe.",
+        "error": "InternalServerError",
+        "status": "failed"
+      }
+    ],
+    "running": false,
+    "provider": "gateway",
+    "public_demo": true
+  }
+}
