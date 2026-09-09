@@ -15,6 +15,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from . import domain
+from .limits import take
 from .store import Conflict, Store
 
 store = Store()
@@ -96,6 +97,7 @@ def session(request: Request, response: Response):
     try:
         token = workspace(request)
     except HTTPException:
+        take("new_workspaces", 100)
         token = secrets.token_hex(24)
         store.create(token, domain.new_workspace())
     response.set_cookie(
@@ -115,11 +117,13 @@ def state(request: Request):
     result = store.read(token)[1]
     result["running"] = token in active
     result["provider"] = os.getenv("RELAY_MODEL_PROVIDER", "ollama")
+    result["public_demo"] = os.getenv("RELAY_PUBLIC_DEMO") == "1"
     return result
 
 
 @app.post("/api/session/new")
 def new_session(request: Request, response: Response):
+    take("new_workspaces", 100)
     token = secrets.token_hex(24)
     store.create(token, domain.new_workspace())
     response.set_cookie(

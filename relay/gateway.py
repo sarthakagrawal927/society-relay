@@ -13,6 +13,9 @@ from strands.models.openai import OpenAIModel
 
 class GatewayModel(OpenAIModel):
     def format_request(self, messages, tool_specs=None, system_prompt=None, tool_choice=None, **kwargs):
+        from .limits import take
+
+        take("inference", 150)
         request = super().format_request(messages, tool_specs, system_prompt, tool_choice, **kwargs)
         definitions = request.pop("tools", [])
         choice = request.pop("tool_choice", "auto")

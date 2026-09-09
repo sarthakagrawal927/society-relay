@@ -19,6 +19,7 @@ def gateway_model():
             "api_key": os.environ["GATEWAY_API_KEY"],
             "base_url": "https://ai-gateway.sassmaker.com/v1",
             "timeout": 90,
+            "max_retries": 0,
         },
         model_id=os.getenv("RELAY_MODEL_ID", "auto"),
         params={
