@@ -1,0 +1,22 @@
+[project]
+name = "society-relay"
+version = "0.1.0"
+description = "An apartment society agent that follows maintenance through verified resolution."
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.34,<1",
+    "strands-agents[ollama,openai]>=1,<2",
+    "bedrock-agentcore>=1,<2",
+    "boto3>=1.40,<2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "httpx>=0.28,<1", "ruff>=0.11"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 110
+

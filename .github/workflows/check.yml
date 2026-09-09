@@ -1,0 +1,17 @@
+name: Workflow and policy checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install uv==0.12.9
+      - run: uv sync --frozen
+      - run: uv run pytest -q
+      - run: uv run ruff check relay tests scripts
+      - run: node --check relay/static/app.js

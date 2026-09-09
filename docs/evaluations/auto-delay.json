@@ -1,0 +1,256 @@
+{
+  "case": "delay",
+  "passed": true,
+  "checks": {
+    "run_completed": true,
+    "missed_visit_escalated": true,
+    "original_quote_preserved": true
+  },
+  "run": {
+    "id": "run-3921b6a2d0",
+    "at": "2026-09-09T12:42:15.463325+00:00",
+    "provider": "gateway",
+    "model": "auto",
+    "seconds": 6.67,
+    "observed_models": [
+      "codestral-latest"
+    ],
+    "calls": [
+      {
+        "agent": "Sentinel",
+        "tool": "inspect_workspace",
+        "args": {},
+        "ok": true
+      },
+      {
+        "agent": "Sentinel",
+        "tool": "check_milestone",
+        "args": {
+          "incident_id": "SR-a7567d1324"
+        },
+        "ok": true
+      }
+    ],
+    "stages": [
+      {
+        "agent": "Sentinel",
+        "summary": "Incident SR-a7567d1324 has been escalated to the committee.\n"
+      }
+    ],
+    "summary": "SR-a7567d1324: needs attention",
+    "error": null,
+    "status": "completed"
+  },
+  "state": {
+    "society": "Gulmohar Heights",
+    "demo": true,
+    "incidents": [
+      {
+        "id": "SR-a7567d1324",
+        "title": "Water supply \u00b7 Tower A",
+        "description": "Shared water supply stopped in Tower A after the pump went silent.",
+        "unit": "A-304",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "needs_attention",
+        "reporters": [
+          "A-304"
+        ],
+        "reports": [
+          {
+            "text": "Shared water supply stopped in Tower A after the pump went silent.",
+            "unit": "A-304"
+          }
+        ],
+        "confirmed": [],
+        "created_at": "2026-09-09T12:42:08.789167+00:00",
+        "updated_at": "2026-09-09T12:42:13.133626+00:00",
+        "proposal": {
+          "id": "proposal-c84ac3f39b",
+          "vendor": "ClearFlow Maintenance",
+          "vendor_id": "waterworks",
+          "quote": 1800,
+          "rationale": "Previously reviewed fixed quote.",
+          "approved": true,
+          "options": [
+            {
+              "id": "morning",
+              "label": "10:00\u201311:00",
+              "hour": 10,
+              "households_available": 1,
+              "households_total": 1,
+              "needs_coordination": [],
+              "feasible": true
+            },
+            {
+              "id": "afternoon",
+              "label": "15:00\u201316:00",
+              "hour": 15,
+              "households_available": 1,
+              "households_total": 1,
+              "needs_coordination": [],
+              "feasible": true
+            },
+            {
+              "id": "evening",
+              "label": "17:00\u201318:00",
+              "hour": 17,
+              "households_available": 0,
+              "households_total": 1,
+              "needs_coordination": [
+                "A-304"
+              ],
+              "feasible": false
+            }
+          ],
+          "window": {
+            "id": "morning",
+            "label": "10:00\u201311:00",
+            "hour": 10,
+            "households_available": 1,
+            "households_total": 1,
+            "needs_coordination": [],
+            "feasible": true
+          },
+          "visit_date": "2026-09-10"
+        },
+        "vendor_note": "Technician is delayed. A new arrival time is needed.",
+        "next_check": null,
+        "merged_into": null
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-5e4ae5ae29",
+        "incident_id": "SR-a7567d1324",
+        "title": "Report received",
+        "detail": "A-304 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-09T12:42:08.789421+00:00"
+      },
+      {
+        "id": "evt-e423d3ce01",
+        "incident_id": "SR-a7567d1324",
+        "title": "A decision is ready",
+        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. Previously reviewed fixed quote.",
+        "actor": "Relay",
+        "at": "2026-09-09T12:42:08.789753+00:00"
+      },
+      {
+        "id": "evt-530278cdaf",
+        "incident_id": "SR-a7567d1324",
+        "title": "Work authorized",
+        "detail": "Committee approved \u20b91800; a demo work order was created.",
+        "actor": "Committee",
+        "at": "2026-09-09T12:42:08.789771+00:00"
+      },
+      {
+        "id": "evt-beaed98906",
+        "incident_id": "SR-a7567d1324",
+        "title": "Vendor reported a delay",
+        "detail": "Technician is delayed. A new arrival time is needed.",
+        "actor": "Vendor",
+        "at": "2026-09-09T12:42:08.789780+00:00"
+      },
+      {
+        "id": "evt-1aec7a1ce2",
+        "incident_id": "SR-a7567d1324",
+        "title": "Relay caught the missed milestone",
+        "detail": "Choose a revised visit or arrange an alternative. No extra spending has been authorized.",
+        "actor": "Relay",
+        "at": "2026-09-09T12:42:13.133626+00:00"
+      }
+    ],
+    "receipts": {},
+    "separate_pairs": [],
+    "availability": {
+      "A-304": [
+        "morning",
+        "afternoon"
+      ],
+      "A-502": [
+        "afternoon",
+        "evening"
+      ]
+    },
+    "blocked_slots": [
+      "midday"
+    ],
+    "vendor_slots": [
+      "morning",
+      "afternoon",
+      "evening"
+    ],
+    "policy": {
+      "approval_required": true,
+      "currency": "INR",
+      "max_quote": 5000,
+      "closure": "All reporting households must confirm restoration.",
+      "dispatch": "A committee member must approve a fixed quote before dispatch.",
+      "emergency": "Hazards are escalated to a human; Relay does not diagnose or dispatch emergency services."
+    },
+    "vendors": [
+      {
+        "id": "waterworks",
+        "name": "ClearFlow Maintenance",
+        "trade": "water",
+        "quote": 1800
+      },
+      {
+        "id": "electrical",
+        "name": "Brightline Electrical",
+        "trade": "electricity",
+        "quote": 1200
+      },
+      {
+        "id": "general",
+        "name": "Neighbourhood Services",
+        "trade": "general",
+        "quote": 900
+      }
+    ],
+    "runs": [
+      {
+        "id": "run-3921b6a2d0",
+        "at": "2026-09-09T12:42:15.463325+00:00",
+        "provider": "gateway",
+        "model": "auto",
+        "seconds": 6.67,
+        "observed_models": [
+          "codestral-latest"
+        ],
+        "calls": [
+          {
+            "agent": "Sentinel",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Sentinel",
+            "tool": "check_milestone",
+            "args": {
+              "incident_id": "SR-a7567d1324"
+            },
+            "ok": true
+          }
+        ],
+        "stages": [
+          {
+            "agent": "Sentinel",
+            "summary": "Incident SR-a7567d1324 has been escalated to the committee.\n"
+          }
+        ],
+        "summary": "SR-a7567d1324: needs attention",
+        "error": null,
+        "status": "completed"
+      }
+    ],
+    "live": {
+      "agent": "Sentinel",
+      "tool": "check_milestone",
+      "at": "2026-09-09T12:42:13.133072+00:00"
+    }
+  }
+}
