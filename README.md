@@ -4,6 +4,8 @@
 
 An apartment-society maintenance agent built with **Strands Agents SDK**, for the Agents for Humans hackathon's **Good Neighbor** track. Residents, committee members and facility teams share one incident lifecycle.
 
+[Watch the public working-app demo (3:39)](https://youtu.be/UXrkD4t4G3Y)
+
 ## What works
 
 - A three-stage **Strands Graph** runs Sensemaker, Coordinator and Sentinel. An independent model review checks proposed merges against the original reports.

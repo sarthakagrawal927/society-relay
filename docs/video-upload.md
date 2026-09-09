@@ -1,10 +1,12 @@
 # Video publication package
 
-Status: rendered and inspected locally; not uploaded.
+Status: published September 9, 2026 on the personal YouTube channel of Sarthak Agrawal. YouTube displayed Video published and Checks complete. No issues found.
+
+Public video: https://youtu.be/UXrkD4t4G3Y
 
 Title: **Society Relay — No more “any update?” | Agents for Humans 2026**
 
-Description:
+Prepared extended description (the published description is condensed):
 
 Society Relay is a Good Neighbor agent for apartment societies, built with Strands Agents SDK. Two households report one shared problem. Relay connects the evidence, coordinates access, follows up on a missed visit, and keeps the incident open until every reporting household verifies the outcome.
 
