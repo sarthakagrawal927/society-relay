@@ -6,7 +6,7 @@ Society Relay follows that shared problem through to an outcome. Its defining ru
 
 ## What it does
 
-The Good Neighbor demonstration connects two fictional households reporting a water-supply problem in Tower A. It preserves their original reports, proposes a fixed ₹1,800 repair, and finds the access window that works for both households and the vendor while respecting society quiet hours.
+The Good Neighbor demonstration connects two fictional households reporting a water-supply problem in Tower A. It preserves their original reports, proposes a fixed INR 1,800 repair, and finds the access window that works for both households and the vendor while respecting society quiet hours.
 
 Then the demo makes life difficult:
 
