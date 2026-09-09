@@ -8,6 +8,8 @@ An apartment-society maintenance agent built with **Strands Agents SDK**, for th
 
 - A three-stage **Strands Graph** runs Sensemaker, Coordinator and Sentinel. An independent model review checks proposed merges against the original reports.
 - The coordinator intersects household and vendor availability with society quiet hours. A disappearing common window invalidates the old proposal; it cannot be approved by a stale browser.
+- When no window works, the agent compares alternatives and requests a **one-visit access exception**. A resident can decline; Relay must consider a different household rather than repeat the request. Consent never changes general availability.
+- Consent is bound to the household group, vendor, quote, date, and current constraints. Residents can withdraw it before authorization. A missed or disputed visit starts a fresh planning round, without carrying old consent onto the new date.
 - Every stage has an inference limit. Stored outcomes, rather than a model's promises, determine whether the run completed.
 - Committee approval is required for the exact proposal before creating a work order.
 - Persistent follow-up deadlines survive application restarts. The local worker checks every 15 seconds, handles missed milestones and pauses automatic retries after provider failures.
@@ -48,8 +50,8 @@ Open `http://127.0.0.1:8765`. Select **Try the water-supply example**. The examp
 ### Five-minute test route
 
 1. Load the example. Relay should link the reports and prepare a ₹1,800 proposal.
-2. Open the issue and inspect the original reports and shared access windows. Try **The only shared window disappears**; approval becomes unavailable. Restore A-502's afternoon availability, then approve as **Committee**.
-3. As **Facility team**, report a delay. The background worker brings the missed milestone to the committee. Authorize a revised visit.
+2. Try **The only shared window disappears**; approval becomes unavailable. Relay proposes a one-time exception. As **Resident**, decline it. Watch the agent propose a plan involving the other household; accept that visit. General availability stays unchanged. Approve the current plan as **Committee**.
+3. As **Facility team**, report a delay. The background worker brings the missed milestone to the committee. Choose **Prepare the next visit**, obtain fresh consent if needed, and approve the new dated proposal.
 4. As **Facility team**, describe the repair and report work complete.
 5. As **Resident**, challenge the completion with **The issue is still happening**. The issue returns to human attention. After a revised visit and a new completion report, confirm A-304. It remains open until A-502 confirms too.
 6. Inspect the activity record and actual tool calls.
@@ -90,9 +92,12 @@ uv run python -m scripts.evaluate_agent --case unrelated
 uv run python -m scripts.evaluate_agent --case injection
 uv run python -m scripts.evaluate_agent --case no-window
 uv run python -m scripts.evaluate_agent --case delay
+uv run python -m scripts.evaluate_agent --case consent
 ```
 
 Each result includes explicit checks, actual tool calls, observed model names, duration and final persisted state. A failed check is recorded as a failure.
+
+The current local build passes 42 deterministic tests and six targeted live-model cases. The consent case contains two actual model runs separated by a resident refusal; it checks that the next request involves a different household, the quote stays fixed, and general availability remains unchanged.
 
 ## Scope and limitations
 
@@ -102,6 +107,7 @@ Each result includes explicit checks, actual tool calls, observed model names, d
 - The in-process scheduler is a single-process demo worker. The cloud scheduler and production identity integration are not implemented.
 - Semantic classification and the independent review can both be wrong. Original reports remain visible; human separation is available before work is authorized. This is not proof of physical root cause.
 - Real society operation needs authenticated roles, resident consent, scoped integrations, reliable notification delivery and an operational incident-retention policy.
+- Access requests currently appear inside the synthetic workspace. They are not sent to real residents. Refusals stop repeated requests within the current planning round; a deliberately revised visit has a new date and requires new consent. There is no automatic consent timeout or external notification delivery yet.
 - This is not an emergency-response service.
 
 ## Attribution and build disclosure

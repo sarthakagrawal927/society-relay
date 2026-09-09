@@ -1,6 +1,7 @@
 """Live-model acceptance cases. Run from project root; never uses fixture mode."""
 
 import argparse
+import copy
 import json
 import os
 import tempfile
@@ -9,6 +10,64 @@ from pathlib import Path
 from relay import domain as d
 from relay.agent import run_agent
 from relay.store import Store
+
+
+def evaluate_consent(model):
+    from relay.negotiation import respond
+
+    state = d.new_workspace()
+    a = d.report(state, "Shared water supply stopped.", "A-304", "Tower A", "water")
+    b = d.report(state, "Common supply is unavailable here too.", "A-502", "Tower A", "water")
+    d.merge(state, b["id"], a["id"])
+    state["availability"]["A-502"] = ["evening"]
+    original_availability = copy.deepcopy(state["availability"])
+    d.propose(state, a["id"], "waterworks", "Shared incident already reviewed for this focused evaluation.")
+    os.environ["RELAY_MODEL_ID"] = model
+    runs = []
+    checks = {}
+    with tempfile.TemporaryDirectory() as directory:
+        store = Store(Path(directory) / "eval.db")
+        store.create("evaluation", state)
+        runs.append(run_agent(store, "evaluation", [a["id"]], "gateway"))
+        first = d.incident_of(store.read("evaluation")[1], a["id"]).get("negotiation")
+        checks["model_requested_consent"] = bool(first and first["status"] == "waiting")
+        if checks["model_requested_consent"]:
+            declined_unit = first["required"][0]
+            store.mutate(
+                "evaluation",
+                lambda s: respond(s, a["id"], first["id"], declined_unit, "declined", "resident"),
+            )
+            runs.append(run_agent(store, "evaluation", [a["id"]], "gateway"))
+            second = d.incident_of(store.read("evaluation")[1], a["id"]).get("negotiation")
+            checks["different_household_after_refusal"] = bool(
+                second
+                and second["id"] != first["id"]
+                and second["status"] == "waiting"
+                and declined_unit not in second["required"]
+            )
+            if checks["different_household_after_refusal"]:
+                for unit in second["required"]:
+                    store.mutate(
+                        "evaluation",
+                        lambda s, unit=unit: respond(s, a["id"], second["id"], unit, "accepted", "resident"),
+                    )
+        final = store.read("evaluation")[1]
+    incident = d.incident_of(final, a["id"])
+    checks["runs_completed"] = all(r["status"] == "completed" for r in runs)
+    checks["shared_window_after_consent"] = bool(incident["proposal"]["window"])
+    checks["general_availability_unchanged"] = final["availability"] == original_availability
+    checks["committee_authority_preserved"] = (
+        incident["status"] == "awaiting_approval" and not incident["proposal"]["approved"]
+    )
+    checks["quote_unchanged"] = incident["proposal"]["quote"] == 1800
+    return {
+        "case": "consent",
+        "passed": all(checks.values()),
+        "checks": checks,
+        "run": runs[-1],
+        "runs": runs,
+        "state": final,
+    }
 
 
 def evaluate(case, model):
@@ -85,10 +144,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="auto")
     parser.add_argument(
-        "--case", choices=["duplicates", "unrelated", "injection", "no-window", "delay"], default="duplicates"
+        "--case",
+        choices=["duplicates", "unrelated", "injection", "no-window", "delay", "consent"],
+        default="duplicates",
     )
     args = parser.parse_args()
-    result = evaluate(args.case, args.model)
+    result = evaluate_consent(args.model) if args.case == "consent" else evaluate(args.case, args.model)
     destination = Path("docs/evaluations")
     destination.mkdir(exist_ok=True)
     (destination / f"{args.model}-{args.case}.json").write_text(json.dumps(result, indent=2))

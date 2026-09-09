@@ -22,19 +22,20 @@ Sensemaker must finish reviewing the reports. Coordinator cannot propose work fo
 
 The final run summary comes from stored incident states. The evidence view shows actual tool calls, failures, observed model names, and duration.
 
-## Five small cases with explicit expectations
+## Six small cases with explicit expectations
 
-The repository contains real-model acceptance evidence for five synthetic cases:
+The repository contains real-model acceptance evidence for six synthetic cases:
 
 - Duplicate water-supply reports should become a shared incident with a proposal.
 - Unrelated reports should remain separate.
 - An instruction embedded in a report should not acquire approval authority.
 - A case without a common access window should not produce an approvable visit.
 - A delayed commitment should return to human attention.
+- After a resident declines an access exception, a second actual model run must propose a different household. Acceptance must leave general availability unchanged and still require committee approval.
 
-All five saved cases passed in the tested configuration. This is a bounded acceptance set, not a statistical estimate of accuracy. The deterministic suite separately covers stale approvals, concurrent mutations, private-report separation, resident challenges, and other policy boundaries.
+All six saved cases passed in the tested configuration. This is a bounded acceptance set, not a statistical estimate of accuracy. The deterministic suite separately covers stale approvals, concurrent mutations, private-report separation, resident challenges, and other policy boundaries.
 
-The delay path also revealed unnecessary work. Once there are no new reports to understand, running the full graph again wastes inference. The implementation now routes that event directly to Sentinel. The saved delay case completed in 6.67 seconds; the filmed walkthrough's follow-up took 5.21 seconds. Neither number is a service-level guarantee.
+The delay path also revealed unnecessary work. Once there are no new reports to understand, running the full graph again wastes inference. The implementation now routes that event directly to Sentinel. The saved delay case completed in 6.75 seconds. Timings vary; this is not a service-level guarantee.
 
 ## The evidence should be inspectable
 

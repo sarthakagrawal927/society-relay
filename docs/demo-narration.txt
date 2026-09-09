@@ -6,23 +6,29 @@ The coordinator prepares one proposal for eighteen hundred rupees. It compares h
 
 Now the easy demo gets harder. A resident can no longer make that time. The old approval disappears immediately. Relay keeps the quote, but refuses to invent agreement.
 
-The resident chooses a time that works. The shared plan is recomputed, and the old proposal can no longer be approved by a stale browser.
+Relay now compares alternatives and asks for a one-time access exception. The resident sees the exact date and time. General availability stays unchanged.
+
+The resident says no. Relay records that answer and rules out alternatives that would ask the same household again in this round.
+
+The agent proposes a different window involving the other household. They accept this one visit. The quote has not changed, and committee approval is still required.
 
 The committee reviews the revised proposal. Only a human approval creates the demonstration work order and unlocks the calendar invitation. The model has no tool that can approve spending.
 
 Next, the technician cannot make the visit. This event goes directly to Sentinel. It checks the saved milestone and brings the decision back to the committee. It does not authorize extra spending.
 
+The committee opens a new visit plan. The original one-time consent cannot be carried forward. Relay gets fresh consent for the new date before the committee authorizes the revised visit.
+
 The facility team reports that work is complete. The issue remains open. A vendor's update is a claim, not closure.
 
 The resident says the problem is still happening. The decision is reopened. Both the vendor's statement and the resident's disagreement remain in the record.
 
-After a committee-approved follow-up, the vendor submits a new repair note. The residents must verify the outcome again.
+A corrected visit gets a new access decision and a new repair note. Both households must verify the outcome again.
 
 One household confirms. The shared issue remains open.
 
 Only the second confirmation closes it. The people living with the outcome have the last word.
 
-These are the actual Strands tool calls and the model returned by the gateway. The recorded follow-up took about five seconds. The current build passed thirty-one deterministic tests and five targeted live-model cases. These are bounded test results, not a claim of general reliability.
+These are actual Strands tool calls and observed models. The build passed forty-two deterministic tests and six targeted live-model cases, including a two-round negotiation after a refusal. These are bounded results, not a claim of general reliability.
 
 Strands powers the running graph. Deterministic rules enforce approvals, corrections, and verification. The repository also includes a Bedrock option, an AgentCore entry point, and a DynamoDB adapter. Those cloud components have not yet been deployed. This demonstration does not send real bookings or payments.
 

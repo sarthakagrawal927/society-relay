@@ -102,6 +102,7 @@ def merge(state, source_id, target_id):
         raise ValueError("Reports must concern the same category and shared area.")
     target["reporters"] = sorted(set(target["reporters"] + source["reporters"]))
     target["reports"] += source["reports"]
+    target["negotiation"] = None
     source["status"], source["merged_into"] = "linked", target_id
     if target["proposal"]:
         from .coordination import windows
@@ -162,6 +163,7 @@ def act(state, incident_id, action, role, note="", unit="A-304", proposal_id=Non
         state.setdefault("separate_pairs", []).append(sorted([incident["id"], target["id"]]))
         incident["status"], incident["merged_into"] = "reported", None
         target["status"], target["proposal"] = "reported", None
+        target["negotiation"] = None
         event(
             state,
             target,
@@ -211,19 +213,51 @@ def act(state, incident_id, action, role, note="", unit="A-304", proposal_id=Non
         incident["vendor_note"] = note or "Technician is delayed. A new arrival time is needed."
         incident["next_check"] = now()
         event(state, incident, "Vendor reported a delay", incident["vendor_note"], "Vendor")
+    elif action == "replan":
+        proposal = incident["proposal"]
+        if (
+            role != "committee"
+            or incident["status"] != "needs_attention"
+            or not proposal
+            or not proposal["approved"]
+        ):
+            raise ValueError("Only the committee can reopen access planning for previously authorized work.")
+        from .coordination import revisit_date, windows
+
+        proposal["visit_date"] = revisit_date(proposal["visit_date"])
+        proposal["id"] = uid("proposal")
+        proposal["approved"] = False
+        incident["negotiation"] = None
+        incident["confirmed"] = []
+        incident["next_check"] = None
+        proposal["options"] = windows(state, incident)
+        proposal["window"] = next((w for w in proposal["options"] if w["feasible"]), None)
+        proposal["rationale"] = (
+            "A revised visit requires a fresh access decision and committee approval. The original fixed quote is unchanged."
+        )
+        incident["status"] = "awaiting_approval"
+        event(
+            state,
+            incident,
+            "Fresh visit planning opened",
+            f"Considering {proposal['visit_date']}. Previous one-time consents do not carry forward. The fixed quote remains ₹{proposal['quote']}.",
+            "Committee",
+        )
     elif action == "reschedule":
         if role != "committee" or incident["status"] != "needs_attention":
             raise ValueError("A committee decision is required to reschedule.")
         proposal = incident["proposal"]
         if not proposal or not proposal["approved"]:
             raise ValueError("Only previously authorized work can be rescheduled.")
-        from .coordination import visit_date, visit_deadline, windows
+        from .coordination import revisit_date, visit_deadline, windows
 
-        options = windows(state, incident)
+        # Consent to a particular visit cannot be carried onto a revised visit.
+        options = windows(state, incident, include_consent=False)
         window = next((w for w in options if w["feasible"]), None)
         if not window:
             raise ValueError("No shared window exists. Update resident availability first.")
-        proposal.update(options=options, window=window, visit_date=visit_date())
+        proposal.update(options=options, window=window, visit_date=revisit_date(proposal["visit_date"]))
+        incident["negotiation"] = None
         incident["status"] = "scheduled"
         incident["confirmed"] = []
         incident["next_check"] = visit_deadline(proposal)

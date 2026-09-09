@@ -180,7 +180,7 @@ def scenario(request: Request):
 
 
 class Action(BaseModel):
-    action: Literal["approve", "delay", "reschedule", "complete", "confirm", "reopen", "separate"]
+    action: Literal["approve", "delay", "reschedule", "replan", "complete", "confirm", "reopen", "separate"]
     role: Literal["resident", "committee", "vendor"]
     note: str = Field(default="", max_length=1000)
     unit: str = Field(default="A-304", max_length=20)
@@ -197,6 +197,20 @@ class Availability(BaseModel):
     slots: list[Literal["morning", "midday", "afternoon", "evening"]] = Field(max_length=4)
 
 
+class AccessResponse(BaseModel):
+    negotiation_id: str = Field(max_length=80)
+    unit: str = Field(min_length=2, max_length=20)
+    answer: Literal["accepted", "declined", "withdrawn"]
+    role: Literal["resident", "committee", "vendor"]
+
+
+@app.post("/api/incidents/{incident_id}/access-response")
+def access_response(incident_id: str, body: AccessResponse, request: Request):
+    from .negotiation import respond
+
+    return store.mutate(workspace(request), lambda s: respond(s, incident_id, **body.model_dump()))
+
+
 @app.post("/api/availability")
 def availability(body: Availability, request: Request):
     from .coordination import windows
@@ -205,6 +219,7 @@ def availability(body: Availability, request: Request):
         state.setdefault("availability", {})[body.unit] = body.slots
         for incident in state["incidents"]:
             if body.unit in incident["reporters"] and incident["status"] == "awaiting_approval":
+                incident["negotiation"] = None
                 proposal = incident["proposal"]
                 proposal["id"] = domain.uid("proposal")
                 proposal["options"] = windows(state, incident)
@@ -220,6 +235,19 @@ def availability(body: Availability, request: Request):
                     "Visit replanned",
                     "Availability changed. The committee must review the current access window.",
                 )
+            elif body.unit in incident["reporters"] and incident["status"] in {"scheduled", "delayed"}:
+                proposal = incident["proposal"]
+                if not any(
+                    w["id"] == proposal["window"]["id"] and w["feasible"] for w in windows(state, incident)
+                ):
+                    incident["status"] = "needs_attention"
+                    incident["next_check"] = None
+                    domain.event(
+                        state,
+                        incident,
+                        "Authorized visit needs a new access decision",
+                        "Availability changed. The old access agreement cannot be reused; the fixed quote remains unchanged.",
+                    )
         return {"updated": True}
 
     return store.mutate(workspace(request), change)
@@ -283,10 +311,13 @@ async def schedule_due():
             # A provider failure must not create an automatic retry/spending storm.
             if state["runs"] and state["runs"][-1]["error"]:
                 continue
+            from .negotiation import needs_negotiation
+
             ids = [
                 i["id"]
                 for i in state["incidents"]
                 if i["status"] in {"reported", "delayed"}
+                or needs_negotiation(state, i)
                 or (i["status"] == "scheduled" and i["next_check"] and i["next_check"] <= domain.now())
             ]
             if ids:
@@ -300,12 +331,15 @@ async def schedule_due():
 async def agent(request: Request):
     token = workspace(request)
     if token in active:
-        raise HTTPException(409, "Relay is already working on this workspace.")
+        return {"started": False, "message": "Relay is already working on this workspace."}
     data = store.read(token)[1]
+    from .negotiation import needs_negotiation
+
     ids = [
         i["id"]
         for i in data["incidents"]
         if i["status"] in {"reported", "delayed"}
+        or needs_negotiation(data, i)
         or (i["status"] == "scheduled" and i["next_check"] and i["next_check"] <= domain.now())
     ]
     if not ids:

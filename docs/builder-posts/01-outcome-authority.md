@@ -36,7 +36,7 @@ The vendor's statement and the resident's disagreement both remain in the activi
 
 ## What this proves, and what it does not
 
-The current implementation has 31 passing deterministic tests and five passing targeted live-model cases. Those checks exercise specific boundaries and scenarios; they do not establish reliability across real societies. The demo uses synthetic people and vendors. It sends no real messages, bookings, or payments.
+The current implementation has 42 passing deterministic tests and six passing targeted live-model cases. Those checks exercise specific boundaries and scenarios; they do not establish reliability across real societies. The demo uses synthetic people and vendors. It sends no real messages, bookings, or payments.
 
 Strands runs the working graph. A Bedrock configuration, DynamoDB adapter, and AgentCore entrypoint are included, but the AWS runtime has not yet been deployed. That distinction is visible in the architecture and README.
 

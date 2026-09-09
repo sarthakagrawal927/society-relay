@@ -8,11 +8,11 @@
     "quotes_within_policy": true
   },
   "run": {
-    "id": "run-c04780b698",
-    "at": "2026-09-09T12:32:41.361419+00:00",
+    "id": "run-1a5f81e9f8",
+    "at": "2026-09-09T13:40:12.506773+00:00",
     "provider": "gateway",
     "model": "auto",
-    "seconds": 18.56,
+    "seconds": 31.93,
     "observed_models": [
       "codestral-latest"
     ],
@@ -24,10 +24,26 @@
         "ok": true
       },
       {
+        "agent": "Evidence specialist",
+        "tool": "assess_reports",
+        "args": {
+          "groups": [
+            [
+              "SR-df7a78d61a"
+            ],
+            [
+              "SR-78c0ff23ee"
+            ]
+          ],
+          "hazards": []
+        },
+        "ok": true
+      },
+      {
         "agent": "Sensemaker",
         "tool": "keep_separate",
         "args": {
-          "incident_id": "SR-b4f71f61b0",
+          "incident_id": "SR-df7a78d61a",
           "reason": "Assessed as an independent incident or the representative of a shared problem."
         },
         "ok": true
@@ -36,7 +52,7 @@
         "agent": "Sensemaker",
         "tool": "keep_separate",
         "args": {
-          "incident_id": "SR-7327bf2997",
+          "incident_id": "SR-78c0ff23ee",
           "reason": "Assessed as an independent incident or the representative of a shared problem."
         },
         "ok": true
@@ -57,7 +73,15 @@
         "agent": "Coordinator",
         "tool": "negotiate_visit",
         "args": {
-          "incident_id": "SR-b4f71f61b0"
+          "incident_id": "SR-df7a78d61a"
+        },
+        "ok": true
+      },
+      {
+        "agent": "Coordinator",
+        "tool": "negotiate_visit",
+        "args": {
+          "incident_id": "SR-78c0ff23ee"
         },
         "ok": true
       },
@@ -65,24 +89,16 @@
         "agent": "Coordinator",
         "tool": "propose_vendor",
         "args": {
-          "incident_id": "SR-b4f71f61b0",
+          "incident_id": "SR-78c0ff23ee",
           "vendor_id": "waterworks"
         },
         "ok": true
       },
       {
         "agent": "Coordinator",
-        "tool": "negotiate_visit",
-        "args": {
-          "incident_id": "SR-7327bf2997"
-        },
-        "ok": true
-      },
-      {
-        "agent": "Coordinator",
         "tool": "propose_vendor",
         "args": {
-          "incident_id": "SR-7327bf2997",
+          "incident_id": "SR-df7a78d61a",
           "vendor_id": "waterworks"
         },
         "ok": true
@@ -97,18 +113,18 @@
     "stages": [
       {
         "agent": "Sensemaker",
-        "summary": "The incidents have been assessed and classified.\n"
+        "summary": "Incidents SR-df7a78d61a and SR-78c0ff23ee have been assessed and classified.\n"
       },
       {
         "agent": "Coordinator",
-        "summary": "Incidents SR-b4f71f61b0 and SR-7327bf2997 are awaiting approval.\n"
+        "summary": "Incidents SR-df7a78d61a and SR-78c0ff23ee have been updated to awaiting_approval status.\n"
       },
       {
         "agent": "Sentinel",
-        "summary": "No incidents are overdue.\n"
+        "summary": "No milestones are overdue.\n"
       }
     ],
-    "summary": "SR-b4f71f61b0: awaiting approval; SR-7327bf2997: awaiting approval",
+    "summary": "SR-df7a78d61a: awaiting approval; SR-78c0ff23ee: awaiting approval",
     "error": null,
     "status": "completed"
   },
@@ -117,8 +133,8 @@
     "demo": true,
     "incidents": [
       {
-        "id": "SR-b4f71f61b0",
-        "title": "Shared water supply stopped in Tower A after the pump went silent.",
+        "id": "SR-df7a78d61a",
+        "title": "Water supply \u00b7 Tower A",
         "description": "Shared water supply stopped in Tower A after the pump went silent.",
         "unit": "A-304",
         "area": "Tower A",
@@ -135,14 +151,14 @@
           }
         ],
         "confirmed": [],
-        "created_at": "2026-09-09T12:32:22.803741+00:00",
-        "updated_at": "2026-09-09T12:32:34.086555+00:00",
+        "created_at": "2026-09-09T13:39:40.577357+00:00",
+        "updated_at": "2026-09-09T13:40:07.631302+00:00",
         "proposal": {
-          "id": "proposal-6d90e49941",
+          "id": "proposal-c897174cf1",
           "vendor": "ClearFlow Maintenance",
           "vendor_id": "waterworks",
           "quote": 1800,
-          "rationale": "The shared water supply stopped in Tower A after the pump went silent. The vendor ClearFlow Maintenance has a quote of 1800 INR, which is within the approved budget of 5000 INR. The vendor is available at 10:00-11:00 or 15:00-16:00.",
+          "rationale": "The vendor ClearFlow Maintenance is the most suitable for handling the water supply issue in Tower A.",
           "approved": false,
           "options": [
             {
@@ -152,7 +168,8 @@
               "households_available": 1,
               "households_total": 1,
               "needs_coordination": [],
-              "feasible": true
+              "feasible": true,
+              "one_time_consents": []
             },
             {
               "id": "afternoon",
@@ -161,7 +178,8 @@
               "households_available": 1,
               "households_total": 1,
               "needs_coordination": [],
-              "feasible": true
+              "feasible": true,
+              "one_time_consents": []
             },
             {
               "id": "evening",
@@ -172,7 +190,8 @@
               "needs_coordination": [
                 "A-304"
               ],
-              "feasible": false
+              "feasible": false,
+              "one_time_consents": []
             }
           ],
           "window": {
@@ -182,7 +201,8 @@
             "households_available": 1,
             "households_total": 1,
             "needs_coordination": [],
-            "feasible": true
+            "feasible": true,
+            "one_time_consents": []
           },
           "visit_date": "2026-09-10"
         },
@@ -191,8 +211,8 @@
         "merged_into": null
       },
       {
-        "id": "SR-7327bf2997",
-        "title": "The garden irrigation tap in Tower A is dripping, unrelated to the apartment supply.",
+        "id": "SR-78c0ff23ee",
+        "title": "Water supply \u00b7 Tower A",
         "description": "The garden irrigation tap in Tower A is dripping, unrelated to the apartment supply.",
         "unit": "A-502",
         "area": "Tower A",
@@ -209,14 +229,14 @@
           }
         ],
         "confirmed": [],
-        "created_at": "2026-09-09T12:32:22.803884+00:00",
-        "updated_at": "2026-09-09T12:32:37.535196+00:00",
+        "created_at": "2026-09-09T13:39:40.577386+00:00",
+        "updated_at": "2026-09-09T13:40:07.629529+00:00",
         "proposal": {
-          "id": "proposal-84d10fc99f",
+          "id": "proposal-255836c466",
           "vendor": "ClearFlow Maintenance",
           "vendor_id": "waterworks",
           "quote": 1800,
-          "rationale": "The garden irrigation tap in Tower A is dripping, unrelated to the apartment supply. The vendor ClearFlow Maintenance has a quote of 1800 INR, which is within the approved budget of 5000 INR. The vendor is available at 15:00-16:00 or 17:00-18:00.",
+          "rationale": "The vendor ClearFlow Maintenance is the most suitable for handling the garden irrigation tap issue in Tower A.",
           "approved": false,
           "options": [
             {
@@ -226,7 +246,8 @@
               "households_available": 1,
               "households_total": 1,
               "needs_coordination": [],
-              "feasible": true
+              "feasible": true,
+              "one_time_consents": []
             },
             {
               "id": "evening",
@@ -235,7 +256,8 @@
               "households_available": 1,
               "households_total": 1,
               "needs_coordination": [],
-              "feasible": true
+              "feasible": true,
+              "one_time_consents": []
             },
             {
               "id": "morning",
@@ -246,7 +268,8 @@
               "needs_coordination": [
                 "A-502"
               ],
-              "feasible": false
+              "feasible": false,
+              "one_time_consents": []
             }
           ],
           "window": {
@@ -256,7 +279,8 @@
             "households_available": 1,
             "households_total": 1,
             "needs_coordination": [],
-            "feasible": true
+            "feasible": true,
+            "one_time_consents": []
           },
           "visit_date": "2026-09-10"
         },
@@ -267,36 +291,36 @@
     ],
     "events": [
       {
-        "id": "evt-030eae8e3e",
-        "incident_id": "SR-b4f71f61b0",
+        "id": "evt-e2e84e5809",
+        "incident_id": "SR-df7a78d61a",
         "title": "Report received",
         "detail": "A-304 reported an issue in Tower A.",
         "actor": "Resident",
-        "at": "2026-09-09T12:32:22.803879+00:00"
+        "at": "2026-09-09T13:39:40.577375+00:00"
       },
       {
-        "id": "evt-0472afe11c",
-        "incident_id": "SR-7327bf2997",
+        "id": "evt-b4ef58abb4",
+        "incident_id": "SR-78c0ff23ee",
         "title": "Report received",
         "detail": "A-502 reported an issue in Tower A.",
         "actor": "Resident",
-        "at": "2026-09-09T12:32:22.803888+00:00"
+        "at": "2026-09-09T13:39:40.577394+00:00"
       },
       {
-        "id": "evt-c9cbe5c9c1",
-        "incident_id": "SR-b4f71f61b0",
+        "id": "evt-2294a52701",
+        "incident_id": "SR-78c0ff23ee",
         "title": "A decision is ready",
-        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. The shared water supply stopped in Tower A after the pump went silent. The vendor ClearFlow Maintenance has a quote of 1800 INR, which is within the approved budget of 5000 INR. The vendor is available at 10:00-11:00 or 15:00-16:00.",
+        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. The vendor ClearFlow Maintenance is the most suitable for handling the garden irrigation tap issue in Tower A.",
         "actor": "Relay",
-        "at": "2026-09-09T12:32:34.086555+00:00"
+        "at": "2026-09-09T13:40:07.629529+00:00"
       },
       {
-        "id": "evt-abfcfff32a",
-        "incident_id": "SR-7327bf2997",
+        "id": "evt-0e0862cdde",
+        "incident_id": "SR-df7a78d61a",
         "title": "A decision is ready",
-        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. The garden irrigation tap in Tower A is dripping, unrelated to the apartment supply. The vendor ClearFlow Maintenance has a quote of 1800 INR, which is within the approved budget of 5000 INR. The vendor is available at 15:00-16:00 or 17:00-18:00.",
+        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. The vendor ClearFlow Maintenance is the most suitable for handling the water supply issue in Tower A.",
         "actor": "Relay",
-        "at": "2026-09-09T12:32:37.535196+00:00"
+        "at": "2026-09-09T13:40:07.631302+00:00"
       }
     ],
     "receipts": {},
@@ -349,11 +373,11 @@
     ],
     "runs": [
       {
-        "id": "run-c04780b698",
-        "at": "2026-09-09T12:32:41.361419+00:00",
+        "id": "run-1a5f81e9f8",
+        "at": "2026-09-09T13:40:12.506773+00:00",
         "provider": "gateway",
         "model": "auto",
-        "seconds": 18.56,
+        "seconds": 31.93,
         "observed_models": [
           "codestral-latest"
         ],
@@ -365,10 +389,26 @@
             "ok": true
           },
           {
+            "agent": "Evidence specialist",
+            "tool": "assess_reports",
+            "args": {
+              "groups": [
+                [
+                  "SR-df7a78d61a"
+                ],
+                [
+                  "SR-78c0ff23ee"
+                ]
+              ],
+              "hazards": []
+            },
+            "ok": true
+          },
+          {
             "agent": "Sensemaker",
             "tool": "keep_separate",
             "args": {
-              "incident_id": "SR-b4f71f61b0",
+              "incident_id": "SR-df7a78d61a",
               "reason": "Assessed as an independent incident or the representative of a shared problem."
             },
             "ok": true
@@ -377,7 +417,7 @@
             "agent": "Sensemaker",
             "tool": "keep_separate",
             "args": {
-              "incident_id": "SR-7327bf2997",
+              "incident_id": "SR-78c0ff23ee",
               "reason": "Assessed as an independent incident or the representative of a shared problem."
             },
             "ok": true
@@ -398,7 +438,15 @@
             "agent": "Coordinator",
             "tool": "negotiate_visit",
             "args": {
-              "incident_id": "SR-b4f71f61b0"
+              "incident_id": "SR-df7a78d61a"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "negotiate_visit",
+            "args": {
+              "incident_id": "SR-78c0ff23ee"
             },
             "ok": true
           },
@@ -406,24 +454,16 @@
             "agent": "Coordinator",
             "tool": "propose_vendor",
             "args": {
-              "incident_id": "SR-b4f71f61b0",
+              "incident_id": "SR-78c0ff23ee",
               "vendor_id": "waterworks"
             },
             "ok": true
           },
           {
             "agent": "Coordinator",
-            "tool": "negotiate_visit",
-            "args": {
-              "incident_id": "SR-7327bf2997"
-            },
-            "ok": true
-          },
-          {
-            "agent": "Coordinator",
             "tool": "propose_vendor",
             "args": {
-              "incident_id": "SR-7327bf2997",
+              "incident_id": "SR-df7a78d61a",
               "vendor_id": "waterworks"
             },
             "ok": true
@@ -438,18 +478,18 @@
         "stages": [
           {
             "agent": "Sensemaker",
-            "summary": "The incidents have been assessed and classified.\n"
+            "summary": "Incidents SR-df7a78d61a and SR-78c0ff23ee have been assessed and classified.\n"
           },
           {
             "agent": "Coordinator",
-            "summary": "Incidents SR-b4f71f61b0 and SR-7327bf2997 are awaiting approval.\n"
+            "summary": "Incidents SR-df7a78d61a and SR-78c0ff23ee have been updated to awaiting_approval status.\n"
           },
           {
             "agent": "Sentinel",
-            "summary": "No incidents are overdue.\n"
+            "summary": "No milestones are overdue.\n"
           }
         ],
-        "summary": "SR-b4f71f61b0: awaiting approval; SR-7327bf2997: awaiting approval",
+        "summary": "SR-df7a78d61a: awaiting approval; SR-78c0ff23ee: awaiting approval",
         "error": null,
         "status": "completed"
       }
@@ -457,7 +497,7 @@
     "live": {
       "agent": "Sentinel",
       "tool": "inspect_workspace",
-      "at": "2026-09-09T12:32:40.178115+00:00"
+      "at": "2026-09-09T13:40:11.104094+00:00"
     }
   }
 }

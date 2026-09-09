@@ -25,6 +25,14 @@ A resident can change their availability before authorization. If the shared win
 
 The backend also checks the proposal identifier at approval time. Hiding a button in the interface would not be enough: another browser could still hold the old proposal. The mutation recomputes the relevant conditions against current state.
 
+## Negotiate without rewriting someone's calendar
+
+Blocking an impossible plan is only the first step. The coordinator can now compare one-time exceptions, including how many households each option would inconvenience. Its Strands tools request consent for a particular date and window. They cannot grant that consent.
+
+In the live two-round test, one household declines. Relay removes alternatives that would approach that household again in the same round, then asks the other household about a different window. Their acceptance makes the shared visit feasible while leaving general availability unchanged. The committee must still approve the current proposal.
+
+The consent is tied to the date, quote, vendor, household group, and availability context. A resident can withdraw it before authorization. If the visit fails, the next plan has a new date and requires fresh consent. An old yes cannot be silently recycled into a new commitment.
+
 Workspace updates use version checks. If another operation wins the write, the losing operation reloads current state and rechecks the rules. That is the boundary that prevents two concurrent approvals from creating duplicate work orders in the tested local implementation.
 
 ## Corrections should survive the next agent run

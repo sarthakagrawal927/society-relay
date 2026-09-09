@@ -88,6 +88,8 @@ class CallBudget(HookProvider):
 
 
 def run_agent(store, workspace_id, incident_ids, mode=None):
+    from .negotiation import alternatives, needs_negotiation, request_window
+
     mode = mode or os.getenv("RELAY_MODEL_PROVIDER", "ollama")
     started = time.monotonic()
     calls = []
@@ -96,6 +98,14 @@ def run_agent(store, workspace_id, incident_ids, mode=None):
     model = None
     reviewed = set()
     allowed = set(incident_ids)
+
+    def last_human_event(state):
+        return next(
+            (e["id"] for e in reversed(state["events"]) if e["actor"] in {"Resident", "Committee", "Vendor"}),
+            None,
+        )
+
+    starting_human_event = last_human_event(store.read(workspace_id)[1])
 
     def progress(name):
         def update(state):
@@ -129,6 +139,36 @@ def run_agent(store, workspace_id, incident_ids, mode=None):
             "human_separated_pairs": state.get("separate_pairs", []),
             "incidents": [i for i in state["incidents"] if i["id"] in allowed],
         }
+
+    @tool
+    def access_options(incident_id: str) -> dict:
+        """Compare one-time access exceptions. Ineligible options would repeat a household's refusal."""
+        ensure(incident_id)
+        progress("access_options")
+        state = store.read(workspace_id)[1]
+        incident = domain.incident_of(state, incident_id)
+        calls.append(
+            {"agent": phase[0], "tool": "access_options", "args": {"incident_id": incident_id}, "ok": True}
+        )
+        return {
+            "options": alternatives(state, incident),
+            "instruction": "Choose an eligible option needing the fewest household exceptions. No calendar edits, spending, or external messages. If none is eligible, request slot_id none to surface the impasse.",
+        }
+
+    @tool
+    def request_access_window(incident_id: str, slot_id: str, rationale: str) -> dict:
+        """Create an in-app one-time consent request; cannot grant consent or approve work. Use none only if all alternatives are exhausted."""
+        ensure(incident_id)
+
+        def change(state):
+            request_window(state, incident_id, slot_id, rationale)
+            return domain.incident_of(state, incident_id)
+
+        return record(
+            "request_access_window",
+            {"incident_id": incident_id, "slot_id": slot_id},
+            lambda: store.mutate(workspace_id, change),
+        )
 
     @tool
     def keep_separate(incident_id: str, reason: str) -> dict:
@@ -337,6 +377,15 @@ def run_agent(store, workspace_id, incident_ids, mode=None):
                     propose_vendor(incident["id"], vendor["id"], "Fixture proposal for workflow testing.")
                 elif incident["status"] == "delayed":
                     check_milestone(incident["id"])
+            for incident in inspect_workspace()["incidents"]:
+                current_state = store.read(workspace_id)[1]
+                if needs_negotiation(current_state, incident):
+                    eligible = [o for o in alternatives(current_state, incident) if o["eligible"]]
+                    request_access_window(
+                        incident["id"],
+                        eligible[0]["id"] if eligible else "none",
+                        "Deterministic fixture consent request. No AI was called.",
+                    )
             summary = "Deterministic fixture completed. No AI model was called."
         else:
             if mode == "gateway":
@@ -375,8 +424,14 @@ def run_agent(store, workspace_id, incident_ids, mode=None):
                 ),
                 (
                     "Coordinator",
-                    [inspect_workspace, negotiate_visit, propose_vendor],
-                    "Read the CURRENT workspace after Sensemaker. Ignore linked reports. For EACH still-reported incident, call negotiate_visit, then propose an approved vendor. Explain the shared time or why availability needs revision. Do not stop with a promise to act.",
+                    [
+                        inspect_workspace,
+                        negotiate_visit,
+                        propose_vendor,
+                        access_options,
+                        request_access_window,
+                    ],
+                    "Read the CURRENT workspace after Sensemaker. Ignore linked reports. For EACH still-reported incident, call negotiate_visit, then propose an approved vendor. For an awaiting_approval incident with no shared window and no waiting/agreed/exhausted negotiation, call access_options then request_access_window. Choose an eligible option with the fewest exceptions; respect a prior refusal by considering a different household. If none remain, use slot_id none. These are in-app synthetic requests, not external messages. Never grant consent, edit availability, or approve work. Do not stop with a promise to act.",
                 ),
                 (
                     "Sentinel",
@@ -409,7 +464,13 @@ def run_agent(store, workspace_id, incident_ids, mode=None):
                                             and i["status"] == "reported"
                                             and i["id"] not in reviewed
                                         )
-                                        or (name == "Coordinator" and i["status"] == "reported")
+                                        or (
+                                            name == "Coordinator"
+                                            and (
+                                                i["status"] == "reported"
+                                                or needs_negotiation(store.read(workspace_id)[1], i)
+                                            )
+                                        )
                                         or (name == "Sentinel" and i["status"] == "delayed")
                                     )
                                 ],
@@ -425,7 +486,13 @@ def run_agent(store, workspace_id, incident_ids, mode=None):
                 i["id"] in allowed and i["status"] == "reported"
                 for i in store.read(workspace_id)[1]["incidents"]
             )
-            builder.set_entry_point("Sensemaker" if has_reports else "Sentinel")
+            snapshot = store.read(workspace_id)[1]
+            has_negotiation = any(
+                i["id"] in allowed and needs_negotiation(snapshot, i) for i in snapshot["incidents"]
+            )
+            builder.set_entry_point(
+                "Sensemaker" if has_reports else "Coordinator" if has_negotiation else "Sentinel"
+            )
             builder.set_max_node_executions(3)
             builder.set_execution_timeout(300)
             graph = builder.build()
@@ -436,12 +503,21 @@ def run_agent(store, workspace_id, incident_ids, mode=None):
             current = store.read(workspace_id)[1]
             relevant = [i for i in current["incidents"] if i["id"] in allowed]
             summary = "; ".join(f"{i['id']}: {i['status'].replace('_', ' ')}" for i in relevant)
+            # A fast human response after a successful request is new work for the
+            # scheduler, not an inference failure that should pause that scheduler.
+            requested_access = {
+                c["args"]["incident_id"] for c in calls if c["tool"] == "request_access_window" and c["ok"]
+            }
             remaining = [
                 i["id"]
                 for i in store.read(workspace_id)[1]["incidents"]
-                if i["id"] in allowed and i["status"] in {"reported", "delayed"}
+                if i["id"] in allowed
+                and (
+                    i["status"] in {"reported", "delayed"}
+                    or (needs_negotiation(current, i) and i["id"] not in requested_access)
+                )
             ]
-            if remaining:
+            if remaining and last_human_event(current) == starting_human_event:
                 error = "IncompleteWorkflow"
                 summary = (
                     "Some reports still need assessment. Completed actions are preserved; retry is available."

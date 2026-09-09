@@ -9,11 +9,11 @@
     "shared_window": true
   },
   "run": {
-    "id": "run-37af89db19",
-    "at": "2026-09-09T12:33:47.228125+00:00",
+    "id": "run-9b95eeac27",
+    "at": "2026-09-09T13:39:40.574949+00:00",
     "provider": "gateway",
     "model": "auto",
-    "seconds": 22.06,
+    "seconds": 21.39,
     "observed_models": [
       "codestral-latest"
     ],
@@ -30,8 +30,8 @@
         "args": {
           "groups": [
             [
-              "SR-c853b65ef5",
-              "SR-07e7122ad4"
+              "SR-75ebe1e961",
+              "SR-affeab05c1"
             ]
           ],
           "hazards": []
@@ -42,7 +42,7 @@
         "agent": "Sensemaker",
         "tool": "keep_separate",
         "args": {
-          "incident_id": "SR-c853b65ef5",
+          "incident_id": "SR-75ebe1e961",
           "reason": "Assessed as an independent incident or the representative of a shared problem."
         },
         "ok": true
@@ -51,9 +51,9 @@
         "agent": "Evidence reviewer",
         "tool": "review_link",
         "args": {
-          "source_id": "SR-07e7122ad4",
-          "target_id": "SR-c853b65ef5",
-          "reason": "Both reports describe the same issue of no water supply in Tower A due to a stopped pump."
+          "source_id": "SR-affeab05c1",
+          "target_id": "SR-75ebe1e961",
+          "reason": "Both reports describe the same physical problem of a stopped water pump in Tower A."
         },
         "ok": true
       },
@@ -61,8 +61,8 @@
         "agent": "Sensemaker",
         "tool": "link_reports",
         "args": {
-          "source_id": "SR-07e7122ad4",
-          "target_id": "SR-c853b65ef5"
+          "source_id": "SR-affeab05c1",
+          "target_id": "SR-75ebe1e961"
         },
         "ok": true
       },
@@ -82,7 +82,7 @@
         "agent": "Coordinator",
         "tool": "negotiate_visit",
         "args": {
-          "incident_id": "SR-c853b65ef5"
+          "incident_id": "SR-75ebe1e961"
         },
         "ok": true
       },
@@ -90,7 +90,7 @@
         "agent": "Coordinator",
         "tool": "propose_vendor",
         "args": {
-          "incident_id": "SR-c853b65ef5",
+          "incident_id": "SR-75ebe1e961",
           "vendor_id": "waterworks"
         },
         "ok": true
@@ -105,18 +105,18 @@
     "stages": [
       {
         "agent": "Sensemaker",
-        "summary": "Incident SR-07e7122ad4 has been linked to SR-c853b65ef5.\n"
+        "summary": "Incident SR-75ebe1e961 has been updated with the report from SR-affeab05c1. Incident SR-affeab05c1 has been linked to SR-75ebe1e961.\n"
       },
       {
         "agent": "Coordinator",
-        "summary": "Incident SR-c853b65ef5 is awaiting approval. Incident SR-07e7122ad4 has been linked to SR-c853b65ef5.\n"
+        "summary": "Incident SR-75ebe1e961 is awaiting approval with a proposed vendor and a feasible access window.\n"
       },
       {
         "agent": "Sentinel",
-        "summary": "No incidents are overdue.\n"
+        "summary": "Incident SR-75ebe1e961 is awaiting approval with a proposed vendor and a feasible access window.\n"
       }
     ],
-    "summary": "SR-c853b65ef5: awaiting approval; SR-07e7122ad4: linked",
+    "summary": "SR-75ebe1e961: awaiting approval; SR-affeab05c1: linked",
     "error": null,
     "status": "completed"
   },
@@ -125,8 +125,8 @@
     "demo": true,
     "incidents": [
       {
-        "id": "SR-c853b65ef5",
-        "title": "Shared water supply stopped in Tower A after the pump went silent.",
+        "id": "SR-75ebe1e961",
+        "title": "Water supply \u00b7 Tower A",
         "description": "Shared water supply stopped in Tower A after the pump went silent.",
         "unit": "A-304",
         "area": "Tower A",
@@ -148,14 +148,14 @@
           }
         ],
         "confirmed": [],
-        "created_at": "2026-09-09T12:33:25.164843+00:00",
-        "updated_at": "2026-09-09T12:33:41.684388+00:00",
+        "created_at": "2026-09-09T13:39:19.185475+00:00",
+        "updated_at": "2026-09-09T13:39:35.730063+00:00",
         "proposal": {
-          "id": "proposal-4a377e593a",
+          "id": "proposal-f5ec96ae6b",
           "vendor": "ClearFlow Maintenance",
           "vendor_id": "waterworks",
           "quote": 1800,
-          "rationale": "The shared time window of 15:00\u201316:00 is feasible for both households. The quote of INR 1800 is within the policy's maximum of INR 5000.",
+          "rationale": "The vendor ClearFlow Maintenance has the lowest quote of 1800 INR for the water supply issue in Tower A.",
           "approved": false,
           "options": [
             {
@@ -165,7 +165,8 @@
               "households_available": 2,
               "households_total": 2,
               "needs_coordination": [],
-              "feasible": true
+              "feasible": true,
+              "one_time_consents": []
             },
             {
               "id": "morning",
@@ -176,7 +177,8 @@
               "needs_coordination": [
                 "A-502"
               ],
-              "feasible": false
+              "feasible": false,
+              "one_time_consents": []
             },
             {
               "id": "evening",
@@ -187,7 +189,8 @@
               "needs_coordination": [
                 "A-304"
               ],
-              "feasible": false
+              "feasible": false,
+              "one_time_consents": []
             }
           ],
           "window": {
@@ -197,16 +200,18 @@
             "households_available": 2,
             "households_total": 2,
             "needs_coordination": [],
-            "feasible": true
+            "feasible": true,
+            "one_time_consents": []
           },
           "visit_date": "2026-09-10"
         },
         "vendor_note": "",
         "next_check": null,
-        "merged_into": null
+        "merged_into": null,
+        "negotiation": null
       },
       {
-        "id": "SR-07e7122ad4",
+        "id": "SR-affeab05c1",
         "title": "No water from the common supply in Tower A since the pump stopped.",
         "description": "No water from the common supply in Tower A since the pump stopped.",
         "unit": "A-502",
@@ -224,46 +229,46 @@
           }
         ],
         "confirmed": [],
-        "created_at": "2026-09-09T12:33:25.165002+00:00",
-        "updated_at": "2026-09-09T12:33:25.165007+00:00",
+        "created_at": "2026-09-09T13:39:19.185644+00:00",
+        "updated_at": "2026-09-09T13:39:19.185650+00:00",
         "proposal": null,
         "vendor_note": "",
         "next_check": null,
-        "merged_into": "SR-c853b65ef5"
+        "merged_into": "SR-75ebe1e961"
       }
     ],
     "events": [
       {
-        "id": "evt-5b6d53cd1e",
-        "incident_id": "SR-c853b65ef5",
+        "id": "evt-765997d0ea",
+        "incident_id": "SR-75ebe1e961",
         "title": "Report received",
         "detail": "A-304 reported an issue in Tower A.",
         "actor": "Resident",
-        "at": "2026-09-09T12:33:25.164994+00:00"
+        "at": "2026-09-09T13:39:19.185636+00:00"
       },
       {
-        "id": "evt-efc4656757",
-        "incident_id": "SR-07e7122ad4",
+        "id": "evt-24ceaca8da",
+        "incident_id": "SR-affeab05c1",
         "title": "Report received",
         "detail": "A-502 reported an issue in Tower A.",
         "actor": "Resident",
-        "at": "2026-09-09T12:33:25.165007+00:00"
+        "at": "2026-09-09T13:39:19.185650+00:00"
       },
       {
-        "id": "evt-b2b8c83b98",
-        "incident_id": "SR-c853b65ef5",
+        "id": "evt-241a3c2684",
+        "incident_id": "SR-75ebe1e961",
         "title": "Related reports connected",
         "detail": "A-502's report is now part of this incident.",
         "actor": "Relay",
-        "at": "2026-09-09T12:33:31.403455+00:00"
+        "at": "2026-09-09T13:39:27.313874+00:00"
       },
       {
-        "id": "evt-323a7423ee",
-        "incident_id": "SR-c853b65ef5",
+        "id": "evt-25a10ab21a",
+        "incident_id": "SR-75ebe1e961",
         "title": "A decision is ready",
-        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. The shared time window of 15:00\u201316:00 is feasible for both households. The quote of INR 1800 is within the policy's maximum of INR 5000.",
+        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. The vendor ClearFlow Maintenance has the lowest quote of 1800 INR for the water supply issue in Tower A.",
         "actor": "Relay",
-        "at": "2026-09-09T12:33:41.684388+00:00"
+        "at": "2026-09-09T13:39:35.730063+00:00"
       }
     ],
     "receipts": {},
@@ -316,11 +321,11 @@
     ],
     "runs": [
       {
-        "id": "run-37af89db19",
-        "at": "2026-09-09T12:33:47.228125+00:00",
+        "id": "run-9b95eeac27",
+        "at": "2026-09-09T13:39:40.574949+00:00",
         "provider": "gateway",
         "model": "auto",
-        "seconds": 22.06,
+        "seconds": 21.39,
         "observed_models": [
           "codestral-latest"
         ],
@@ -337,8 +342,8 @@
             "args": {
               "groups": [
                 [
-                  "SR-c853b65ef5",
-                  "SR-07e7122ad4"
+                  "SR-75ebe1e961",
+                  "SR-affeab05c1"
                 ]
               ],
               "hazards": []
@@ -349,7 +354,7 @@
             "agent": "Sensemaker",
             "tool": "keep_separate",
             "args": {
-              "incident_id": "SR-c853b65ef5",
+              "incident_id": "SR-75ebe1e961",
               "reason": "Assessed as an independent incident or the representative of a shared problem."
             },
             "ok": true
@@ -358,9 +363,9 @@
             "agent": "Evidence reviewer",
             "tool": "review_link",
             "args": {
-              "source_id": "SR-07e7122ad4",
-              "target_id": "SR-c853b65ef5",
-              "reason": "Both reports describe the same issue of no water supply in Tower A due to a stopped pump."
+              "source_id": "SR-affeab05c1",
+              "target_id": "SR-75ebe1e961",
+              "reason": "Both reports describe the same physical problem of a stopped water pump in Tower A."
             },
             "ok": true
           },
@@ -368,8 +373,8 @@
             "agent": "Sensemaker",
             "tool": "link_reports",
             "args": {
-              "source_id": "SR-07e7122ad4",
-              "target_id": "SR-c853b65ef5"
+              "source_id": "SR-affeab05c1",
+              "target_id": "SR-75ebe1e961"
             },
             "ok": true
           },
@@ -389,7 +394,7 @@
             "agent": "Coordinator",
             "tool": "negotiate_visit",
             "args": {
-              "incident_id": "SR-c853b65ef5"
+              "incident_id": "SR-75ebe1e961"
             },
             "ok": true
           },
@@ -397,7 +402,7 @@
             "agent": "Coordinator",
             "tool": "propose_vendor",
             "args": {
-              "incident_id": "SR-c853b65ef5",
+              "incident_id": "SR-75ebe1e961",
               "vendor_id": "waterworks"
             },
             "ok": true
@@ -412,18 +417,18 @@
         "stages": [
           {
             "agent": "Sensemaker",
-            "summary": "Incident SR-07e7122ad4 has been linked to SR-c853b65ef5.\n"
+            "summary": "Incident SR-75ebe1e961 has been updated with the report from SR-affeab05c1. Incident SR-affeab05c1 has been linked to SR-75ebe1e961.\n"
           },
           {
             "agent": "Coordinator",
-            "summary": "Incident SR-c853b65ef5 is awaiting approval. Incident SR-07e7122ad4 has been linked to SR-c853b65ef5.\n"
+            "summary": "Incident SR-75ebe1e961 is awaiting approval with a proposed vendor and a feasible access window.\n"
           },
           {
             "agent": "Sentinel",
-            "summary": "No incidents are overdue.\n"
+            "summary": "Incident SR-75ebe1e961 is awaiting approval with a proposed vendor and a feasible access window.\n"
           }
         ],
-        "summary": "SR-c853b65ef5: awaiting approval; SR-07e7122ad4: linked",
+        "summary": "SR-75ebe1e961: awaiting approval; SR-affeab05c1: linked",
         "error": null,
         "status": "completed"
       }
@@ -431,7 +436,7 @@
     "live": {
       "agent": "Sentinel",
       "tool": "inspect_workspace",
-      "at": "2026-09-09T12:33:45.929070+00:00"
+      "at": "2026-09-09T13:39:38.631372+00:00"
     }
   }
 }

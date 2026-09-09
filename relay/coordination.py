@@ -11,7 +11,7 @@ SLOTS = [
 ]
 
 
-def windows(state, incident):
+def windows(state, incident, include_consent=True):
     """Rank feasible slots without leaking residents' private reasons."""
     household_constraints = state.get("availability", {})
     blocked = state.get("blocked_slots", ["midday"])
@@ -20,10 +20,14 @@ def windows(state, incident):
     for slot in SLOTS:
         if slot["id"] in blocked or slot["id"] not in vendor_slots:
             continue
+        from .negotiation import consented_units
+
+        exceptions = consented_units(state, incident, slot["id"]) if include_consent else set()
         attending = [
             u
             for u in incident["reporters"]
             if slot["id"] in household_constraints.get(u, ["morning", "afternoon", "evening"])
+            or u in exceptions
         ]
         missing = sorted(set(incident["reporters"]) - set(attending))
         options.append(
@@ -33,6 +37,7 @@ def windows(state, incident):
                 "households_total": len(incident["reporters"]),
                 "needs_coordination": missing,
                 "feasible": not missing,
+                "one_time_consents": sorted(exceptions),
             }
         )
     return sorted(options, key=lambda o: (not o["feasible"], len(o["needs_coordination"]), o["hour"]))
@@ -85,6 +90,14 @@ def calendar_event(incident):
 
 def visit_date():
     return (datetime.now(ZoneInfo("Asia/Kolkata")) + timedelta(days=1)).date().isoformat()
+
+
+def revisit_date(previous):
+    """A missed visit must not silently be reauthorized for the same date and slot."""
+    return max(
+        datetime.fromisoformat(previous).date() + timedelta(days=1),
+        datetime.fromisoformat(visit_date()).date(),
+    ).isoformat()
 
 
 def visit_deadline(proposal):

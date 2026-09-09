@@ -7,11 +7,11 @@
     "original_quote_preserved": true
   },
   "run": {
-    "id": "run-3921b6a2d0",
-    "at": "2026-09-09T12:42:15.463325+00:00",
+    "id": "run-0027879edc",
+    "at": "2026-09-09T13:41:33.688092+00:00",
     "provider": "gateway",
     "model": "auto",
-    "seconds": 6.67,
+    "seconds": 6.75,
     "observed_models": [
       "codestral-latest"
     ],
@@ -26,7 +26,7 @@
         "agent": "Sentinel",
         "tool": "check_milestone",
         "args": {
-          "incident_id": "SR-a7567d1324"
+          "incident_id": "SR-d64283bd7b"
         },
         "ok": true
       }
@@ -34,10 +34,10 @@
     "stages": [
       {
         "agent": "Sentinel",
-        "summary": "Incident SR-a7567d1324 has been escalated to the committee.\n"
+        "summary": "No incidents are overdue.\n"
       }
     ],
-    "summary": "SR-a7567d1324: needs attention",
+    "summary": "SR-d64283bd7b: needs attention",
     "error": null,
     "status": "completed"
   },
@@ -46,7 +46,7 @@
     "demo": true,
     "incidents": [
       {
-        "id": "SR-a7567d1324",
+        "id": "SR-d64283bd7b",
         "title": "Water supply \u00b7 Tower A",
         "description": "Shared water supply stopped in Tower A after the pump went silent.",
         "unit": "A-304",
@@ -64,10 +64,10 @@
           }
         ],
         "confirmed": [],
-        "created_at": "2026-09-09T12:42:08.789167+00:00",
-        "updated_at": "2026-09-09T12:42:13.133626+00:00",
+        "created_at": "2026-09-09T13:41:26.935584+00:00",
+        "updated_at": "2026-09-09T13:41:30.224501+00:00",
         "proposal": {
-          "id": "proposal-c84ac3f39b",
+          "id": "proposal-1a460cc62c",
           "vendor": "ClearFlow Maintenance",
           "vendor_id": "waterworks",
           "quote": 1800,
@@ -81,7 +81,8 @@
               "households_available": 1,
               "households_total": 1,
               "needs_coordination": [],
-              "feasible": true
+              "feasible": true,
+              "one_time_consents": []
             },
             {
               "id": "afternoon",
@@ -90,7 +91,8 @@
               "households_available": 1,
               "households_total": 1,
               "needs_coordination": [],
-              "feasible": true
+              "feasible": true,
+              "one_time_consents": []
             },
             {
               "id": "evening",
@@ -101,7 +103,8 @@
               "needs_coordination": [
                 "A-304"
               ],
-              "feasible": false
+              "feasible": false,
+              "one_time_consents": []
             }
           ],
           "window": {
@@ -111,7 +114,8 @@
             "households_available": 1,
             "households_total": 1,
             "needs_coordination": [],
-            "feasible": true
+            "feasible": true,
+            "one_time_consents": []
           },
           "visit_date": "2026-09-10"
         },
@@ -122,44 +126,44 @@
     ],
     "events": [
       {
-        "id": "evt-5e4ae5ae29",
-        "incident_id": "SR-a7567d1324",
+        "id": "evt-5f038e06ec",
+        "incident_id": "SR-d64283bd7b",
         "title": "Report received",
         "detail": "A-304 reported an issue in Tower A.",
         "actor": "Resident",
-        "at": "2026-09-09T12:42:08.789421+00:00"
+        "at": "2026-09-09T13:41:26.935606+00:00"
       },
       {
-        "id": "evt-e423d3ce01",
-        "incident_id": "SR-a7567d1324",
+        "id": "evt-ced8a02135",
+        "incident_id": "SR-d64283bd7b",
         "title": "A decision is ready",
         "detail": "ClearFlow Maintenance \u00b7 \u20b91800. Previously reviewed fixed quote.",
         "actor": "Relay",
-        "at": "2026-09-09T12:42:08.789753+00:00"
+        "at": "2026-09-09T13:41:26.935675+00:00"
       },
       {
-        "id": "evt-530278cdaf",
-        "incident_id": "SR-a7567d1324",
+        "id": "evt-130f7318f8",
+        "incident_id": "SR-d64283bd7b",
         "title": "Work authorized",
         "detail": "Committee approved \u20b91800; a demo work order was created.",
         "actor": "Committee",
-        "at": "2026-09-09T12:42:08.789771+00:00"
+        "at": "2026-09-09T13:41:26.935711+00:00"
       },
       {
-        "id": "evt-beaed98906",
-        "incident_id": "SR-a7567d1324",
+        "id": "evt-b598e9e8b1",
+        "incident_id": "SR-d64283bd7b",
         "title": "Vendor reported a delay",
         "detail": "Technician is delayed. A new arrival time is needed.",
         "actor": "Vendor",
-        "at": "2026-09-09T12:42:08.789780+00:00"
+        "at": "2026-09-09T13:41:26.935721+00:00"
       },
       {
-        "id": "evt-1aec7a1ce2",
-        "incident_id": "SR-a7567d1324",
+        "id": "evt-f980852756",
+        "incident_id": "SR-d64283bd7b",
         "title": "Relay caught the missed milestone",
         "detail": "Choose a revised visit or arrange an alternative. No extra spending has been authorized.",
         "actor": "Relay",
-        "at": "2026-09-09T12:42:13.133626+00:00"
+        "at": "2026-09-09T13:41:30.224501+00:00"
       }
     ],
     "receipts": {},
@@ -212,11 +216,11 @@
     ],
     "runs": [
       {
-        "id": "run-3921b6a2d0",
-        "at": "2026-09-09T12:42:15.463325+00:00",
+        "id": "run-0027879edc",
+        "at": "2026-09-09T13:41:33.688092+00:00",
         "provider": "gateway",
         "model": "auto",
-        "seconds": 6.67,
+        "seconds": 6.75,
         "observed_models": [
           "codestral-latest"
         ],
@@ -231,7 +235,7 @@
             "agent": "Sentinel",
             "tool": "check_milestone",
             "args": {
-              "incident_id": "SR-a7567d1324"
+              "incident_id": "SR-d64283bd7b"
             },
             "ok": true
           }
@@ -239,10 +243,10 @@
         "stages": [
           {
             "agent": "Sentinel",
-            "summary": "Incident SR-a7567d1324 has been escalated to the committee.\n"
+            "summary": "No incidents are overdue.\n"
           }
         ],
-        "summary": "SR-a7567d1324: needs attention",
+        "summary": "SR-d64283bd7b: needs attention",
         "error": null,
         "status": "completed"
       }
@@ -250,7 +254,7 @@
     "live": {
       "agent": "Sentinel",
       "tool": "check_milestone",
-      "at": "2026-09-09T12:42:13.133072+00:00"
+      "at": "2026-09-09T13:41:30.223160+00:00"
     }
   }
 }

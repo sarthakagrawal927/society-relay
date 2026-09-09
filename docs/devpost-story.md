@@ -11,6 +11,7 @@ The Good Neighbor demonstration connects two fictional households reporting a wa
 Then the demo makes life difficult:
 
 1. A resident changes availability. The only common window disappears, and the old proposal cannot be approved.
+   Relay compares alternatives and asks for a one-visit access exception. The resident declines. The agent respects that answer, asks a different household, and obtains consent without editing either household's general availability.
 2. The technician reports a delay. Sentinel checks the saved milestone and brings a decision back to the committee without increasing the quote.
 3. The facility team reports completion. A resident says the problem is still happening. The issue returns to human attention.
 4. After the correction, one household confirms restoration. The issue remains open until the second household confirms too.
@@ -22,6 +23,8 @@ Residents, committee members, and facility teams have different actions on one s
 A Strands Graph runs Sensemaker, Coordinator, and Sentinel. An evidence specialist assesses reports; an independent model review checks proposed links against the original evidence. When there are no new reports to interpret, a follow-up can enter directly at Sentinel.
 
 The model interprets reports and invokes tools. Deterministic Python rules enforce spending authority, current proposal identifiers, access constraints, human corrections, and resident verification. Versioned workspace writes recheck rules after concurrent changes.
+
+One-time consent is bound to the exact visit date, household group, vendor, quote, and constraints. It can be withdrawn before authorization. A missed or disputed visit needs a fresh planning round; the old yes cannot silently authorize a different date.
 
 The application uses Python, FastAPI, Strands Agents SDK, SQLite, and an original HTML/CSS/JavaScript interface. The tested live inference configuration uses an existing Free AI gateway, with a local adapter that translates model-authored JSON actions into real Strands tool-use events. The evidence view records actual calls and the observed model, not just the requested routing alias.
 
@@ -35,9 +38,9 @@ Report similarity is not proof of a common physical cause. Independent review he
 
 ## What we verified
 
-The current build passes 31 deterministic tests covering lifecycle authority, stale approvals, concurrency, report separation, missed milestones, false completion, retries, gateway compatibility, and workspace isolation. GitHub Actions runs the checks.
+The current build passes 42 deterministic tests covering lifecycle authority, stale approvals, concurrency, report separation, missed milestones, false completion, retries, gateway compatibility, and workspace isolation. GitHub Actions runs the checks.
 
-Five targeted live-model cases also passed: duplicate reports, unrelated reports, an embedded instruction attempt, no shared access window, and a delayed commitment. Their checks, calls, timings, observed models, and resulting state are committed in `docs/evaluations/`. These are bounded synthetic acceptance results, not a general reliability claim.
+Six targeted live-model cases also passed: duplicate reports, unrelated reports, an embedded instruction attempt, no shared access window, a delayed commitment, and a two-round negotiation after a refusal. Their checks, calls, timings, observed models, and resulting state are committed in `docs/evaluations/`. These are bounded synthetic acceptance results, not a general reliability claim.
 
 The video is an edited recording of the working application with synthetic people and vendors. No real communications, bookings, payments, or emergency dispatch occur. The judge-facing role switch is a demonstration tool, not production identity verification.
 
