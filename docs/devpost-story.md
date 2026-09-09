@@ -28,7 +28,7 @@ One-time consent is bound to the exact visit date, household group, vendor, quot
 
 The application uses Python, FastAPI, Strands Agents SDK, SQLite, and an original HTML/CSS/JavaScript interface. The tested live inference configuration uses an existing Free AI gateway, with a local adapter that translates model-authored JSON actions into real Strands tool-use events. The evidence view records actual calls and the observed model, not just the requested routing alias.
 
-A Bedrock model option, DynamoDB persistence adapter, and IAM-only AgentCore entrypoint are implemented in the repository. **The AWS cloud runtime is not yet deployed or verified.** The architecture explicitly distinguishes the running application from that deployment path.
+The DynamoDB persistence adapter passed a live AWS CloudShell test against an isolated table: strong reads, stale-write rejection, conflict retry, and committed state read by a separate process. The table uses 1 provisioned read/write unit. The public demo still uses Render and SQLite. A Bedrock model option and IAM-only AgentCore entrypoint are implemented, but **Bedrock/AgentCore are not deployed or verified**. The machine-readable AWS proof is in docs/aws-persistence-evidence.json in the repository.
 
 ## Challenges and lessons
 

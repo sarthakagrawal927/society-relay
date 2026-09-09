@@ -1,0 +1,19 @@
+{
+  "verified_at": "2026-09-09T19:30:14.626732+00:00",
+  "table": "society-relay-hackathon-proof",
+  "region": "us-east-1",
+  "boto3_version": "1.43.38",
+  "status": "passed",
+  "checks": [
+    "create and strongly consistent read",
+    "stale conditional write rejected",
+    "mutation retries against newer state",
+    "separate process reads committed state"
+  ],
+  "retry_attempts": 2,
+  "final_version": 3,
+  "final_counter": 11,
+  "synthetic_records_created": 1,
+  "ai_invoked": false,
+  "public_app_uses_this_table": false
+}

@@ -1,6 +1,6 @@
-# AWS integration: implemented adapter, deployment pending
+# AWS integration: live DynamoDB proof; agent runtime pending
 
-This document distinguishes working local code from cloud infrastructure that has not been deployed. There is no verified live AgentCore endpoint yet.
+The DynamoDB persistence adapter has passed a live AWS test. There is no verified live AgentCore endpoint yet; the public demo still uses Render and SQLite.
 
 ## Implemented
 
@@ -27,7 +27,7 @@ The user requested no spending. AWS promotional credits are not evidence of unli
 
 1. Deploy the runtime with restricted permissions and a dedicated test table.
 2. Invoke the actual Bedrock model through AgentCore against synthetic cases.
-3. Prove durable state across sessions and conditional-write conflict handling against the real table.
+3. Extend the completed DynamoDB persistence proof to the deployed agent workflow.
 4. Confirm the caller identity, application bridge and external schedule behavior.
 5. Inspect real traces and publish measured latency/cost evidence only after it exists.
 
@@ -37,6 +37,14 @@ Official references:
 - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-get-started-code-deploy-python.html
 - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-configure.html
 
-## Free-plan check, September 9, 2026
+## Live persistence proof, September 9, 2026 (UTC)
 
-AWS currently lists AgentCore as paid-plan exclusive. Its Free plan limits service access and does not accept promotional credits; paid-plan credit balances do not establish a zero-spend guarantee. We have not upgraded the account or deployed AWS resources. The AWS Console also requires a separate sign-in from Builder Center. Source: https://aws.amazon.com/free/ .
+[Machine-readable result](aws-persistence-evidence.json) from `python3 -m scripts.verify_dynamodb`, executed in AWS CloudShell against `society-relay-hackathon-proof` in `us-east-1`. The existing Store adapter passed create/strongly consistent read, stale conditional-write rejection, mutation retry against a competing update, and a fresh interpreter reading committed state. Two attempts produced counter 11 at version 3. One synthetic record was created; no AI was invoked.
+
+The ACTIVE STANDARD table uses fixed PROVISIONED capacity of 1 read and 1 write unit, within DynamoDB's published 25-unit provisioned free allowance. No other tables existed in this region before creation. No paid compute, extra indexes, streams, backups, or customer-managed encryption were provisioned. CloudShell has no additional service charge. This configuration evidence is not an invoice or an account-wide spending cap.
+
+The console account had no active promotional credits. Bedrock/AgentCore deployment and inference remain pending; no account upgrade was performed. The public application does not use this proof table. Its full AWS route still requires the backend bridge, authentication and external scheduler described above.
+
+- https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html
+- https://aws.amazon.com/cloudshell/pricing/
+- https://aws.amazon.com/free/

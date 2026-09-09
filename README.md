@@ -22,7 +22,7 @@ The free preview can take a minute to wake up and resets workspaces when its ins
 - Each browser gets an isolated synthetic workspace. The app includes committee, resident and facility-team perspectives plus a tool-evidence view.
 - Committee members can separate a mistaken match before authorization. This withdraws the proposal and records a durable instruction preventing automatic remerging.
 - Approved visits produce downloadable calendar invitations and fixed-price work orders. These are explicitly labelled demonstration artifacts.
-- A DynamoDB persistence adapter and an IAM-only AgentCore entrypoint are included. **AWS deployment is not yet verified.**
+- The DynamoDB persistence adapter passed a [live AWS consistency proof](docs/aws-persistence-evidence.json). An IAM-only AgentCore entrypoint is included; **Bedrock/AgentCore deployment remains unverified.**
 
 This is a **synthetic demonstration**, not production apartment-management software. Role switching is intentionally available for judging; it is not authenticated resident identity. No real vendor communications, payments, bookings or emergency dispatch occur. Use fictional data only.
 
@@ -76,7 +76,7 @@ Fixture mode does not perform semantic report linking and is **not evidence of A
 
 ### AWS path
 
-The AWS route uses Bedrock for inference, AgentCore for the agent runtime, and DynamoDB for durable state. It is optional for local execution and must not be described as deployed until a live deployment is verified. See [AWS deployment notes](docs/aws.md). Do not deploy under a zero-spend requirement unless credits and a sufficient cost boundary have been independently verified.
+The AWS route uses Bedrock for inference, AgentCore for the agent runtime, and DynamoDB for durable state. The DynamoDB adapter is live-tested against an isolated AWS table; the full agent runtime is not deployed. It is optional for local execution. See [AWS deployment notes](docs/aws.md). Do not deploy under a zero-spend requirement unless credits and a sufficient cost boundary have been independently verified.
 
 ## Validation
 
