@@ -4,7 +4,9 @@
 
 An apartment-society maintenance agent built with **Strands Agents SDK**, for the Agents for Humans hackathon's **Good Neighbor** track. Residents, committee members and facility teams share one incident lifecycle.
 
-[Watch the public working-app demo (3:39)](https://youtu.be/UXrkD4t4G3Y)
+[Try the public interactive demo](https://society-relay.onrender.com) · [Watch the public working-app demo (3:39)](https://youtu.be/UXrkD4t4G3Y)
+
+The free preview can take a minute to wake up and resets workspaces when its instance restarts. AI usage is shared and limited; failed provider calls preserve completed actions for a manual retry. Use fictional data. [Hosting limits and setup](docs/public-demo.md).
 
 ## What works
 
@@ -14,7 +16,7 @@ An apartment-society maintenance agent built with **Strands Agents SDK**, for th
 - Consent is bound to the household group, vendor, quote, date, and current constraints. Residents can withdraw it before authorization. A missed or disputed visit starts a fresh planning round, without carrying old consent onto the new date.
 - Every stage has an inference limit. Stored outcomes, rather than a model's promises, determine whether the run completed.
 - Committee approval is required for the exact proposal before creating a work order.
-- Persistent follow-up deadlines survive application restarts. The local worker checks every 15 seconds, handles missed milestones and pauses automatic retries after provider failures.
+- On persistent storage, follow-up deadlines survive application restarts. The free hosted preview uses ephemeral disk. The local worker checks every 15 seconds, handles missed milestones and pauses automatic retries after provider failures.
 - Vendor completion is provisional: **every reporting household must verify restoration**. A resident can challenge a false completion.
 - Atomic version checks prevent two concurrent approvals from creating duplicate work orders.
 - Each browser gets an isolated synthetic workspace. The app includes committee, resident and facility-team perspectives plus a tool-evidence view.
@@ -33,7 +35,7 @@ uv sync --frozen
 RELAY_MODEL_PROVIDER=gateway uv run uvicorn relay.app:app --host 127.0.0.1 --port 8765
 ```
 
-The adapter requests the gateway's high reasoning tier and records the model actually returned. The tested configuration used Codestral. Because this gateway strips native tool-call history fields, `relay/gateway.py` translates model-authored JSON actions into Strands tool-use events. **Strands executes the real tools**; the adapter does not fabricate results. Backend policy remains authoritative. Provider availability and free quotas can change.
+The adapter requests the gateway's high reasoning tier and records the model actually returned. The recorded local configuration used Codestral. The hosted acceptance run used GPT-OSS-120B through the gateway. Because this gateway strips native tool-call history fields, `relay/gateway.py` translates model-authored JSON actions into Strands tool-use events. **Strands executes the real tools**; the adapter does not fabricate results. Backend policy remains authoritative. Provider availability and free quotas can change.
 
 ## Optional local inference
 
@@ -99,7 +101,7 @@ uv run python -m scripts.evaluate_agent --case consent
 
 Each result includes explicit checks, actual tool calls, observed model names, duration and final persisted state. A failed check is recorded as a failure.
 
-The current local build passes 42 deterministic tests and six targeted live-model cases. The consent case contains two actual model runs separated by a resident refusal; it checks that the next request involves a different household, the quote stays fixed, and general availability remains unchanged.
+The current local build passes 44 deterministic tests and six targeted live-model cases. The consent case contains two actual model runs separated by a resident refusal; it checks that the next request involves a different household, the quote stays fixed, and general availability remains unchanged.
 
 ## Scope and limitations
 

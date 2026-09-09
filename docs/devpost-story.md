@@ -36,11 +36,17 @@ The gateway initially stripped native tool-call history fields. The compatibilit
 
 Report similarity is not proof of a common physical cause. Independent review helps, but the product also preserves original evidence and supports durable human corrections. A resident's changing schedule must invalidate stale approval, and a vendor's statement must remain provisional until the affected households agree.
 
+## Try it
+
+[Open the public interactive demo](https://society-relay.onrender.com). No login is required. The free host can take a minute to wake up, and workspaces reset when it restarts. Use fictional information. Shared free AI capacity is limited; a failed provider call preserves completed work for a manual retry. The public video is available if the live provider is unavailable.
+
 ## What we verified
 
-The current build passes 42 deterministic tests covering lifecycle authority, stale approvals, concurrency, report separation, missed milestones, false completion, retries, gateway compatibility, and workspace isolation. GitHub Actions runs the checks.
+The current build passes 44 deterministic tests covering lifecycle authority, stale approvals, concurrency, report separation, missed milestones, false completion, retries, gateway compatibility, and workspace isolation. GitHub Actions runs the checks.
 
 Six targeted live-model cases also passed: duplicate reports, unrelated reports, an embedded instruction attempt, no shared access window, a delayed commitment, and a two-round negotiation after a refusal. Their checks, calls, timings, observed models, and resulting state are committed in `docs/evaluations/`. These are bounded synthetic acceptance results, not a general reliability claim.
+
+A separate hosted acceptance run verified real GPT-OSS-120B inference, report merging, exact-proposal approval, provisional vendor completion, and closure only after both reporting households confirmed. The AI run took 71.28 seconds. An earlier hosted attempt failed at the provider boundary; free inference is not guaranteed. The successful run and resulting state are committed in `docs/hosted-verification.json`.
 
 The video is an edited recording of the working application with synthetic people and vendors. No real communications, bookings, payments, or emergency dispatch occur. The judge-facing role switch is a demonstration tool, not production identity verification.
 

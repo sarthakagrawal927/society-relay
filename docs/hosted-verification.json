@@ -1,0 +1,393 @@
+{
+  "url": "https://society-relay.onrender.com",
+  "verified_at": "2026-09-09T18:13:47Z",
+  "checks": [
+    "real inference",
+    "shared reports linked",
+    "exact proposal approved",
+    "one confirmation stays open",
+    "both confirmations close"
+  ],
+  "state": {
+    "society": "Gulmohar Heights",
+    "demo": true,
+    "incidents": [
+      {
+        "id": "SR-ba791bcae9",
+        "title": "Water supply \u00b7 Tower A",
+        "description": "No water from the taps in Tower A since this morning. The shared supply appears to be down.",
+        "unit": "A-304",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "resolved",
+        "reporters": [
+          "A-304",
+          "A-502"
+        ],
+        "reports": [
+          {
+            "text": "No water from the taps in Tower A since this morning. The shared supply appears to be down.",
+            "unit": "A-304"
+          },
+          {
+            "text": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+            "unit": "A-502"
+          }
+        ],
+        "confirmed": [
+          "A-304",
+          "A-502"
+        ],
+        "created_at": "2026-09-09T18:12:30.984120+00:00",
+        "updated_at": "2026-09-09T18:13:47.444813+00:00",
+        "proposal": {
+          "id": "proposal-3c6385f298",
+          "vendor": "ClearFlow Maintenance",
+          "vendor_id": "waterworks",
+          "quote": 1800,
+          "rationale": "ClearFlow Maintenance is the approved vendor with a quote of 1800 INR within policy limits; a feasible shared window (15:00-16:00) is available for both households.",
+          "approved": true,
+          "options": [
+            {
+              "id": "afternoon",
+              "label": "15:00\u201316:00",
+              "hour": 15,
+              "households_available": 2,
+              "households_total": 2,
+              "needs_coordination": [],
+              "feasible": true,
+              "one_time_consents": []
+            },
+            {
+              "id": "morning",
+              "label": "10:00\u201311:00",
+              "hour": 10,
+              "households_available": 1,
+              "households_total": 2,
+              "needs_coordination": [
+                "A-502"
+              ],
+              "feasible": false,
+              "one_time_consents": []
+            },
+            {
+              "id": "evening",
+              "label": "17:00\u201318:00",
+              "hour": 17,
+              "households_available": 1,
+              "households_total": 2,
+              "needs_coordination": [
+                "A-304"
+              ],
+              "feasible": false,
+              "one_time_consents": []
+            }
+          ],
+          "window": {
+            "id": "afternoon",
+            "label": "15:00\u201316:00",
+            "hour": 15,
+            "households_available": 2,
+            "households_total": 2,
+            "needs_coordination": [],
+            "feasible": true,
+            "one_time_consents": []
+          },
+          "visit_date": "2026-09-10"
+        },
+        "vendor_note": "Synthetic hosted verification: pump restored.",
+        "next_check": null,
+        "merged_into": null,
+        "negotiation": null
+      },
+      {
+        "id": "SR-aeb65e25bf",
+        "title": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+        "description": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+        "unit": "A-502",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "linked",
+        "reporters": [
+          "A-502"
+        ],
+        "reports": [
+          {
+            "text": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+            "unit": "A-502"
+          }
+        ],
+        "confirmed": [],
+        "created_at": "2026-09-09T18:12:30.984163+00:00",
+        "updated_at": "2026-09-09T18:12:30.984175+00:00",
+        "proposal": null,
+        "vendor_note": "",
+        "next_check": null,
+        "merged_into": "SR-ba791bcae9"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-4e318482ad",
+        "incident_id": "SR-ba791bcae9",
+        "title": "Report received",
+        "detail": "A-304 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-09T18:12:30.984147+00:00"
+      },
+      {
+        "id": "evt-f7de271f45",
+        "incident_id": "SR-aeb65e25bf",
+        "title": "Report received",
+        "detail": "A-502 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-09T18:12:30.984175+00:00"
+      },
+      {
+        "id": "evt-203b9b77a2",
+        "incident_id": "SR-ba791bcae9",
+        "title": "Related reports connected",
+        "detail": "A-502's report is now part of this incident.",
+        "actor": "Relay",
+        "at": "2026-09-09T18:12:39.727730+00:00"
+      },
+      {
+        "id": "evt-3ae916561e",
+        "incident_id": "SR-ba791bcae9",
+        "title": "A decision is ready",
+        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. ClearFlow Maintenance is the approved vendor with a quote of 1800 INR within policy limits; a feasible shared window (15:00-16:00) is available for both households.",
+        "actor": "Relay",
+        "at": "2026-09-09T18:13:04.256011+00:00"
+      },
+      {
+        "id": "evt-10791e7717",
+        "incident_id": "SR-ba791bcae9",
+        "title": "Work authorized",
+        "detail": "Committee approved \u20b91800; a demo work order was created.",
+        "actor": "Committee",
+        "at": "2026-09-09T18:13:45.844929+00:00"
+      },
+      {
+        "id": "evt-c83342c756",
+        "incident_id": "SR-ba791bcae9",
+        "title": "Work reported complete",
+        "detail": "Synthetic hosted verification: pump restored.",
+        "actor": "Vendor",
+        "at": "2026-09-09T18:13:46.048914+00:00"
+      },
+      {
+        "id": "evt-681a3488ee",
+        "incident_id": "SR-ba791bcae9",
+        "title": "Waiting for residents",
+        "detail": "The incident stays open until every reporting household confirms restoration.",
+        "actor": "Relay",
+        "at": "2026-09-09T18:13:46.048935+00:00"
+      },
+      {
+        "id": "evt-03e633618a",
+        "incident_id": "SR-ba791bcae9",
+        "title": "Resident verified restoration",
+        "detail": "A-304 confirmed the issue is resolved.",
+        "actor": "Resident",
+        "at": "2026-09-09T18:13:46.383526+00:00"
+      },
+      {
+        "id": "evt-f2e05c54f2",
+        "incident_id": "SR-ba791bcae9",
+        "title": "Resident verified restoration",
+        "detail": "A-502 confirmed the issue is resolved.",
+        "actor": "Resident",
+        "at": "2026-09-09T18:13:47.444791+00:00"
+      },
+      {
+        "id": "evt-d55f5a9e4b",
+        "incident_id": "SR-ba791bcae9",
+        "title": "Resolved, with confirmation",
+        "detail": "Every reporting household has verified the outcome.",
+        "actor": "Relay",
+        "at": "2026-09-09T18:13:47.444813+00:00"
+      }
+    ],
+    "receipts": {},
+    "separate_pairs": [],
+    "availability": {
+      "A-304": [
+        "morning",
+        "afternoon"
+      ],
+      "A-502": [
+        "afternoon",
+        "evening"
+      ]
+    },
+    "blocked_slots": [
+      "midday"
+    ],
+    "vendor_slots": [
+      "morning",
+      "afternoon",
+      "evening"
+    ],
+    "policy": {
+      "approval_required": true,
+      "currency": "INR",
+      "max_quote": 5000,
+      "closure": "All reporting households must confirm restoration.",
+      "dispatch": "A committee member must approve a fixed quote before dispatch.",
+      "emergency": "Hazards are escalated to a human; Relay does not diagnose or dispatch emergency services."
+    },
+    "vendors": [
+      {
+        "id": "waterworks",
+        "name": "ClearFlow Maintenance",
+        "trade": "water",
+        "quote": 1800
+      },
+      {
+        "id": "electrical",
+        "name": "Brightline Electrical",
+        "trade": "electricity",
+        "quote": 1200
+      },
+      {
+        "id": "general",
+        "name": "Neighbourhood Services",
+        "trade": "general",
+        "quote": 900
+      }
+    ],
+    "runs": [
+      {
+        "id": "run-dc1404cd56",
+        "at": "2026-09-09T18:13:42.471428+00:00",
+        "provider": "gateway",
+        "model": "auto",
+        "seconds": 71.28,
+        "observed_models": [
+          "openai/gpt-oss-120b"
+        ],
+        "calls": [
+          {
+            "agent": "Sensemaker",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Evidence specialist",
+            "tool": "assess_reports",
+            "args": {
+              "groups": [
+                [
+                  "SR-ba791bcae9",
+                  "SR-aeb65e25bf"
+                ]
+              ],
+              "hazards": []
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "keep_separate",
+            "args": {
+              "incident_id": "SR-ba791bcae9",
+              "reason": "Assessed as an independent incident or the representative of a shared problem."
+            },
+            "ok": true
+          },
+          {
+            "agent": "Evidence reviewer",
+            "tool": "review_link",
+            "args": {
+              "source_id": "SR-aeb65e25bf",
+              "target_id": "SR-ba791bcae9",
+              "reason": "Both reports describe a lack of water in Tower A affecting taps/floors and attribute it to a failure of the shared/common water supply, indicating the same physical issue."
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "link_reports",
+            "args": {
+              "source_id": "SR-aeb65e25bf",
+              "target_id": "SR-ba791bcae9"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "negotiate_visit",
+            "args": {
+              "incident_id": "SR-ba791bcae9"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "propose_vendor",
+            "args": {
+              "incident_id": "SR-ba791bcae9",
+              "vendor_id": "waterworks"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sentinel",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          }
+        ],
+        "stages": [
+          {
+            "agent": "Sensemaker",
+            "summary": "Incident SR-ba791bcae9 (merged with SR-aeb65e25bf) has been classified as a shared water issue. ClearFlow Maintenance is the approved vendor with a quote of 1800\u202fINR, which is within the policy max of 5000\u202fINR. A fixed quote proposal is prepared and now awaits committee member approval before dispatch.\n"
+          },
+          {
+            "agent": "Coordinator",
+            "summary": "Vendor proposal for SR-ba791bcae9 submitted (ClearFlow Maintenance, 1800\u202fINR) with feasible window 15:00\u201116:00; incident now awaiting committee approval.\n"
+          },
+          {
+            "agent": "Sentinel",
+            "summary": "Incident SR-ba791bcae9 is awaiting committee approval, and SR-aeb65e25bf is linked to SR-ba791bcae9.\n"
+          }
+        ],
+        "summary": "SR-ba791bcae9: awaiting approval; SR-aeb65e25bf: linked",
+        "error": null,
+        "status": "completed"
+      }
+    ],
+    "live": {
+      "agent": "Sentinel",
+      "tool": "inspect_workspace",
+      "at": "2026-09-09T18:13:27.670401+00:00"
+    },
+    "running": false,
+    "provider": "gateway",
+    "public_demo": true
+  },
+  "earlier_attempt": {
+    "status": "failed",
+    "error": "EventLoopException",
+    "seconds": 25.71,
+    "observed_models": [
+      "openai/gpt-oss-120b"
+    ],
+    "note": "Observed in the first hosted test. The complete failed workspace was not exported. This record must not be presented as a first-attempt success."
+  }
+}

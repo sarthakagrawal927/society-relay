@@ -36,3 +36,7 @@ Official references:
 - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/using-any-agent-framework.html
 - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-get-started-code-deploy-python.html
 - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-configure.html
+
+## Free-plan check, September 9, 2026
+
+AWS currently lists AgentCore as paid-plan exclusive. Its Free plan limits service access and does not accept promotional credits; paid-plan credit balances do not establish a zero-spend guarantee. We have not upgraded the account or deployed AWS resources. The AWS Console also requires a separate sign-in from Builder Center. Source: https://aws.amazon.com/free/ .
