@@ -18,13 +18,14 @@ function events(items) {return items.slice().reverse().map(e=>`<div class="event
 function card(i) {return `<article class="incident" tabindex="0" role="button" aria-label="Open ${escape(i.title)}" data-incident="${escape(i.id)}"><div class="card-top">${badge(i)}<span class="card-id">${escape(i.id.toUpperCase())}</span></div><h3>${escape(i.title)}</h3><p class="incident-description">${escape(i.status==='awaiting_approval'&&i.proposal&&!i.proposal.window?'A shared access window is needed before approval.':descriptions[i.status])}</p><div class="card-footer"><div class="avatar-stack">${i.reporters.slice(0,3).map((u,n)=>`<span class="avatar">${n+1}</span>`).join('')}<span>${i.reporters.length} household${i.reporters.length>1?'s':''} · ${escape(i.area)}${i.scope==='private'?' · Private':''}</span></div><span class="card-arrow">↗</span></div></article>`;}
 function render() {
   if(!data)return;
+  renderJourney();
   const incidents=data.incidents.filter(i=>i.status!=='linked');
   const open=incidents.filter(i=>i.status!=='resolved').length;
   const decision=incidents.filter(i=>['awaiting_approval','needs_attention'].includes(i.status)).length;
   const resolved=incidents.filter(i=>i.status==='resolved').length;
   $('#metrics').innerHTML=[[open,'In progress','Shared follow-through'],[decision,'Need a decision','Your judgement matters'],[resolved,'Verified resolutions','Confirmed by residents']].map(([n,t,s])=>`<div class="metric"><div class="metric-number">${n.toString().padStart(2,'0')}</div><div class="metric-label"><strong>${t}</strong>${s}</div></div>`).join('');
   const visible=incidents.filter(i=>filter==='all'||(filter==='decision'&&['awaiting_approval','needs_attention'].includes(i.status))||(filter==='resolved'&&i.status==='resolved'));
-  $('#incidents').innerHTML=visible.length?visible.map(card).join(''):`<div class="empty"><div class="empty-symbol">⌁</div><h3>${incidents.length?'A little breathing room.':'A quieter group chat starts here.'}</h3><p>${incidents.length?'There are no issues in this view.':'Try a shared water-supply problem. Two reports, one repair, and everyone kept in the loop.'}</p>${incidents.length?'':'<button class="primary" id="scenario-btn">Try the water-supply example →</button>'}</div>`;
+  $('#incidents').innerHTML=visible.length?visible.map(card).join(''):`<div class="empty"><div class="empty-symbol">⌁</div><h3>${incidents.length?'A little breathing room.':'A quieter group chat starts here.'}</h3><p>${incidents.length?'There are no issues in this view.':'Start the guided repair above, or report a fictional issue of your own.'}</p>${incidents.length?'':''}</div>`;
   $('#agent-status').textContent=data.running?`${data.live?.agent||'Relay'} is working…`:"Your community's follow-through";
   $('#agent-status').classList.toggle('running',data.running);
   $('#agent-btn').disabled=data.running;
@@ -54,6 +55,43 @@ function reportsPanel(i) {
   const linked=data.incidents.filter(s=>s.merged_into===i.id);
   return `<section class="report-evidence"><h3>Reports behind this decision</h3>${i.reports.map(r=>`<blockquote><strong>${escape(r.unit)}</strong><p>${escape(r.text)}</p></blockquote>`).join('')}${role==='committee'&&['reported','awaiting_approval'].includes(i.status)?linked.map(s=>`<button class="outline" data-separate="${escape(s.id)}">${escape(s.unit)} describes a different problem</button>`).join(''):''}<p class="form-note">A human correction withdraws the old proposal and prevents Relay from merging these reports again.</p></section>`;
 }
+function renderJourney() {
+  const step = repairJourney(data), panel = $('#journey');
+  panel.classList.toggle('hidden', !step || view !== 'overview');
+  document.body.classList.toggle('guided', !!step && view === 'overview');
+  if (!step) return;
+  const i = step.incident;
+  const chapters = ['The reports', 'One problem', 'A refusal', 'An agreement', 'A missed visit', 'Two confirmations', 'Verified'];
+  const calls = data.runs.flatMap(r => r.calls.filter(c => c.ok && c.tool !== 'inspect_workspace').map(c => ({...c, provider:r.provider})));
+  const recent = calls.slice(-3);
+  panel.innerHTML = `<div class="journey-heading"><span class="eyebrow">THE DIFFICULT REPAIR</span><span class="journey-mode">Interactive · fictional people · ${data.provider === 'fixture' ? 'test fixture' : 'live AI'}</span></div><ol class="journey-track" aria-label="Repair chapters">${chapters.map((title, n) => `<li class="${n < step.chapter ? 'passed' : n === step.chapter ? 'current' : ''}" ${n === step.chapter ? 'aria-current="step"' : ''}><span>${n < step.chapter ? '✓' : n + 1}</span>${title}</li>`).join('')}</ol><div class="journey-body"><div class="journey-story"><div class="journey-actor">${escape(step.actor)}</div><h2>${escape(step.title)}</h2><p>${escape(step.text)}</p><div class="journey-buttons"><button class="primary" data-journey-action ${step.action === 'waiting' ? 'disabled' : ''}>${escape(step.button)}</button>${i ? '<button class="journey-inspect" data-journey-inspect>Inspect proposal & original reports ↗</button>' : ''}</div><small class="journey-boundary">Your clicks simulate the people. ${data.provider === 'fixture' ? 'This local test uses deterministic fixtures, not AI.' : 'Relay’s model calls and saved decisions are real.'} No external booking or payment.</small></div><aside class="journey-receipt"><div class="eyebrow">THE RECORD SO FAR</div>${i ? `<dl><div><dt>Reporting homes</dt><dd>${i.reporters.length}</dd></div><div><dt>Fixed quote</dt><dd>${i.proposal ? money(i.proposal.quote) : 'Not proposed'}</dd></div><div><dt>Resident confirmations</dt><dd>${i.confirmed.length} / ${i.reporters.length}</dd></div></dl>` : '<div class="journey-homes"><strong>A-304</strong><span>“No water from any tap.”</span><strong>A-502</strong><span>“The fifth floor is dry too.”</span></div>'}<div class="journey-evidence">${recent.length ? recent.map(c => `<div><span>${c.provider === 'fixture' ? 'FIXTURE' : 'AI → TOOL'}</span><strong>${escape(({assess_reports:'Compared the report evidence',link_reports:'Connected the shared problem',keep_separate:'Retained the original incident',negotiate_visit:'Compared access windows',propose_vendor:'Prepared a fixed-price proposal',request_access_window:'Requested one-visit consent',check_milestone:'Followed up on the missed visit',access_options:'Compared consent alternatives'})[c.tool] || c.tool)}</strong></div>`).join('') : '<p>Decisions will appear here as they happen.</p>'}</div></aside></div>`;
+}
+function openJourneyIssue() {
+  const step = repairJourney(data); if (!step?.incident) return;
+  selected = step.incident.id; renderDetail(); $('#detail-dialog').showModal();
+}
+async function journeyAction() {
+  const step = repairJourney(data); if (!step) return;
+  const i = step.incident;
+  const act = (action, actor, extra={}) => api(`/incidents/${i.id}/action`, {action, role:actor, proposal_id:i.proposal?.id, ...extra});
+  switch(step.action) {
+    case 'start': await api('/scenario', {}); await catchUp(); break;
+    case 'agent': await catchUp(); break;
+    case 'conflict': await api('/availability', {unit:'A-502', slots:['evening']}); await catchUp(); break;
+    case 'decline': case 'accept':
+      await api(`/incidents/${i.id}/access-response`, {negotiation_id:i.negotiation.id, unit:step.unit, role:'resident', answer:step.action === 'decline' ? 'declined' : 'accepted'});
+      if (step.action === 'decline') await catchUp();
+      break;
+    case 'approve': await act('approve','committee'); break;
+    case 'delay': await act('delay','vendor',{note:'The technician cannot reach Tower A for the agreed visit. Please arrange a revised visit.'}); await catchUp(); break;
+    case 'replan': await act('replan','committee'); await catchUp(); break;
+    case 'complete': await act('complete','vendor',{note:'Demo repair: restarted the common water pump and checked supply pressure. Both homes must verify water has returned.'}); break;
+    case 'confirm': await act('confirm','resident',{unit:step.unit}); break;
+    case 'inspect': openJourneyIssue(); break;
+    case 'availability': $('#availability-btn').click(); break;
+    case 'evidence': $('[data-view="activity"]').click(); break;
+  }
+}
 function renderDetail() {
   const i=data.incidents.find(x=>x.id===selected);if(!i)return;
   let actions='';
@@ -69,12 +107,14 @@ function renderDetail() {
 async function refresh(){data=await api('/state');render();}
 async function catchUp(){const r=await api('/agent',{});toast(r.started?'Relay is assessing the next steps.':r.message);}
 document.addEventListener('click',e=>{
+  if(e.target.closest('[data-journey-action]')){perform(journeyAction);return;}
+  if(e.target.closest('[data-journey-inspect]')){openJourneyIssue();return;}
   const response=e.target.closest('[data-access-answer]');if(response){perform(async()=>{const i=data.incidents.find(x=>x.id===selected);await api(`/incidents/${selected}/access-response`,{negotiation_id:i.negotiation.id,unit:response.dataset.unit,answer:response.dataset.accessAnswer,role});toast(response.dataset.accessAnswer==='accepted'?'One-time consent recorded. Your general availability is unchanged.':'Your answer is respected. Relay will consider another household.');if(response.dataset.accessAnswer!=='accepted')await catchUp();});return;}
   if(e.target.closest('[data-access-retry]')){perform(catchUp);return;}
   const separate=e.target.closest('[data-separate]');if(separate){perform(async()=>{await api(`/incidents/${separate.dataset.separate}/action`,{action:'separate',role});toast('Reports separated. Relay will respect this correction.');await catchUp();});return;}
   const complication=e.target.closest('[data-complication]');if(complication){perform(async()=>{const i=data.incidents.find(x=>!['resolved','linked'].includes(x.status));const kind=complication.dataset.complication;if(kind==='conflict'){await api('/availability',{unit:'A-502',slots:['evening']});toast('The shared window disappeared. Approval is blocked until the visit is replanned.');}else if(kind==='delay'){await api(`/incidents/${i.id}/action`,{action:'delay',role:'vendor',note:'The technician cannot reach the society for the agreed visit.'});await catchUp();}else{await api(`/incidents/${i.id}/action`,{action:'reopen',role:'resident',unit:i.reporters[0],note:'The taps are still dry despite the completion report.'});toast('The resident’s evidence reopened the decision.');}});return;}
   const close=e.target.closest('[data-close]');if(close){$('#'+close.dataset.close).close();return;}
-  const nav=e.target.closest('[data-view]');if(nav){view=nav.dataset.view;document.querySelectorAll('.view').forEach(el=>el.classList.toggle('hidden',el.id!==view));document.querySelectorAll('.nav').forEach(el=>el.classList.toggle('active',el.dataset.view===view));$('#view-title').textContent={overview:"The things we're taking care of",activity:'Every action leaves a trace',policy:'Clear rules. Better neighbours.'}[view];$('#view-subtitle').textContent={overview:'One shared issue. One thread of progress.',activity:'What happened, who decided, and what Relay actually did.',policy:'Boundaries that make follow-through trustworthy.'}[view];return;}
+  const nav=e.target.closest('[data-view]');if(nav){view=nav.dataset.view;renderJourney();document.querySelectorAll('.view').forEach(el=>el.classList.toggle('hidden',el.id!==view));document.querySelectorAll('.nav').forEach(el=>el.classList.toggle('active',el.dataset.view===view));$('#view-title').textContent={overview:"The things we're taking care of",activity:'Every action leaves a trace',policy:'Clear rules. Better neighbours.'}[view];$('#view-subtitle').textContent={overview:'One shared issue. One thread of progress.',activity:'What happened, who decided, and what Relay actually did.',policy:'Boundaries that make follow-through trustworthy.'}[view];return;}
   const rb=e.target.closest('[data-role]');if(rb){role=rb.dataset.role;document.querySelectorAll('[data-role]').forEach(el=>el.classList.toggle('selected',el.dataset.role===role));$('#role-hint').textContent={committee:'Approve the exception. Relay handles the follow-up.',resident:'Report once. Get the outcome, without the chase.',vendor:'Clear work orders. One place to follow through.'}[role];render();return;}
   const f=e.target.closest('[data-filter]');if(f){filter=f.dataset.filter;document.querySelectorAll('[data-filter]').forEach(el=>el.classList.toggle('selected',el.dataset.filter===filter));render();return;}
   const c=e.target.closest('[data-incident]');if(c){selected=c.dataset.incident;renderDetail();$('#detail-dialog').showModal();return;}

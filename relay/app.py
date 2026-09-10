@@ -193,6 +193,7 @@ def scenario(request: Request):
             ),
         ]:
             domain.report(state, text, unit, "Tower A", "water")
+        state["journey"] = "difficult-repair"
         return {"loaded": True}
 
     return store.mutate(token, change)
