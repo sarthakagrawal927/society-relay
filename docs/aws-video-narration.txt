@@ -1,0 +1,29 @@
+What does your agent do when somebody says no? Here, a resident refuses access. Society Relay finds another household and another time. It does not ask the same person again in this round.
+
+This is the real application, running on AWS today. The people are fictional. The model calls, tool execution, and saved decisions are real. Here is how we got to that alternative.
+
+An apartment repair usually starts in a group chat, then disappears into reminders. Relay connects the reports and follows the shared problem through to an outcome the residents verify.
+
+Sensemaker reads two descriptions of the supply problem. The coordinator compares access windows and prepares a fixed-price proposal. We change one calendar, so the old plan no longer works. Relay must ask for a one-visit exception.
+
+After the refusal, the other household accepts the evening visit. That does not rewrite their general availability. Spending still waits for the committee. The model cannot approve its own proposal.
+
+The committee approves eighteen hundred rupees. Then we introduce a missed visit. This is where follow-through matters more than a convincing chat response.
+
+Sentinel checks the saved milestone and brings the decision back to the committee. The quote stays fixed. A missed promise becomes a visible action, not another forgotten message.
+
+We prepare a new visit. The original consent cannot authorize this new date. Relay requests fresh permission, and the committee must approve the revised plan.
+
+The facility team reports that the repair is complete. Relay still keeps the incident open. Completion is a claim. Verification belongs to the people affected.
+
+One household confirms that water is restored. The other household still has a say. Only the second confirmation closes the shared incident.
+
+That is the complete loop: interpret, coordinate, hear a refusal, recover from a missed visit, and earn two confirmations. Every step leaves a decision record.
+
+The activity view exposes actual tool calls. Strands runs the agents on Bedrock AgentCore with Amazon Nova Pro. Lambda serves the application, DynamoDB persists workspaces, and EventBridge Scheduler checks due work every minute.
+
+We froze eight difficult interpretation cases. Nova passed six. Three simple rules baselines also passed six, with different errors. Nova returned an invalid empty group and omitted a private report. Both cases passed separately through the guarded full workflow. We keep the first-pass failures visible.
+
+We also injected a provider timeout after a saved tool action, raced conflicting resident responses, and tested stale consent. Saved work survived, diagnostics stayed private, and failed runs did not automatically retry. These are synthetic checks, not real user feedback.
+
+Try the live repair and inspect the public evidence. Society Relay: an agent that can hear no, remember a promise, and leave the last word to the people who live with the outcome.

@@ -1,0 +1,168 @@
+- complementary:
+  - link "Society Relay home":
+    - /url: /
+  - navigation:
+    - button "◫ Community desk":
+      - generic: ◫
+      - text: Community desk
+    - button "≋ Activity & evidence":
+      - generic: ≋
+      - text: Activity & evidence
+    - button "⌘ Society rules":
+      - generic: ⌘
+      - text: Society rules
+- main:
+  - generic: GULMOHAR HEIGHTS / Community desk
+  - link "Verified AWS run ↗":
+    - /url: /static/repair.html
+  - button "Fresh demo"
+  - button "How this works ↗":
+    - text: How this works
+    - generic: ↗
+  - generic: THE COMMUNITY DESK
+  - heading "No more “any update?”" [level=1]:
+    - text: No more
+    - text: “any update?”
+  - paragraph:
+    - text: One shared problem. One thread of progress.
+    - text: Closed by the people who live with the outcome.
+  - generic: ONE COMMUNITY. MANY HELPING HANDS.
+  - generic "Demo perspective":
+    - button "Committee"
+    - button "Resident"
+    - button "Facility team"
+  - region "Community summary":
+    - generic: "00"
+    - strong: In progress
+    - text: Shared follow-through
+    - generic: "00"
+    - strong: Need a decision
+    - text: Your judgement matters
+    - generic: "01"
+    - strong: Verified resolutions
+    - text: Confirmed by residents
+  - heading "Every action leaves a trace" [level=2]
+  - paragraph: What happened, who decided, and what Relay actually did.
+  - button "My availability"
+  - button "＋ Report an issue"
+  - paragraph:
+    - text: Public preview · Use fictional information. Workspaces persist in AWS; the agent checks for due work every minute. Shared AI usage is limited.
+    - link "Watch the complete demo ↗":
+      - /url: https://youtu.be/UXrkD4t4G3Y
+  - article:
+    - heading "Strands agent run" [level=3]
+    - generic: completed · 6.25s
+    - paragraph: "SR-c271a403de: awaiting approval"
+    - generic: ✓ Coordinator · inspect_workspace
+    - generic: ✓ Coordinator · access_options
+    - generic: ✓ Coordinator · request_access_window
+    - generic: ✓ Sentinel · inspect_workspace
+    - paragraph: bedrock / amazon.nova-pro-v1:0
+  - article:
+    - heading "Strands agent run" [level=3]
+    - generic: completed · 3.04s
+    - paragraph: "SR-c271a403de: needs attention"
+    - generic: ✓ Sentinel · inspect_workspace
+    - generic: ✓ Sentinel · check_milestone
+    - generic: "! Sentinel · check_milestone"
+    - paragraph: bedrock / amazon.nova-pro-v1:0
+  - article:
+    - heading "Strands agent run" [level=3]
+    - generic: completed · 9.03s
+    - paragraph: "SR-c271a403de: awaiting approval"
+    - generic: ✓ Coordinator · inspect_workspace
+    - generic: ✓ Coordinator · access_options
+    - generic: ✓ Coordinator · request_access_window
+    - generic: ✓ Coordinator · negotiate_visit
+    - generic: ✓ Coordinator · inspect_workspace
+    - generic: ✓ Sentinel · inspect_workspace
+    - paragraph: bedrock / amazon.nova-pro-v1:0
+  - article:
+    - heading "Strands agent run" [level=3]
+    - generic: completed · 6.42s
+    - paragraph: "SR-c271a403de: awaiting approval"
+    - generic: ✓ Coordinator · inspect_workspace
+    - generic: ✓ Coordinator · access_options
+    - generic: ✓ Coordinator · request_access_window
+    - generic: "! Sentinel · check_milestone"
+    - paragraph: bedrock / amazon.nova-pro-v1:0
+  - article:
+    - heading "Strands agent run" [level=3]
+    - generic: completed · 10.66s
+    - paragraph: "SR-c271a403de: awaiting approval; SR-5edcdcbcc7: linked"
+    - generic: ✓ Sensemaker · inspect_workspace
+    - generic: ✓ Evidence specialist · assess_reports
+    - generic: ✓ Sensemaker · keep_separate
+    - generic: ✓ Sensemaker · link_reports
+    - generic: ✓ Sensemaker · inspect_workspace
+    - generic: ✓ Coordinator · inspect_workspace
+    - generic: ✓ Coordinator · negotiate_visit
+    - generic: ✓ Coordinator · propose_vendor
+    - generic: ✓ Sentinel · inspect_workspace
+    - paragraph: bedrock / amazon.nova-pro-v1:0
+  - heading "The community record" [level=3]
+  - strong: Resolved, with confirmation
+  - paragraph: Every reporting household has verified the outcome.
+  - text: Relay · 22:02
+  - strong: Resident verified restoration
+  - paragraph: A-502 confirmed the issue is resolved.
+  - text: Resident · 22:02
+  - strong: Resident verified restoration
+  - paragraph: A-304 confirmed the issue is resolved.
+  - text: Resident · 22:01
+  - strong: Waiting for residents
+  - paragraph: The incident stays open until every reporting household confirms restoration.
+  - text: Relay · 22:00
+  - strong: Work reported complete
+  - paragraph: "Demo repair: restarted the common water pump and checked supply pressure. Both homes must verify water has returned."
+  - text: Vendor · 22:00
+  - strong: Work authorized
+  - paragraph: Committee approved ₹1800; a demo work order was created.
+  - text: Committee · 22:00
+  - strong: One-time access accepted
+  - paragraph: "A-502: 10:00–11:00 on 2026-09-12. General availability is unchanged."
+  - text: Resident · 22:00
+  - strong: A one-time access request
+  - paragraph: "10:00–11:00 on 2026-09-12: asking A-502. No booking or calendar change."
+  - text: Relay · 21:59
+  - strong: Fresh visit planning opened
+  - paragraph: Considering 2026-09-12. Previous one-time consents do not carry forward. The fixed quote remains ₹1800.
+  - text: Committee · 21:59
+  - strong: Relay caught the missed milestone
+  - paragraph: Choose a revised visit or arrange an alternative. No extra spending has been authorized.
+  - text: Relay · 21:58
+  - strong: Vendor reported a delay
+  - paragraph: The technician cannot reach Tower A for the agreed visit. Please arrange a revised visit.
+  - text: Vendor · 21:58
+  - strong: Work authorized
+  - paragraph: Committee approved ₹1800; a demo work order was created.
+  - text: Committee · 21:58
+  - strong: One-time access accepted
+  - paragraph: "A-304: 17:00–18:00 on 2026-09-11. General availability is unchanged."
+  - text: Resident · 21:58
+  - strong: A one-time access request
+  - paragraph: "17:00–18:00 on 2026-09-11: asking A-304. No booking or calendar change."
+  - text: Relay · 21:57
+  - strong: Resident declined the exception
+  - paragraph: "A-502: 10:00–11:00 on 2026-09-11. Relay must find an alternative without asking this household again in this round."
+  - text: Resident · 21:57
+  - strong: A one-time access request
+  - paragraph: "10:00–11:00 on 2026-09-11: asking A-502. No booking or calendar change."
+  - text: Relay · 21:56
+  - strong: Visit replanned
+  - paragraph: Availability changed. The committee must review the current access window.
+  - text: Relay · 21:56
+  - strong: A decision is ready
+  - paragraph: ClearFlow Maintenance · ₹1800. Both households are available in the afternoon slot.
+  - text: Relay · 21:56
+  - strong: Related reports connected
+  - paragraph: A-502's report is now part of this incident.
+  - text: Relay · 21:56
+  - strong: Report received
+  - paragraph: A-502 reported an issue in Tower A.
+  - text: Resident · 21:56
+  - strong: Report received
+  - paragraph: A-304 reported an issue in Tower A.
+  - text: Resident · 21:56
+  - generic: Built for the people who keep a community running.
+  - generic: Society Relay / Agents for Humans 2026

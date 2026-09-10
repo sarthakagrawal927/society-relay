@@ -1,0 +1,76 @@
+{
+  "captured_at": "2026-09-10",
+  "video": "https://youtu.be/s1T4McXs63M",
+  "duration_seconds": 201.525125,
+  "sha256": "6f0433d9225006564e539ccee296a92af5f217361e5688692ec9360b6674fbe3",
+  "format": "1920x1080 H.264/AAC 30 fps",
+  "scope": "Edited still captures from the current public AWS deployment; synthetic people; real AI and saved actions. Evaluation cards summarize separately recorded experiments.",
+  "shots": [
+    {
+      "name": "01-intro",
+      "at": "2026-09-10T16:26:14.771Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "02-proposal",
+      "at": "2026-09-10T16:26:42.335Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "03-refusal",
+      "at": "2026-09-10T16:27:05.601Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "04-alternative",
+      "at": "2026-09-10T16:27:59.859Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "05-approval",
+      "at": "2026-09-10T16:28:11.078Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "06-approved",
+      "at": "2026-09-10T16:28:23.474Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "07-delay",
+      "at": "2026-09-10T16:29:08.900Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "08-fresh",
+      "at": "2026-09-10T16:29:54.298Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "09-revised",
+      "at": "2026-09-10T16:30:57.838Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "10-complete",
+      "at": "2026-09-10T16:31:22.101Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "11-one",
+      "at": "2026-09-10T16:32:12.908Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "12-verified",
+      "at": "2026-09-10T16:32:23.641Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    },
+    {
+      "name": "13-evidence",
+      "at": "2026-09-10T16:32:28.258Z",
+      "url": "https://relay.sarthakagrawal.dev/"
+    }
+  ],
+  "verification": "Full ffmpeg decode passed. First scene and evaluation card visually inspected."
+}

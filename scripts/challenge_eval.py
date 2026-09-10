@@ -15,34 +15,32 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CASES = ROOT / "docs/evaluations/challenge-v1/cases.json"
 DEST = CASES.parent
-STOP = set(
-    [
-        "a",
-        "an",
-        "the",
-        "in",
-        "on",
-        "of",
-        "for",
-        "is",
-        "are",
-        "has",
-        "have",
-        "our",
-        "my",
-        "and",
-        "to",
-        "at",
-        "it",
-        "its",
-        "this",
-        "today",
-        "here",
-        "there",
-        "no",
-        "not",
-    ]
-)
+STOP = {
+    "a",
+    "an",
+    "the",
+    "in",
+    "on",
+    "of",
+    "for",
+    "is",
+    "are",
+    "has",
+    "have",
+    "our",
+    "my",
+    "and",
+    "to",
+    "at",
+    "it",
+    "its",
+    "this",
+    "today",
+    "here",
+    "there",
+    "no",
+    "not",
+}
 
 
 def tokens(text):
@@ -182,12 +180,17 @@ def run_case(case, url):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--live", action="store_true")
+    parser.add_argument("--only-case", action="append", help="Focused recovery follow-up; preserve original benchmark")
     parser.add_argument(
         "--component", action="store_true", help="Eight Bedrock classification calls; no workflow actions"
     )
     parser.add_argument("--url", default="https://relay.sarthakagrawal.dev")
     args = parser.parse_args()
     cases = json.loads(CASES.read_text())["cases"]
+    if args.only_case:
+        cases = [c for c in cases if c["id"] in args.only_case]
+        if not cases or len(cases) != len(set(args.only_case)):
+            raise SystemExit("Unknown case selection")
     for case in cases:
         assert sorted([i for g in case["groups"] for i in g] + case["hazards"]) == list(
             range(len(case["reports"]))

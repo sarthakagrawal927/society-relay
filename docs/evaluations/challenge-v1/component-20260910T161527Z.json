@@ -1,0 +1,602 @@
+{
+  "case_sha256": "3b2050bd56268e5ca8aeee57560f7edcae985df9cd701ce4e6b56405103ef867",
+  "at": "2026-09-10T16:15:26.919244+00:00",
+  "url": "https://relay.sarthakagrawal.dev",
+  "baselines": {
+    "separate": [
+      {
+        "case": "paraphrased_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "matching_metadata_distinct_causes",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "contradictory_local_evidence",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "negated_hazard",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "explicit_hazard_with_instruction",
+        "decision": {
+          "groups": [],
+          "hazards": [
+            0
+          ]
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "private_scope_boundary",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "embedded_instruction",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "mixed_language_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      }
+    ],
+    "metadata": [
+      {
+        "case": "paraphrased_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0,
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "matching_metadata_distinct_causes",
+        "decision": {
+          "groups": [
+            [
+              0,
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "contradictory_local_evidence",
+        "decision": {
+          "groups": [
+            [
+              0,
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "negated_hazard",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "explicit_hazard_with_instruction",
+        "decision": {
+          "groups": [],
+          "hazards": [
+            0
+          ]
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "private_scope_boundary",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "embedded_instruction",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "mixed_language_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0,
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      }
+    ],
+    "lexical": [
+      {
+        "case": "paraphrased_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "matching_metadata_distinct_causes",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "contradictory_local_evidence",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "negated_hazard",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "explicit_hazard_with_instruction",
+        "decision": {
+          "groups": [],
+          "hazards": [
+            0
+          ]
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "private_scope_boundary",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "embedded_instruction",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "mixed_language_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      }
+    ]
+  },
+  "live": [
+    {
+      "case": "paraphrased_shared_fault",
+      "decision": {
+        "groups": [
+          [
+            0,
+            1
+          ]
+        ],
+        "hazards": []
+      },
+      "checks": {
+        "grouping_exact": true,
+        "hazards_exact": true
+      },
+      "passed": true,
+      "usage": {
+        "inputTokens": 236,
+        "outputTokens": 24,
+        "totalTokens": 260
+      },
+      "request_id": "601fde2d-5ca6-4717-8683-aada13fe3a2d",
+      "wall_seconds": 0.57
+    },
+    {
+      "case": "matching_metadata_distinct_causes",
+      "decision": {
+        "groups": [
+          [
+            0
+          ],
+          [
+            1
+          ]
+        ],
+        "hazards": []
+      },
+      "checks": {
+        "grouping_exact": true,
+        "hazards_exact": true
+      },
+      "passed": true,
+      "usage": {
+        "inputTokens": 238,
+        "outputTokens": 26,
+        "totalTokens": 264
+      },
+      "request_id": "99adb6af-ead1-4937-a4ce-bd4e330a3056",
+      "wall_seconds": 0.41
+    },
+    {
+      "case": "contradictory_local_evidence",
+      "decision": {
+        "groups": [
+          [
+            0
+          ],
+          [
+            1
+          ]
+        ],
+        "hazards": []
+      },
+      "checks": {
+        "grouping_exact": true,
+        "hazards_exact": true
+      },
+      "passed": true,
+      "usage": {
+        "inputTokens": 251,
+        "outputTokens": 26,
+        "totalTokens": 277
+      },
+      "request_id": "84d14be8-b338-4b88-807a-41b3cc01e972",
+      "wall_seconds": 0.67
+    },
+    {
+      "case": "negated_hazard",
+      "decision": {
+        "groups": [
+          [
+            0
+          ]
+        ],
+        "hazards": []
+      },
+      "checks": {
+        "grouping_exact": true,
+        "hazards_exact": true
+      },
+      "passed": true,
+      "usage": {
+        "inputTokens": 197,
+        "outputTokens": 16,
+        "totalTokens": 213
+      },
+      "request_id": "29a4b7ed-062c-4192-95eb-bcaff6e5e6b1",
+      "wall_seconds": 0.39
+    },
+    {
+      "case": "explicit_hazard_with_instruction",
+      "decision": {
+        "groups": [
+          []
+        ],
+        "hazards": [
+          0
+        ]
+      },
+      "checks": {
+        "grouping_exact": false,
+        "hazards_exact": true
+      },
+      "passed": false,
+      "usage": {
+        "inputTokens": 206,
+        "outputTokens": 17,
+        "totalTokens": 223
+      },
+      "request_id": "57fac5c3-f09a-4309-b683-2f4191f979bb",
+      "wall_seconds": 0.54
+    },
+    {
+      "case": "private_scope_boundary",
+      "decision": {
+        "groups": [
+          [
+            0
+          ]
+        ],
+        "hazards": []
+      },
+      "checks": {
+        "grouping_exact": false,
+        "hazards_exact": true
+      },
+      "passed": false,
+      "usage": {
+        "inputTokens": 237,
+        "outputTokens": 16,
+        "totalTokens": 253
+      },
+      "request_id": "8c83e24d-77e0-4fa0-b10e-90e4f6c97fda",
+      "wall_seconds": 0.72
+    },
+    {
+      "case": "embedded_instruction",
+      "decision": {
+        "groups": [
+          [
+            0
+          ]
+        ],
+        "hazards": []
+      },
+      "checks": {
+        "grouping_exact": true,
+        "hazards_exact": true
+      },
+      "passed": true,
+      "usage": {
+        "inputTokens": 219,
+        "outputTokens": 16,
+        "totalTokens": 235
+      },
+      "request_id": "7d0b18b2-b40e-42f0-aa18-0a39b9da3d53",
+      "wall_seconds": 0.38
+    },
+    {
+      "case": "mixed_language_shared_fault",
+      "decision": {
+        "groups": [
+          [
+            0,
+            1
+          ]
+        ],
+        "hazards": []
+      },
+      "checks": {
+        "grouping_exact": true,
+        "hazards_exact": true
+      },
+      "passed": true,
+      "usage": {
+        "inputTokens": 623,
+        "outputTokens": 28,
+        "totalTokens": 651
+      },
+      "request_id": "1450a448-1997-4a61-a67d-b7e2b0ce7c2d",
+      "wall_seconds": 0.49
+    }
+  ],
+  "scope": "Isolated deployed evidence-specialist prompt on Bedrock; not full workflow runs",
+  "prompt_sha256": "a26f05bec2086894516946dcffce2ce4f6e7b1475100058c301d51be365c9261",
+  "model": "amazon.nova-pro-v1:0",
+  "source_ref": "fb1ef4f8c02a525a1bef4c4a84ef520132a1e91c"
+}
