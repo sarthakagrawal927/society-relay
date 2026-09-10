@@ -1,7 +1,7 @@
 /* The guide reads real workspace state. It never fabricates agent outcomes. */
 function repairJourney(state) {
   const incidents = state.incidents || [];
-  if (!incidents.length) return {chapter: 0, title: 'Two homes. No water. Then the plan falls apart.', text: 'Play the people in one difficult repair. Say no to an access request, introduce a missed visit, and see whether Relay earns its way to a verified outcome.', action: 'start', button: 'Start the difficult repair →', actor: 'You set the scene'};
+  if (!incidents.length) return {chapter: 0, title: 'Two homes. No water. Then the plan falls apart.', text: 'A-304 needs water back. A revised visit clashes with A-502’s workday. The committee must protect the shared budget. Play each person’s decision while Relay coordinates the repair between them.', action: 'start', button: 'Start the difficult repair →', actor: 'You set the scene'};
   if (state.journey !== 'difficult-repair') return null;
   const i = incidents.find(x => x.status !== 'linked' && x.reporters.length > 1) || incidents[0];
   if (i.reporters.length < 2 && i.status !== 'reported') return {chapter:1, title:'Relay kept the reports separate.', text:'The live decision differs from the expected shared repair. Inspect the original reports and the activity record before proceeding. The guide will not pretend a merge happened.', action:'inspect', button:'Review the actual decision →', actor:'Human review', incident:i};
@@ -14,7 +14,7 @@ function repairJourney(state) {
   if (i.status === 'resolved') step = {chapter: 6, title: 'The agent followed through. The neighbours closed it.', text: `Both households confirmed restoration. The fixed quote is ₹${i.proposal.quote.toLocaleString('en-IN')}. Open the record to inspect the refusal, the revised visit, and the two separate confirmations.`, action: 'evidence', button: 'See the decision record →', actor: 'Outcome verified by residents'};
   else if (i.status === 'reported') step = {chapter: 1, title: 'Two descriptions. Is this really one fault?', text: 'Relay must read both reports, connect the shared supply problem, and propose a repair. The original reports remain available for a human correction.', action: 'agent', button: 'Let Relay assess the reports →', actor: 'Relay · understand and propose'};
   else if (i.status === 'awaiting_approval') {
-    if (!delayed && !happened('Visit replanned') && i.proposal?.window) step = {chapter: 2, title: 'A plan works—until one calendar changes.', text: 'Both homes can currently make the visit. Introduce the complication: A-502 can now only be home in the evening. The old proposal must lose its authority.', action: 'conflict', button: 'A-502: I can only do evening →', actor: 'You play resident A-502'};
+    if (!delayed && !happened('Visit replanned') && i.proposal?.window) step = {chapter: 2, title: 'A plan works—until one calendar changes.', text: 'A-502 cannot leave work for the proposed visit. Change their availability to evening only. Relay must find a workable exception without treating a household’s time as its own.', action: 'conflict', button: 'A-502: I can only do evening →', actor: 'You play resident A-502'};
     else if (n?.status === 'waiting') {
       const unit = n.required.find(u => !n.answers[u]);
       step = !declined && !delayed

@@ -4,13 +4,15 @@
 
 An apartment-society maintenance agent built with **Strands Agents SDK**, for the Agents for Humans hackathon's **Good Neighbor** track. Residents, committee members and facility teams share one incident lifecycle.
 
-[Try the public interactive demo](https://relay.sarthakagrawal.dev/) · [Watch the public working-app demo (3:39)](https://youtu.be/s1T4McXs63M)
+[Try the public interactive demo](https://relay.sarthakagrawal.dev/) · [Watch the public working-app demo (3:22)](https://youtu.be/s1T4McXs63M)
 
 The live AWS preview uses Lambda, AgentCore, Amazon Nova Pro, and DynamoDB. Workspaces persist across web-process restarts; EventBridge Scheduler checks for due work every minute. AI usage is shared and limited. Use fictional data. [Deployment and usage limits](docs/aws-deployment-plan.md).
 
+[Judge’s guide: story, decisions and evidence](docs/judges-guide.md)
+
 ## What works
 
-- A three-stage **Strands Graph** runs Sensemaker, Coordinator and Sentinel. An independent model review checks proposed merges against the original reports.
+- A three-stage **Strands Graph** runs Sensemaker, Coordinator and Sentinel. The live Bedrock path validates complete report partitions before linking. The optional gateway path also uses an independent model review.
 - The coordinator intersects household and vendor availability with society quiet hours. A disappearing common window invalidates the old proposal; it cannot be approved by a stale browser.
 - When no window works, the agent compares alternatives and requests a **one-visit access exception**. A resident can decline; Relay must consider a different household rather than repeat the request. Consent never changes general availability.
 - Consent is bound to the household group, vendor, quote, date, and current constraints. Residents can withdraw it before authorization. A missed or disputed visit starts a fresh planning round, without carrying old consent onto the new date.
@@ -101,7 +103,7 @@ uv run python -m scripts.evaluate_agent --case consent
 
 Each result includes explicit checks, actual tool calls, observed model names, duration and final persisted state. A failed check is recorded as a failure.
 
-The current local build passes 50 deterministic tests and six targeted live-model cases. Two separate hosted end-to-end runs passed (71.28s and 53.18s for AI coordination); both then verified exact proposal approval and closure only after both households confirmed. The later requested-model configuration is recorded in [hosted acceptance evidence](docs/hosted-pinned-acceptance.json). Intermittent provider failures were also observed and retained in [failed hosted checks](docs/hosted-pinned-verification.json); these successes are not an uptime guarantee. The consent case contains two actual model runs separated by a resident refusal; it checks that the next request involves a different household, the quote stays fixed, and general availability remains unchanged.
+Earlier validation passed 50 deterministic tests and six targeted live-model cases; the current check counts and frozen benchmark appear below. Two separate hosted end-to-end runs passed (71.28s and 53.18s for AI coordination); both then verified exact proposal approval and closure only after both households confirmed. The later requested-model configuration is recorded in [hosted acceptance evidence](docs/hosted-pinned-acceptance.json). Intermittent provider failures were also observed and retained in [failed hosted checks](docs/hosted-pinned-verification.json); these successes are not an uptime guarantee. The consent case contains two actual model runs separated by a resident refusal; it checks that the next request involves a different household, the quote stays fixed, and general availability remains unchanged.
 
 ## Scope and limitations
 
@@ -109,7 +111,7 @@ The current local build passes 50 deterministic tests and six targeted live-mode
 - This demo caps each workspace at 35 incidents and 300 KB, retaining recent audit events and agent runs. It is not an archival ledger.
 - Local SQLite survives process restart, not machine loss. An ephemeral host may lose its disk. DynamoDB is required for the AgentCore route.
 - The AWS scheduler and private runtime bridge are deployed and verified. Production identity integration is not implemented; the role chooser remains a synthetic demonstration.
-- Semantic classification and the independent review can both be wrong. Original reports remain visible; human separation is available before work is authorized. This is not proof of physical root cause.
+- Semantic classification can be wrong; the optional gateway review can also be wrong. Original reports remain visible; human separation is available before work is authorized. This is not proof of physical root cause.
 - Real society operation needs authenticated roles, resident consent, scoped integrations, reliable notification delivery and an operational incident-retention policy.
 - Access requests currently appear inside the synthetic workspace. They are not sent to real residents. Refusals stop repeated requests within the current planning round; a deliberately revised visit has a new date and requires new consent. There is no automatic consent timeout or external notification delivery yet.
 - This is not an emergency-response service.
