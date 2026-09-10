@@ -4,7 +4,7 @@
 
 An apartment-society maintenance agent built with **Strands Agents SDK**, for the Agents for Humans hackathon's **Good Neighbor** track. Residents, committee members and facility teams share one incident lifecycle.
 
-[Try the public interactive demo](https://relay.sarthakagrawal.dev/) · [Watch the public working-app demo (3:22)](https://youtu.be/s1T4McXs63M)
+[Try the public interactive demo](https://relay.sarthakagrawal.dev/) · [Watch the public working-app demo (3:24)](https://youtu.be/4yBiot0h6mM)
 
 The live AWS preview uses Lambda, AgentCore, Amazon Nova Pro, and DynamoDB. Workspaces persist across web-process restarts; EventBridge Scheduler checks for due work every minute. AI usage is shared and limited. Use fictional data. [Deployment and usage limits](docs/aws-deployment-plan.md).
 
@@ -132,4 +132,4 @@ For an immediate evidence walkthrough, [replay the verified AWS run](https://rel
 
 [Eight-case benchmark, three rules baselines, raw failures and full-workflow follow-up](docs/evaluations/challenge-v1/README.md). Nova and each baseline scored 6/8 on the first pass; both failed component cases passed separately through the complete workflow. Added provider-fault, concurrent-response and stale-consent checks. 55 Python and 6 JavaScript checks pass.
 
-[Current AWS demonstration](https://youtu.be/s1T4McXs63M) — 3:22, captured on 10 September. Includes refusal, missed-visit recovery, fresh consent and separate resident confirmations.
+[Current AWS demonstration](https://youtu.be/4yBiot0h6mM) — 3:24, published on 11 September. Includes refusal, missed-visit recovery, fresh consent and separate resident confirmations. Combines edited 10 September live-application captures with continuous inspection of recorded AWS evidence paced to synthetic narration; the replay is not a new model invocation.
