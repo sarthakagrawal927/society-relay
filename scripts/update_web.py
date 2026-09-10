@@ -11,7 +11,8 @@ import zipfile
 import boto3
 
 FILES = ["relay/app.py", "relay/static/index.html", "relay/static/app.js",
-         "relay/static/style.css", "relay/static/journey.js"]
+         "relay/static/style.css", "relay/static/journey.js", "relay/static/repair.html",
+         "relay/static/repair.css", "relay/static/repair.js", "relay/static/repair-proof.json"]
 
 
 def main():

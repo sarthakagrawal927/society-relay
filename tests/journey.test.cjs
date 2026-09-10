@@ -2,6 +2,15 @@ const {test} = require('node:test');
 const assert = require('node:assert/strict');
 const {repairJourney} = require('../relay/static/journey.js');
 
+test('all captured AWS checkpoints offer the appropriate next human or agent action', () => {
+  const proof = require('../docs/difficult-repair-evidence.json');
+  const expected = ['agent','conflict','agent','decline','agent','accept','approve','delay','replan','agent','accept','approve','confirm','confirm','evidence'];
+  proof.checkpoints.forEach((c,n) => {
+    const state = {journey:'difficult-repair',incidents:[c.incident],events:c.events};
+    assert.equal(repairJourney(state).action,expected[n],c.label);
+  });
+});
+
 test('guide follows consent, delay, fresh authorization and separate confirmations', () => {
   const i = {id:'repair',status:'reported',reporters:['A-304','A-502'],confirmed:[]};
   const state = {journey:'difficult-repair',incidents:[i],events:[]};

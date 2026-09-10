@@ -2,6 +2,12 @@
 
 The primary demo now runs on [AWS](https://relay.sarthakagrawal.dev/), using Lambda, AgentCore, Nova Pro, DynamoDB, and EventBridge Scheduler. See [AWS evidence and setup](aws.md).
 
+## Guided repair and recorded evidence
+
+The community desk now leads with **Start the difficult repair**. Each guide step reads the saved workspace state and submits only the explicit human action named on its button. The guide stops for unexpected model decisions instead of fabricating progress.
+
+[Replay the verified AWS repair](https://relay.sarthakagrawal.dev/static/repair.html) for an immediate walkthrough without using live AI quota. It exposes 15 checkpoints and five real Nova Pro executions. The source evidence is `docs/difficult-repair-evidence.json`; regenerate it with `uv run python scripts/verify_journey.py --url https://relay.sarthakagrawal.dev` only when another live acceptance run is needed. This exercises fictional people, not real vendor communications.
+
 ## Earlier Render preview
 
 # Public preview deployment

@@ -6,7 +6,9 @@ Public video: https://youtu.be/UXrkD4t4G3Y
 
 Title: **Society Relay — No more “any update?” | Agents for Humans 2026**
 
-Prepared extended description (the published description is condensed):
+Update, September 10: the published description now links the guided live demo and the 15-checkpoint AWS evidence replay. It explicitly dates this recording to September 9 and explains that the closing statement about unverified AWS deployment is superseded by the completed deployment and recorded acceptance evidence. YouTube Studio confirmed the description was saved; visibility remains Public.
+
+Original description package (retained below as recording history, not current deployment status):
 
 Society Relay is a Good Neighbor agent for apartment societies, built with Strands Agents SDK. Two households report one shared problem. Relay connects the evidence, coordinates access, follows up on a missed visit, and keeps the incident open until every reporting household verifies the outcome.
 

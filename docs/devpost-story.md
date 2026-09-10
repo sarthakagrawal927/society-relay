@@ -20,7 +20,7 @@ Residents, committee members, and facility teams have different actions on one s
 
 ## How we built it
 
-A Strands Graph runs Sensemaker, Coordinator, and Sentinel. An evidence specialist assesses reports; an independent model review checks proposed links against the original evidence. When there are no new reports to interpret, a follow-up can enter directly at Sentinel.
+A Strands Graph runs Sensemaker, Coordinator, and Sentinel. An evidence specialist uses the model to classify the original reports before validated groupings are applied. The optional gateway path additionally performs an independent model review of each proposed link. When there are no new reports to interpret, a follow-up can enter directly at Sentinel.
 
 The model interprets reports and invokes tools. Deterministic Python rules enforce spending authority, current proposal identifiers, access constraints, human corrections, and resident verification. Versioned workspace writes recheck rules after concurrent changes.
 
@@ -40,11 +40,15 @@ Report similarity is not proof of a common physical cause. Independent review he
 
 ## Try it
 
-[Open the public interactive demo](https://relay.sarthakagrawal.dev/). No login is required. Use fictional information. Workspaces persist in DynamoDB, and an external scheduler resumes due work. Shared AI capacity is limited; failed agent runs preserve completed work for a manual retry. The public video demonstrates the same lifecycle on the earlier hosted build.
+[Open the public interactive demo](https://relay.sarthakagrawal.dev/) and choose **Start the difficult repair**. A state-driven guide makes each human decision explicit, from the first refusal to the final household confirmation. No login is required.
+
+For an immediate walkthrough, [replay a complete verified AWS run](https://relay.sarthakagrawal.dev/static/repair.html): 15 saved checkpoints show a declined request, a different household, a missed visit, fresh consent for the revised date, and two separate confirmations. Five actual Nova Pro runs took 13.15, 6.80, 15.97, 3.73, and 14.59 seconds. The replay exposes saved state and actual tool calls; it is clearly labeled as recorded evidence and consumes no additional AI capacity. The fixed INR 1,800 quote and general household availability stayed unchanged throughout.
+
+ Use fictional information. Workspaces persist in DynamoDB, and an external scheduler resumes due work. Shared AI capacity is limited; failed agent runs preserve completed work for a manual retry. The public video demonstrates the same lifecycle on the earlier hosted build.
 
 ## What we verified
 
-The current build passes 50 deterministic tests covering lifecycle authority, stale approvals, concurrency, report separation, missed milestones, false completion, retries, gateway compatibility, and workspace isolation. GitHub Actions runs the checks.
+The Python suite covers 51 tests covering lifecycle authority, stale approvals, concurrency, report separation, missed milestones, false completion, retries, gateway compatibility, and workspace isolation. Additional JavaScript checks cover the guided journey and the Cloudflare proxy. GitHub Actions runs the checks.
 
 Six targeted live-model cases also passed: duplicate reports, unrelated reports, an embedded instruction attempt, no shared access window, a delayed commitment, and a two-round negotiation after a refusal. Their checks, calls, timings, observed models, and resulting state are committed in `docs/evaluations/`. These are bounded synthetic acceptance results, not a general reliability claim.
 

@@ -15,4 +15,5 @@ jobs:
       - run: uv run pytest -q
       - run: uv run ruff check relay tests scripts
       - run: node --check relay/static/app.js
+      - run: node --check relay/static/repair.js
       - run: node --test tests/journey.test.cjs cloudflare/worker.test.mjs

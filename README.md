@@ -119,3 +119,9 @@ The current local build passes 50 deterministic tests and six targeted live-mode
 New application code and original CSS/SVG interface were created on September 9–10, 2026. Development used an AI coding assistant (OpenAI Codex). No existing Fleet or client application code was incorporated. Dependencies are recorded in `uv.lock`; their licenses remain their own. The optional Qwen model is distributed separately by its upstream provider and is not relicensed by this repository.
 
 MIT license. Copyright Sarthak Agrawal.
+
+## Try the difficult repair
+
+Choose **Start the difficult repair** on the [live community desk](https://relay.sarthakagrawal.dev/). The guide walks through a refusal, an alternative access agreement, a missed visit, fresh consent, and separate household confirmations. It follows actual saved state and never simulates successful model decisions.
+
+For an immediate evidence walkthrough, [replay the verified AWS run](https://relay.sarthakagrawal.dev/static/repair.html). Fifteen checkpoints expose the decisions and their state changes. Five real Nova Pro runs completed this journey; the original ₹1,800 quote and household availability stayed unchanged. Source: [difficult-repair-evidence.json](docs/difficult-repair-evidence.json).
