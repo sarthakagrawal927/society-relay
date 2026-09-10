@@ -1,6 +1,6 @@
-# AWS deployment awaiting provisioning
+# AWS deployment configuration
 
-This is the deployment plan, not evidence of a live deployment.
+This plan was implemented on September 10, 2026. See [live acceptance evidence](aws-live-acceptance.json) for the verified public workflow; the configuration below is not itself proof of runtime behavior.
 
 The public FastAPI application runs behind a Lambda Function URL in us-east-1.
 It dispatches work to a private Lambda function, which invokes an IAM-protected

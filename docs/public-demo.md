@@ -1,3 +1,9 @@
+# Public demo hosting
+
+The primary demo now runs on [AWS](https://s5yxc4zxd7avumdlujounefyyu0vvpeu.lambda-url.us-east-1.on.aws/), using Lambda, AgentCore, Nova Pro, DynamoDB, and EventBridge Scheduler. See [AWS evidence and setup](aws.md).
+
+## Earlier Render preview
+
 # Public preview deployment
 
 Deploy the existing Dockerfile to one free Render web instance. Set `RELAY_PUBLIC_DEMO=1`, `RELAY_AUTO=1`, `RELAY_MODEL_PROVIDER=gateway`, `RELAY_MODEL_ID=groq-gpt-oss-120b`, and supply the authorized gateway key as a protected hosting environment variable. Health check: `/health`. No paid disk or database is required.

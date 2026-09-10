@@ -1,50 +1,55 @@
-# AWS integration: live DynamoDB proof; agent runtime pending
+# Verified AWS deployment
 
-The DynamoDB persistence adapter has passed a live AWS test. There is no verified live AgentCore endpoint yet; the public demo still uses Render and SQLite.
+[Open Society Relay](https://s5yxc4zxd7avumdlujounefyyu0vvpeu.lambda-url.us-east-1.on.aws/)
 
-## Implemented
+The AWS stack was deployed and tested on September 10, 2026 in us-east-1.
+A Lambda Function URL serves FastAPI. Its private Lambda dispatcher invokes the
+IAM-protected `society_relay_live` AgentCore runtime, running Strands with Amazon
+Nova Pro. DynamoDB persists workspaces, version checks, job leases, and shared
+usage limits. EventBridge Scheduler checks for due work once per minute.
 
-- `relay/agent.py` selects `BedrockModel` when `RELAY_MODEL_PROVIDER=bedrock`. `RELAY_MODEL_ID` is required rather than assuming access to a particular regional model.
-- `relay/agentcore.py` exposes a `BedrockAgentCoreApp` entrypoint. It refuses to run without a DynamoDB table, because ephemeral agent-session disk must not own community state.
-- `relay/store.py` uses strongly consistent DynamoDB reads and conditional version writes. A conflicting update retries against current state and rechecks business rules.
-- The agent's tools can prepare a quote but cannot invoke the human approval or verification actions.
+## Live evidence
 
-## Deployment contract
+[Machine-readable acceptance](aws-live-acceptance.json) records actual Nova Pro
+calls and persisted states. The first coordination run took 10.33 seconds and
+linked two reports into one proposal awaiting human approval. The acceptance
+then approved the exact proposal, reported vendor completion, verified that one
+household could not close the issue, and confirmed closure after both households
+agreed. A fresh visitor received an isolated empty workspace. Its own example
+completed through the external scheduler without a manual agent request, in
+49.11 seconds including the wait for the next tick.
 
-Provision a dedicated DynamoDB table with string partition key `id`. The runtime role should have only `GetItem` and `PutItem` access to that table and the minimum model-invocation and runtime logging permissions. Do not grant table scans to the agent. Scope the application to this table rather than reusing production society data.
+The [earlier DynamoDB proof](aws-persistence-evidence.json) separately verified
+strong reads, stale conditional-write rejection, retries after competing writes,
+and committed state read from another process. Its isolated proof table remains
+separate from the application's `society-relay-live` table.
 
-Use IAM authentication on the AgentCore endpoint. Only a trusted application backend should submit `workspace_id` and `incident_ids`; never expose this entrypoint as a public unauthenticated API. The public demo's role switch is not a production authorization system.
+These are bounded synthetic acceptance cases, not an uptime or accuracy guarantee.
+No real resident data, bookings, payments, or notifications were involved.
 
-Set non-secret runtime configuration for `RELAY_TABLE`, `RELAY_MODEL_PROVIDER=bedrock`, `RELAY_MODEL_ID` and the selected AWS region through the hosting platform. Supply AWS permissions through the runtime role, not checked-in access keys.
+## Access and cost controls
 
-The deployment requires an application-to-AgentCore invocation bridge and an external scheduled-event mechanism. The current FastAPI application runs the agent locally and its scheduler inventories local SQLite only. Do not simply set a DynamoDB table and assume the complete cloud system is active.
+The [deployment plan](aws-deployment-plan.md) lists the four scoped roles,
+resource configuration, persistent workload limits, and permission expiry.
+No AWS access keys are embedded in the application. AgentCore and the dispatcher
+are private; only the synthetic web interface is public. The role chooser is
+not production authentication.
 
-## Cost boundary
+The account received and redeemed $50 of hackathon credits. The deployment
+limits 100 workspaces, 100 jobs, and 150 model calls, serializes agent jobs with a
+DynamoDB lease, and stops AgentCore sessions after execution. The scheduler ends
+on October 9, 2026, and runtime data/model permissions expire then. Storage,
+public web traffic, and logs can still accrue charges: credits and workload
+limits are not a hard dollar cap. No final billing measurement is claimed.
 
-The user requested no spending. AWS promotional credits are not evidence of unlimited free usage. Verify account eligibility, credits, region/model availability and the chosen runtime/storage/logging costs before provisioning. A billing alarm is not a hard spending cap.
+## Reproduce
 
-## Live verification still required
+Use `uv run python -m scripts.package_aws` to build the locked ARM64 archive.
+Run `uv run python -m scripts.deploy_aws` to inspect the resource plan.
+From an authorized AWS environment, provision with
+`uv run python -m scripts.deploy_aws --apply --expected-account ACCOUNT_ID`.
+The script records resource identifiers and a URL before live acceptance; that
+provisioning receipt alone is not evidence of a working agent.
 
-1. Deploy the runtime with restricted permissions and a dedicated test table.
-2. Invoke the actual Bedrock model through AgentCore against synthetic cases.
-3. Extend the completed DynamoDB persistence proof to the deployed agent workflow.
-4. Confirm the caller identity, application bridge and external schedule behavior.
-5. Inspect real traces and publish measured latency/cost evidence only after it exists.
-
-Official references:
-
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/using-any-agent-framework.html
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-get-started-code-deploy-python.html
-- https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability-configure.html
-
-## Live persistence proof, September 9, 2026 (UTC)
-
-[Machine-readable result](aws-persistence-evidence.json) from `python3 -m scripts.verify_dynamodb`, executed in AWS CloudShell against `society-relay-hackathon-proof` in `us-east-1`. The existing Store adapter passed create/strongly consistent read, stale conditional-write rejection, mutation retry against a competing update, and a fresh interpreter reading committed state. Two attempts produced counter 11 at version 3. One synthetic record was created; no AI was invoked.
-
-The ACTIVE STANDARD table uses fixed PROVISIONED capacity of 1 read and 1 write unit, within DynamoDB's published 25-unit provisioned free allowance. No other tables existed in this region before creation. No paid compute, extra indexes, streams, backups, or customer-managed encryption were provisioned. CloudShell has no additional service charge. This configuration evidence is not an invoice or an account-wide spending cap.
-
-The console account had no active promotional credits. Bedrock/AgentCore deployment and inference remain pending; no account upgrade was performed. The public application does not use this proof table. Its full AWS route still requires the backend bridge, authentication and external scheduler described above.
-
-- https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html
-- https://aws.amazon.com/cloudshell/pricing/
-- https://aws.amazon.com/free/
+Official deployment reference:
+[AgentCore Python code deployment](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-get-started-code-deploy-python.html).

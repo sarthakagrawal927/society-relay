@@ -4,9 +4,9 @@
 
 An apartment-society maintenance agent built with **Strands Agents SDK**, for the Agents for Humans hackathon's **Good Neighbor** track. Residents, committee members and facility teams share one incident lifecycle.
 
-[Try the public interactive demo](https://society-relay.onrender.com) · [Watch the public working-app demo (3:39)](https://youtu.be/UXrkD4t4G3Y)
+[Try the public interactive demo](https://s5yxc4zxd7avumdlujounefyyu0vvpeu.lambda-url.us-east-1.on.aws/) · [Watch the public working-app demo (3:39)](https://youtu.be/UXrkD4t4G3Y)
 
-The free preview can take a minute to wake up and resets workspaces when its instance restarts. AI usage is shared and limited; failed provider calls preserve completed actions for a manual retry. Use fictional data. [Hosting limits and setup](docs/public-demo.md).
+The live AWS preview uses Lambda, AgentCore, Amazon Nova Pro, and DynamoDB. Workspaces persist across web-process restarts; EventBridge Scheduler checks for due work every minute. AI usage is shared and limited. Use fictional data. [Deployment and usage limits](docs/aws-deployment-plan.md).
 
 ## What works
 
@@ -16,13 +16,13 @@ The free preview can take a minute to wake up and resets workspaces when its ins
 - Consent is bound to the household group, vendor, quote, date, and current constraints. Residents can withdraw it before authorization. A missed or disputed visit starts a fresh planning round, without carrying old consent onto the new date.
 - Every stage has an inference limit. Stored outcomes, rather than a model's promises, determine whether the run completed.
 - Committee approval is required for the exact proposal before creating a work order.
-- On persistent storage, follow-up deadlines survive application restarts. The free hosted preview uses ephemeral disk. The local worker checks every 15 seconds, handles missed milestones and pauses automatic retries after provider failures.
+- Follow-up deadlines survive application restarts in DynamoDB. EventBridge Scheduler checks every minute; the optional local worker checks every 15 seconds. Failed agent runs pause automatic retries.
 - Vendor completion is provisional: **every reporting household must verify restoration**. A resident can challenge a false completion.
 - Atomic version checks prevent two concurrent approvals from creating duplicate work orders.
 - Each browser gets an isolated synthetic workspace. The app includes committee, resident and facility-team perspectives plus a tool-evidence view.
 - Committee members can separate a mistaken match before authorization. This withdraws the proposal and records a durable instruction preventing automatic remerging.
 - Approved visits produce downloadable calendar invitations and fixed-price work orders. These are explicitly labelled demonstration artifacts.
-- The DynamoDB persistence adapter passed a [live AWS consistency proof](docs/aws-persistence-evidence.json). An IAM-only AgentCore entrypoint is included; **Bedrock/AgentCore deployment remains unverified.**
+- The complete AWS deployment passed [live acceptance](docs/aws-live-acceptance.json): Nova Pro tool execution, human approval, resident-confirmed closure, isolated workspaces, and external scheduling. The [DynamoDB consistency proof](docs/aws-persistence-evidence.json) separately checks stale-write rejection and conflict retry.
 
 This is a **synthetic demonstration**, not production apartment-management software. Role switching is intentionally available for judging; it is not authenticated resident identity. No real vendor communications, payments, bookings or emergency dispatch occur. Use fictional data only.
 
@@ -76,7 +76,7 @@ Fixture mode does not perform semantic report linking and is **not evidence of A
 
 ### AWS path
 
-The AWS route uses Bedrock for inference, AgentCore for the agent runtime, and DynamoDB for durable state. The DynamoDB adapter is live-tested against an isolated AWS table; the full agent runtime is not deployed. It is optional for local execution. See [AWS deployment notes](docs/aws.md). Do not deploy under a zero-spend requirement unless credits and a sufficient cost boundary have been independently verified.
+The deployed AWS route uses a public Lambda Function URL for FastAPI, a private Lambda invocation bridge, IAM-authenticated AgentCore, Amazon Nova Pro, DynamoDB, and EventBridge Scheduler. The first live coordination run took 10.33 seconds. A second workspace completed through the external scheduler without a manual agent request. See [AWS deployment notes](docs/aws.md) and [acceptance evidence](docs/aws-live-acceptance.json).
 
 ## Validation
 
@@ -101,14 +101,14 @@ uv run python -m scripts.evaluate_agent --case consent
 
 Each result includes explicit checks, actual tool calls, observed model names, duration and final persisted state. A failed check is recorded as a failure.
 
-The current local build passes 44 deterministic tests and six targeted live-model cases. Two separate hosted end-to-end runs passed (71.28s and 53.18s for AI coordination); both then verified exact proposal approval and closure only after both households confirmed. The later requested-model configuration is recorded in [hosted acceptance evidence](docs/hosted-pinned-acceptance.json). Intermittent provider failures were also observed and retained in [failed hosted checks](docs/hosted-pinned-verification.json); these successes are not an uptime guarantee. The consent case contains two actual model runs separated by a resident refusal; it checks that the next request involves a different household, the quote stays fixed, and general availability remains unchanged.
+The current local build passes 50 deterministic tests and six targeted live-model cases. Two separate hosted end-to-end runs passed (71.28s and 53.18s for AI coordination); both then verified exact proposal approval and closure only after both households confirmed. The later requested-model configuration is recorded in [hosted acceptance evidence](docs/hosted-pinned-acceptance.json). Intermittent provider failures were also observed and retained in [failed hosted checks](docs/hosted-pinned-verification.json); these successes are not an uptime guarantee. The consent case contains two actual model runs separated by a resident refusal; it checks that the next request involves a different household, the quote stays fixed, and general availability remains unchanged.
 
 ## Scope and limitations
 
 - The current user study is not complete. No measured resident time savings or adoption claims are made.
 - This demo caps each workspace at 35 incidents and 300 KB, retaining recent audit events and agent runs. It is not an archival ledger.
 - Local SQLite survives process restart, not machine loss. An ephemeral host may lose its disk. DynamoDB is required for the AgentCore route.
-- The in-process scheduler is a single-process demo worker. The cloud scheduler and production identity integration are not implemented.
+- The AWS scheduler and private runtime bridge are deployed and verified. Production identity integration is not implemented; the role chooser remains a synthetic demonstration.
 - Semantic classification and the independent review can both be wrong. Original reports remain visible; human separation is available before work is authorized. This is not proof of physical root cause.
 - Real society operation needs authenticated roles, resident consent, scoped integrations, reliable notification delivery and an operational incident-retention policy.
 - Access requests currently appear inside the synthetic workspace. They are not sent to real residents. Refusals stop repeated requests within the current planning round; a deliberately revised visit has a new date and requires new consent. There is no automatic consent timeout or external notification delivery yet.
@@ -116,6 +116,6 @@ The current local build passes 44 deterministic tests and six targeted live-mode
 
 ## Attribution and build disclosure
 
-New application code and original CSS/SVG interface were created on September 9, 2026. Development used an AI coding assistant (OpenAI Codex). No existing Fleet or client application code was incorporated. Dependencies are recorded in `uv.lock`; their licenses remain their own. The optional Qwen model is distributed separately by its upstream provider and is not relicensed by this repository.
+New application code and original CSS/SVG interface were created on September 9–10, 2026. Development used an AI coding assistant (OpenAI Codex). No existing Fleet or client application code was incorporated. Dependencies are recorded in `uv.lock`; their licenses remain their own. The optional Qwen model is distributed separately by its upstream provider and is not relicensed by this repository.
 
 MIT license. Copyright Sarthak Agrawal.

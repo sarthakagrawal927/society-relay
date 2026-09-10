@@ -1,0 +1,1028 @@
+{
+  "url": "https://s5yxc4zxd7avumdlujounefyyu0vvpeu.lambda-url.us-east-1.on.aws",
+  "verified_at": "2026-09-10T15:08:27.706143+00:00",
+  "checks": [
+    "public HTTPS and static assets",
+    "real Nova Pro tool execution",
+    "duplicate reports linked",
+    "proposal waits for human approval",
+    "committee approves exact proposal",
+    "one household cannot close shared incident",
+    "both households confirm closure",
+    "fresh visitor has isolated empty workspace",
+    "EventBridge triggers real agent without browser or manual dispatch"
+  ],
+  "manual_state": {
+    "society": "Gulmohar Heights",
+    "demo": true,
+    "incidents": [
+      {
+        "id": "SR-0088109c3c",
+        "title": "Water supply \u00b7 Tower A",
+        "description": "No water from the taps in Tower A since this morning. The shared supply appears to be down.",
+        "unit": "A-304",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "resolved",
+        "reporters": [
+          "A-304",
+          "A-502"
+        ],
+        "reports": [
+          {
+            "text": "No water from the taps in Tower A since this morning. The shared supply appears to be down.",
+            "unit": "A-304"
+          },
+          {
+            "text": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+            "unit": "A-502"
+          }
+        ],
+        "confirmed": [
+          "A-304",
+          "A-502"
+        ],
+        "created_at": "2026-09-10T15:06:39.727957+00:00",
+        "updated_at": "2026-09-10T15:07:36.318904+00:00",
+        "proposal": {
+          "id": "proposal-9fdcdf6d11",
+          "vendor": "ClearFlow Maintenance",
+          "vendor_id": "waterworks",
+          "quote": 1800,
+          "rationale": "The incident involves a water supply issue, and ClearFlow Maintenance is an approved vendor for water-related services.",
+          "approved": true,
+          "options": [
+            {
+              "id": "afternoon",
+              "label": "15:00\u201316:00",
+              "hour": 15,
+              "households_available": 2,
+              "households_total": 2,
+              "needs_coordination": [],
+              "feasible": true,
+              "one_time_consents": []
+            },
+            {
+              "id": "morning",
+              "label": "10:00\u201311:00",
+              "hour": 10,
+              "households_available": 1,
+              "households_total": 2,
+              "needs_coordination": [
+                "A-502"
+              ],
+              "feasible": false,
+              "one_time_consents": []
+            },
+            {
+              "id": "evening",
+              "label": "17:00\u201318:00",
+              "hour": 17,
+              "households_available": 1,
+              "households_total": 2,
+              "needs_coordination": [
+                "A-304"
+              ],
+              "feasible": false,
+              "one_time_consents": []
+            }
+          ],
+          "window": {
+            "id": "afternoon",
+            "label": "15:00\u201316:00",
+            "hour": 15,
+            "households_available": 2,
+            "households_total": 2,
+            "needs_coordination": [],
+            "feasible": true,
+            "one_time_consents": []
+          },
+          "visit_date": "2026-09-11"
+        },
+        "vendor_note": "Synthetic acceptance test: common pump repair completed and flow checked.",
+        "next_check": null,
+        "merged_into": null,
+        "negotiation": null
+      },
+      {
+        "id": "SR-4609eaade1",
+        "title": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+        "description": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+        "unit": "A-502",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "linked",
+        "reporters": [
+          "A-502"
+        ],
+        "reports": [
+          {
+            "text": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+            "unit": "A-502"
+          }
+        ],
+        "confirmed": [],
+        "created_at": "2026-09-10T15:06:39.727998+00:00",
+        "updated_at": "2026-09-10T15:06:39.728007+00:00",
+        "proposal": null,
+        "vendor_note": "",
+        "next_check": null,
+        "merged_into": "SR-0088109c3c"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-f51ef05451",
+        "incident_id": "SR-0088109c3c",
+        "title": "Report received",
+        "detail": "A-304 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-10T15:06:39.727987+00:00"
+      },
+      {
+        "id": "evt-8f2db3c537",
+        "incident_id": "SR-4609eaade1",
+        "title": "Report received",
+        "detail": "A-502 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-10T15:06:39.728007+00:00"
+      },
+      {
+        "id": "evt-b05b2ddd62",
+        "incident_id": "SR-0088109c3c",
+        "title": "Related reports connected",
+        "detail": "A-502's report is now part of this incident.",
+        "actor": "Relay",
+        "at": "2026-09-10T15:06:49.453235+00:00"
+      },
+      {
+        "id": "evt-9014dc7cdc",
+        "incident_id": "SR-0088109c3c",
+        "title": "A decision is ready",
+        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. The incident involves a water supply issue, and ClearFlow Maintenance is an approved vendor for water-related services.",
+        "actor": "Relay",
+        "at": "2026-09-10T15:06:53.754134+00:00"
+      },
+      {
+        "id": "evt-c5095d397f",
+        "incident_id": "SR-0088109c3c",
+        "title": "Work authorized",
+        "detail": "Committee approved \u20b91800; a demo work order was created.",
+        "actor": "Committee",
+        "at": "2026-09-10T15:07:34.962878+00:00"
+      },
+      {
+        "id": "evt-7deb67722f",
+        "incident_id": "SR-0088109c3c",
+        "title": "Work reported complete",
+        "detail": "Synthetic acceptance test: common pump repair completed and flow checked.",
+        "actor": "Vendor",
+        "at": "2026-09-10T15:07:35.301488+00:00"
+      },
+      {
+        "id": "evt-b977599fda",
+        "incident_id": "SR-0088109c3c",
+        "title": "Waiting for residents",
+        "detail": "The incident stays open until every reporting household confirms restoration.",
+        "actor": "Relay",
+        "at": "2026-09-10T15:07:35.301514+00:00"
+      },
+      {
+        "id": "evt-9b8afeb990",
+        "incident_id": "SR-0088109c3c",
+        "title": "Resident verified restoration",
+        "detail": "A-304 confirmed the issue is resolved.",
+        "actor": "Resident",
+        "at": "2026-09-10T15:07:35.638758+00:00"
+      },
+      {
+        "id": "evt-dd3a7213e0",
+        "incident_id": "SR-0088109c3c",
+        "title": "Resident verified restoration",
+        "detail": "A-502 confirmed the issue is resolved.",
+        "actor": "Resident",
+        "at": "2026-09-10T15:07:36.318873+00:00"
+      },
+      {
+        "id": "evt-37fc655811",
+        "incident_id": "SR-0088109c3c",
+        "title": "Resolved, with confirmation",
+        "detail": "Every reporting household has verified the outcome.",
+        "actor": "Relay",
+        "at": "2026-09-10T15:07:36.318904+00:00"
+      }
+    ],
+    "receipts": {},
+    "separate_pairs": [],
+    "availability": {
+      "A-304": [
+        "morning",
+        "afternoon"
+      ],
+      "A-502": [
+        "afternoon",
+        "evening"
+      ]
+    },
+    "blocked_slots": [
+      "midday"
+    ],
+    "vendor_slots": [
+      "morning",
+      "afternoon",
+      "evening"
+    ],
+    "policy": {
+      "approval_required": true,
+      "currency": "INR",
+      "max_quote": 5000,
+      "closure": "All reporting households must confirm restoration.",
+      "dispatch": "A committee member must approve a fixed quote before dispatch.",
+      "emergency": "Hazards are escalated to a human; Relay does not diagnose or dispatch emergency services."
+    },
+    "vendors": [
+      {
+        "id": "waterworks",
+        "name": "ClearFlow Maintenance",
+        "trade": "water",
+        "quote": 1800
+      },
+      {
+        "id": "electrical",
+        "name": "Brightline Electrical",
+        "trade": "electricity",
+        "quote": 1200
+      },
+      {
+        "id": "general",
+        "name": "Neighbourhood Services",
+        "trade": "general",
+        "quote": 900
+      }
+    ],
+    "runs": [
+      {
+        "id": "run-bd53b907df",
+        "at": "2026-09-10T15:06:57.063670+00:00",
+        "provider": "bedrock",
+        "model": "amazon.nova-pro-v1:0",
+        "seconds": 10.33,
+        "observed_models": [],
+        "calls": [
+          {
+            "agent": "Sensemaker",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Evidence specialist",
+            "tool": "assess_reports",
+            "args": {
+              "groups": [
+                [
+                  "SR-0088109c3c",
+                  "SR-4609eaade1"
+                ]
+              ],
+              "hazards": []
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "keep_separate",
+            "args": {
+              "incident_id": "SR-0088109c3c",
+              "reason": "Assessed as an independent incident or the representative of a shared problem."
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "link_reports",
+            "args": {
+              "source_id": "SR-4609eaade1",
+              "target_id": "SR-0088109c3c"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "negotiate_visit",
+            "args": {
+              "incident_id": "SR-0088109c3c"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "propose_vendor",
+            "args": {
+              "incident_id": "SR-0088109c3c",
+              "vendor_id": "waterworks"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sentinel",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          }
+        ],
+        "stages": [
+          {
+            "agent": "Sensemaker",
+            "summary": "<thinking> The reports have been assessed and incident SR-4609eaade1 has been linked to SR-0088109c3c. Now I need to inform the user about the status of these incidents. </thinking>\n\nThe incident SR-4609eaade1 has been linked to SR-0088109c3c. Both incidents report a lack of water supply in Tower A, and they have been consolidated under SR-0088109c3c. The status of SR-0088109c3c remains \"reported\" and requires further action.\n"
+          },
+          {
+            "agent": "Coordinator",
+            "summary": "<thinking> The vendor proposal for incident SR-0088109c3c has been submitted and is now awaiting approval. There are no further actions required for this incident at the moment. </thinking>\n\nThe vendor proposal for incident SR-0088109c3c has been submitted and is now awaiting approval. There are no further actions required for this incident at the moment.\n"
+          },
+          {
+            "agent": "Sentinel",
+            "summary": "<thinking> Incident SR-4609eaade1 is linked to SR-0088109c3c, which is awaiting approval. There are no further actions required for SR-4609eaade1 at the moment. </thinking> No further actions are required for incident SR-4609eaade1 at the moment as it is linked to SR-0088109c3c, which is awaiting approval.\n"
+          }
+        ],
+        "summary": "SR-0088109c3c: awaiting approval; SR-4609eaade1: linked",
+        "error": null,
+        "status": "completed"
+      }
+    ],
+    "live": {
+      "agent": "Sentinel",
+      "tool": "inspect_workspace",
+      "at": "2026-09-10T15:06:55.644977+00:00"
+    },
+    "running": false,
+    "provider": "bedrock",
+    "public_demo": true
+  },
+  "initial_agent_state": {
+    "society": "Gulmohar Heights",
+    "demo": true,
+    "incidents": [
+      {
+        "id": "SR-0088109c3c",
+        "title": "Water supply \u00b7 Tower A",
+        "description": "No water from the taps in Tower A since this morning. The shared supply appears to be down.",
+        "unit": "A-304",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "awaiting_approval",
+        "reporters": [
+          "A-304",
+          "A-502"
+        ],
+        "reports": [
+          {
+            "text": "No water from the taps in Tower A since this morning. The shared supply appears to be down.",
+            "unit": "A-304"
+          },
+          {
+            "text": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+            "unit": "A-502"
+          }
+        ],
+        "confirmed": [],
+        "created_at": "2026-09-10T15:06:39.727957+00:00",
+        "updated_at": "2026-09-10T15:06:53.754134+00:00",
+        "proposal": {
+          "id": "proposal-9fdcdf6d11",
+          "vendor": "ClearFlow Maintenance",
+          "vendor_id": "waterworks",
+          "quote": 1800,
+          "rationale": "The incident involves a water supply issue, and ClearFlow Maintenance is an approved vendor for water-related services.",
+          "approved": false,
+          "options": [
+            {
+              "id": "afternoon",
+              "label": "15:00\u201316:00",
+              "hour": 15,
+              "households_available": 2,
+              "households_total": 2,
+              "needs_coordination": [],
+              "feasible": true,
+              "one_time_consents": []
+            },
+            {
+              "id": "morning",
+              "label": "10:00\u201311:00",
+              "hour": 10,
+              "households_available": 1,
+              "households_total": 2,
+              "needs_coordination": [
+                "A-502"
+              ],
+              "feasible": false,
+              "one_time_consents": []
+            },
+            {
+              "id": "evening",
+              "label": "17:00\u201318:00",
+              "hour": 17,
+              "households_available": 1,
+              "households_total": 2,
+              "needs_coordination": [
+                "A-304"
+              ],
+              "feasible": false,
+              "one_time_consents": []
+            }
+          ],
+          "window": {
+            "id": "afternoon",
+            "label": "15:00\u201316:00",
+            "hour": 15,
+            "households_available": 2,
+            "households_total": 2,
+            "needs_coordination": [],
+            "feasible": true,
+            "one_time_consents": []
+          },
+          "visit_date": "2026-09-11"
+        },
+        "vendor_note": "",
+        "next_check": null,
+        "merged_into": null,
+        "negotiation": null
+      },
+      {
+        "id": "SR-4609eaade1",
+        "title": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+        "description": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+        "unit": "A-502",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "linked",
+        "reporters": [
+          "A-502"
+        ],
+        "reports": [
+          {
+            "text": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+            "unit": "A-502"
+          }
+        ],
+        "confirmed": [],
+        "created_at": "2026-09-10T15:06:39.727998+00:00",
+        "updated_at": "2026-09-10T15:06:39.728007+00:00",
+        "proposal": null,
+        "vendor_note": "",
+        "next_check": null,
+        "merged_into": "SR-0088109c3c"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-f51ef05451",
+        "incident_id": "SR-0088109c3c",
+        "title": "Report received",
+        "detail": "A-304 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-10T15:06:39.727987+00:00"
+      },
+      {
+        "id": "evt-8f2db3c537",
+        "incident_id": "SR-4609eaade1",
+        "title": "Report received",
+        "detail": "A-502 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-10T15:06:39.728007+00:00"
+      },
+      {
+        "id": "evt-b05b2ddd62",
+        "incident_id": "SR-0088109c3c",
+        "title": "Related reports connected",
+        "detail": "A-502's report is now part of this incident.",
+        "actor": "Relay",
+        "at": "2026-09-10T15:06:49.453235+00:00"
+      },
+      {
+        "id": "evt-9014dc7cdc",
+        "incident_id": "SR-0088109c3c",
+        "title": "A decision is ready",
+        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. The incident involves a water supply issue, and ClearFlow Maintenance is an approved vendor for water-related services.",
+        "actor": "Relay",
+        "at": "2026-09-10T15:06:53.754134+00:00"
+      }
+    ],
+    "receipts": {},
+    "separate_pairs": [],
+    "availability": {
+      "A-304": [
+        "morning",
+        "afternoon"
+      ],
+      "A-502": [
+        "afternoon",
+        "evening"
+      ]
+    },
+    "blocked_slots": [
+      "midday"
+    ],
+    "vendor_slots": [
+      "morning",
+      "afternoon",
+      "evening"
+    ],
+    "policy": {
+      "approval_required": true,
+      "currency": "INR",
+      "max_quote": 5000,
+      "closure": "All reporting households must confirm restoration.",
+      "dispatch": "A committee member must approve a fixed quote before dispatch.",
+      "emergency": "Hazards are escalated to a human; Relay does not diagnose or dispatch emergency services."
+    },
+    "vendors": [
+      {
+        "id": "waterworks",
+        "name": "ClearFlow Maintenance",
+        "trade": "water",
+        "quote": 1800
+      },
+      {
+        "id": "electrical",
+        "name": "Brightline Electrical",
+        "trade": "electricity",
+        "quote": 1200
+      },
+      {
+        "id": "general",
+        "name": "Neighbourhood Services",
+        "trade": "general",
+        "quote": 900
+      }
+    ],
+    "runs": [
+      {
+        "id": "run-bd53b907df",
+        "at": "2026-09-10T15:06:57.063670+00:00",
+        "provider": "bedrock",
+        "model": "amazon.nova-pro-v1:0",
+        "seconds": 10.33,
+        "observed_models": [],
+        "calls": [
+          {
+            "agent": "Sensemaker",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Evidence specialist",
+            "tool": "assess_reports",
+            "args": {
+              "groups": [
+                [
+                  "SR-0088109c3c",
+                  "SR-4609eaade1"
+                ]
+              ],
+              "hazards": []
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "keep_separate",
+            "args": {
+              "incident_id": "SR-0088109c3c",
+              "reason": "Assessed as an independent incident or the representative of a shared problem."
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "link_reports",
+            "args": {
+              "source_id": "SR-4609eaade1",
+              "target_id": "SR-0088109c3c"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "negotiate_visit",
+            "args": {
+              "incident_id": "SR-0088109c3c"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "propose_vendor",
+            "args": {
+              "incident_id": "SR-0088109c3c",
+              "vendor_id": "waterworks"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sentinel",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          }
+        ],
+        "stages": [
+          {
+            "agent": "Sensemaker",
+            "summary": "<thinking> The reports have been assessed and incident SR-4609eaade1 has been linked to SR-0088109c3c. Now I need to inform the user about the status of these incidents. </thinking>\n\nThe incident SR-4609eaade1 has been linked to SR-0088109c3c. Both incidents report a lack of water supply in Tower A, and they have been consolidated under SR-0088109c3c. The status of SR-0088109c3c remains \"reported\" and requires further action.\n"
+          },
+          {
+            "agent": "Coordinator",
+            "summary": "<thinking> The vendor proposal for incident SR-0088109c3c has been submitted and is now awaiting approval. There are no further actions required for this incident at the moment. </thinking>\n\nThe vendor proposal for incident SR-0088109c3c has been submitted and is now awaiting approval. There are no further actions required for this incident at the moment.\n"
+          },
+          {
+            "agent": "Sentinel",
+            "summary": "<thinking> Incident SR-4609eaade1 is linked to SR-0088109c3c, which is awaiting approval. There are no further actions required for SR-4609eaade1 at the moment. </thinking> No further actions are required for incident SR-4609eaade1 at the moment as it is linked to SR-0088109c3c, which is awaiting approval.\n"
+          }
+        ],
+        "summary": "SR-0088109c3c: awaiting approval; SR-4609eaade1: linked",
+        "error": null,
+        "status": "completed"
+      }
+    ],
+    "live": {
+      "agent": "Sentinel",
+      "tool": "inspect_workspace",
+      "at": "2026-09-10T15:06:55.644977+00:00"
+    },
+    "running": false,
+    "provider": "bedrock",
+    "public_demo": true
+  },
+  "scheduled_state": {
+    "society": "Gulmohar Heights",
+    "demo": true,
+    "incidents": [
+      {
+        "id": "SR-865175b296",
+        "title": "Water supply \u00b7 Tower A",
+        "description": "No water from the taps in Tower A since this morning. The shared supply appears to be down.",
+        "unit": "A-304",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "awaiting_approval",
+        "reporters": [
+          "A-304",
+          "A-502"
+        ],
+        "reports": [
+          {
+            "text": "No water from the taps in Tower A since this morning. The shared supply appears to be down.",
+            "unit": "A-304"
+          },
+          {
+            "text": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+            "unit": "A-502"
+          }
+        ],
+        "confirmed": [],
+        "created_at": "2026-09-10T15:07:38.446445+00:00",
+        "updated_at": "2026-09-10T15:08:18.658526+00:00",
+        "proposal": {
+          "id": "proposal-ad1420e21d",
+          "vendor": "ClearFlow Maintenance",
+          "vendor_id": "waterworks",
+          "quote": 1800,
+          "rationale": "The incident is a water supply issue in Tower A, and ClearFlow Maintenance is the approved vendor for water-related issues.",
+          "approved": false,
+          "options": [
+            {
+              "id": "afternoon",
+              "label": "15:00\u201316:00",
+              "hour": 15,
+              "households_available": 2,
+              "households_total": 2,
+              "needs_coordination": [],
+              "feasible": true,
+              "one_time_consents": []
+            },
+            {
+              "id": "morning",
+              "label": "10:00\u201311:00",
+              "hour": 10,
+              "households_available": 1,
+              "households_total": 2,
+              "needs_coordination": [
+                "A-502"
+              ],
+              "feasible": false,
+              "one_time_consents": []
+            },
+            {
+              "id": "evening",
+              "label": "17:00\u201318:00",
+              "hour": 17,
+              "households_available": 1,
+              "households_total": 2,
+              "needs_coordination": [
+                "A-304"
+              ],
+              "feasible": false,
+              "one_time_consents": []
+            }
+          ],
+          "window": {
+            "id": "afternoon",
+            "label": "15:00\u201316:00",
+            "hour": 15,
+            "households_available": 2,
+            "households_total": 2,
+            "needs_coordination": [],
+            "feasible": true,
+            "one_time_consents": []
+          },
+          "visit_date": "2026-09-11"
+        },
+        "vendor_note": "",
+        "next_check": null,
+        "merged_into": null,
+        "negotiation": null
+      },
+      {
+        "id": "SR-ceb8962a23",
+        "title": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+        "description": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+        "unit": "A-502",
+        "area": "Tower A",
+        "category": "water",
+        "scope": "shared",
+        "status": "linked",
+        "reporters": [
+          "A-502"
+        ],
+        "reports": [
+          {
+            "text": "Tower A has no water supply on the fifth floor either. Please check the common water pump.",
+            "unit": "A-502"
+          }
+        ],
+        "confirmed": [],
+        "created_at": "2026-09-10T15:07:38.446480+00:00",
+        "updated_at": "2026-09-10T15:07:38.446489+00:00",
+        "proposal": null,
+        "vendor_note": "",
+        "next_check": null,
+        "merged_into": "SR-865175b296"
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-ca41da1f20",
+        "incident_id": "SR-865175b296",
+        "title": "Report received",
+        "detail": "A-304 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-10T15:07:38.446471+00:00"
+      },
+      {
+        "id": "evt-b161d35461",
+        "incident_id": "SR-ceb8962a23",
+        "title": "Report received",
+        "detail": "A-502 reported an issue in Tower A.",
+        "actor": "Resident",
+        "at": "2026-09-10T15:07:38.446489+00:00"
+      },
+      {
+        "id": "evt-768afa5985",
+        "incident_id": "SR-865175b296",
+        "title": "Related reports connected",
+        "detail": "A-502's report is now part of this incident.",
+        "actor": "Relay",
+        "at": "2026-09-10T15:08:11.778847+00:00"
+      },
+      {
+        "id": "evt-2d85119810",
+        "incident_id": "SR-865175b296",
+        "title": "A decision is ready",
+        "detail": "ClearFlow Maintenance \u00b7 \u20b91800. The incident is a water supply issue in Tower A, and ClearFlow Maintenance is the approved vendor for water-related issues.",
+        "actor": "Relay",
+        "at": "2026-09-10T15:08:18.658526+00:00"
+      }
+    ],
+    "receipts": {},
+    "separate_pairs": [],
+    "availability": {
+      "A-304": [
+        "morning",
+        "afternoon"
+      ],
+      "A-502": [
+        "afternoon",
+        "evening"
+      ]
+    },
+    "blocked_slots": [
+      "midday"
+    ],
+    "vendor_slots": [
+      "morning",
+      "afternoon",
+      "evening"
+    ],
+    "policy": {
+      "approval_required": true,
+      "currency": "INR",
+      "max_quote": 5000,
+      "closure": "All reporting households must confirm restoration.",
+      "dispatch": "A committee member must approve a fixed quote before dispatch.",
+      "emergency": "Hazards are escalated to a human; Relay does not diagnose or dispatch emergency services."
+    },
+    "vendors": [
+      {
+        "id": "waterworks",
+        "name": "ClearFlow Maintenance",
+        "trade": "water",
+        "quote": 1800
+      },
+      {
+        "id": "electrical",
+        "name": "Brightline Electrical",
+        "trade": "electricity",
+        "quote": 1200
+      },
+      {
+        "id": "general",
+        "name": "Neighbourhood Services",
+        "trade": "general",
+        "quote": 900
+      }
+    ],
+    "runs": [
+      {
+        "id": "run-73f825eaac",
+        "at": "2026-09-10T15:08:25.111064+00:00",
+        "provider": "bedrock",
+        "model": "amazon.nova-pro-v1:0",
+        "seconds": 15.53,
+        "observed_models": [],
+        "calls": [
+          {
+            "agent": "Sensemaker",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Evidence specialist",
+            "tool": "assess_reports",
+            "args": {
+              "groups": [
+                [
+                  "SR-865175b296",
+                  "SR-ceb8962a23"
+                ]
+              ],
+              "hazards": []
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "keep_separate",
+            "args": {
+              "incident_id": "SR-865175b296",
+              "reason": "Assessed as an independent incident or the representative of a shared problem."
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "link_reports",
+            "args": {
+              "source_id": "SR-ceb8962a23",
+              "target_id": "SR-865175b296"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Sensemaker",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "negotiate_visit",
+            "args": {
+              "incident_id": "SR-865175b296"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "propose_vendor",
+            "args": {
+              "incident_id": "SR-865175b296",
+              "vendor_id": "waterworks"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "access_options",
+            "args": {
+              "incident_id": "SR-865175b296"
+            },
+            "ok": true
+          },
+          {
+            "agent": "Coordinator",
+            "tool": "request_access_window",
+            "args": {
+              "incident_id": "SR-865175b296",
+              "slot_id": "morning"
+            },
+            "ok": false,
+            "error": "A shared window already exists; review the current proposal."
+          },
+          {
+            "agent": "Sentinel",
+            "tool": "inspect_workspace",
+            "args": {},
+            "ok": true
+          }
+        ],
+        "stages": [
+          {
+            "agent": "Sensemaker",
+            "summary": "The incidents SR-865175b296 and SR-ceb8962a23 have been successfully linked and are being handled as a single issue. The current status is \"reported,\" and no further action is required at this moment. If you have any other requests or need further assistance, please let me know.\n"
+          },
+          {
+            "agent": "Coordinator",
+            "summary": "<thinking> The request for an access window has resulted in an error stating that a shared window already exists. This means that the negotiation process has already established a feasible window, and no further action is needed regarding access windows. The incident SR-865175b296 is now awaiting approval, and the vendor proposal has been submitted. </thinking> \n"
+          },
+          {
+            "agent": "Sentinel",
+            "summary": "<thinking> The incident SR-ceb8962a23 is linked to SR-865175b296, which is awaiting approval. There are no overdue milestones or actions required for SR-ceb8962a23 at this time. </thinking> No overdue milestones or actions are required for the incident SR-ceb8962a23.\n"
+          }
+        ],
+        "summary": "SR-865175b296: awaiting approval; SR-ceb8962a23: linked",
+        "error": null,
+        "status": "completed"
+      }
+    ],
+    "live": {
+      "agent": "Sentinel",
+      "tool": "inspect_workspace",
+      "at": "2026-09-10T15:08:23.774730+00:00"
+    },
+    "running": false,
+    "provider": "bedrock",
+    "public_demo": true,
+    "durable_host": true
+  },
+  "scheduler_wait_seconds": 49.11
+}

@@ -26,9 +26,11 @@ The model interprets reports and invokes tools. Deterministic Python rules enfor
 
 One-time consent is bound to the exact visit date, household group, vendor, quote, and constraints. It can be withdrawn before authorization. A missed or disputed visit needs a fresh planning round; the old yes cannot silently authorize a different date.
 
-The application uses Python, FastAPI, Strands Agents SDK, SQLite, and an original HTML/CSS/JavaScript interface. The tested live inference configuration uses an existing Free AI gateway, with a local adapter that translates model-authored JSON actions into real Strands tool-use events. The evidence view records actual calls and the observed model, not just the requested routing alias.
+The deployed application uses Python, FastAPI, Strands Agents SDK, and an original HTML/CSS/JavaScript interface. A public AWS Lambda Function URL serves the application. A private Lambda dispatcher invokes an IAM-protected AgentCore runtime, which uses Amazon Nova Pro through Bedrock. DynamoDB stores workspaces, conditional version writes, durable job leases, and usage counters. EventBridge Scheduler checks for due work every minute, even when no browser is open.
 
-The DynamoDB persistence adapter passed a live AWS CloudShell test against an isolated table: strong reads, stale-write rejection, conflict retry, and committed state read by a separate process. The table uses 1 provisioned read/write unit. The public demo still uses Render and SQLite. A Bedrock model option and IAM-only AgentCore entrypoint are implemented, but **Bedrock/AgentCore are not deployed or verified**. The machine-readable AWS proof is in docs/aws-persistence-evidence.json in the repository.
+The live AWS acceptance test verified actual Nova Pro tool calls, duplicate linking, exact-proposal approval, vendor completion, and closure only after both affected households confirmed. The initial agent run took 10.33 seconds. A separate isolated workspace completed through the external scheduler without calling the manual agent endpoint; that test waited 49.11 seconds including the next scheduled tick. The complete resulting states and checks are in docs/aws-live-acceptance.json. An earlier independent DynamoDB proof also verified stale-write rejection, conflict retry, and committed state read by a separate process.
+
+The deployment limits shared usage to 100 workspaces, 100 dispatched jobs, and 150 model calls. These are durable workload controls, not a hard dollar spending cap. The optional local SQLite and Free AI gateway adapters remain available for development.
 
 ## Challenges and lessons
 
@@ -38,11 +40,11 @@ Report similarity is not proof of a common physical cause. Independent review he
 
 ## Try it
 
-[Open the public interactive demo](https://society-relay.onrender.com). No login is required. The free host can take a minute to wake up, and workspaces reset when it restarts. Use fictional information. Shared free AI capacity is limited; a failed provider call preserves completed work for a manual retry. The public video is available if the live provider is unavailable.
+[Open the public interactive demo](https://s5yxc4zxd7avumdlujounefyyu0vvpeu.lambda-url.us-east-1.on.aws/). No login is required. Use fictional information. Workspaces persist in DynamoDB, and an external scheduler resumes due work. Shared AI capacity is limited; failed agent runs preserve completed work for a manual retry. The public video demonstrates the same lifecycle on the earlier hosted build.
 
 ## What we verified
 
-The current build passes 44 deterministic tests covering lifecycle authority, stale approvals, concurrency, report separation, missed milestones, false completion, retries, gateway compatibility, and workspace isolation. GitHub Actions runs the checks.
+The current build passes 50 deterministic tests covering lifecycle authority, stale approvals, concurrency, report separation, missed milestones, false completion, retries, gateway compatibility, and workspace isolation. GitHub Actions runs the checks.
 
 Six targeted live-model cases also passed: duplicate reports, unrelated reports, an embedded instruction attempt, no shared access window, a delayed commitment, and a two-round negotiation after a refusal. Their checks, calls, timings, observed models, and resulting state are committed in `docs/evaluations/`. These are bounded synthetic acceptance results, not a general reliability claim.
 
@@ -52,10 +54,10 @@ The video is an edited recording of the working application with synthetic peopl
 
 ## What's next
 
-The next operational steps are a verified AWS deployment, authenticated resident and staff roles, a durable external scheduler, scoped vendor integrations, and a pilot with a consenting society. We have not measured adoption or resident time savings.
+The next operational steps are authenticated resident and staff roles, scoped vendor integrations, reliable external notifications, and a pilot with a consenting society. We have not measured adoption or resident time savings.
 
 ## Build disclosure
 
-New application code and original interface assets were created on September 9, 2026 with assistance from OpenAI Codex. The existing inference gateway is an external service, not new hackathon work. No existing Fleet or client application code was incorporated. The source is MIT-licensed; dependency licenses remain their own.
+New application code and original interface assets were created on September 9–10, 2026 with assistance from OpenAI Codex. The existing inference gateway is an external service, not new hackathon work. No existing Fleet or client application code was incorporated. The source is MIT-licensed; dependency licenses remain their own.
 
 [Public source, setup, architecture, and evidence](https://github.com/sarthakagrawal927/society-relay)

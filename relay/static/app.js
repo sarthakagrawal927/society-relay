@@ -30,6 +30,7 @@ function render() {
   $('#agent-btn').disabled=data.running;
   $('#agent-btn').innerHTML=data.running?'Relay is working…':'Ask Relay to catch up <span>↗</span>';
   $('#hosting-note').classList.toggle('hidden', !data.public_demo);
+  $('#storage-note').textContent = data.durable_host ? 'Workspaces persist in AWS; the agent checks for due work every minute.' : 'Workspaces reset when the free host restarts.';
   $('#provider').textContent=data.provider==='fixture'?'Test fixture mode · No AI model is called':data.provider==='bedrock'?'Strands Agents · Amazon Bedrock':data.provider==='gateway'?'Strands Agents · Free AI gateway':'Strands Agents · Local model · No cloud charges';
   $('#agent-team').innerHTML=['Sensemaker','Coordinator','Sentinel'].map((name,n)=>`<div class="agent-step ${data.running&&data.live?.agent===name?'current':''}"><b>${String(n+1).padStart(2,'0')}</b><span>${name}<small>${{Sensemaker:'Connect the shared evidence',Coordinator:'Find the workable plan',Sentinel:'Catch a broken promise'}[name]}</small></span></div>`).join('');
   $('#all-events').innerHTML=events(data.events);

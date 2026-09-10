@@ -128,6 +128,7 @@ def state(request: Request):
         result["running"] = token in active
     result["provider"] = os.getenv("RELAY_MODEL_PROVIDER", "ollama")
     result["public_demo"] = os.getenv("RELAY_PUBLIC_DEMO") == "1"
+    result["durable_host"] = bool(os.getenv("RELAY_AWS"))
     return result
 
 
