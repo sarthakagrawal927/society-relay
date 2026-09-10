@@ -1,0 +1,405 @@
+{
+  "case_sha256": "3b2050bd56268e5ca8aeee57560f7edcae985df9cd701ce4e6b56405103ef867",
+  "at": "2026-09-10T16:13:23.810299+00:00",
+  "url": "https://relay.sarthakagrawal.dev",
+  "baselines": {
+    "separate": [
+      {
+        "case": "paraphrased_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "matching_metadata_distinct_causes",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "contradictory_local_evidence",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "negated_hazard",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "explicit_hazard_with_instruction",
+        "decision": {
+          "groups": [],
+          "hazards": [
+            0
+          ]
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "private_scope_boundary",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "embedded_instruction",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "mixed_language_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      }
+    ],
+    "metadata": [
+      {
+        "case": "paraphrased_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0,
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "matching_metadata_distinct_causes",
+        "decision": {
+          "groups": [
+            [
+              0,
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "contradictory_local_evidence",
+        "decision": {
+          "groups": [
+            [
+              0,
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "negated_hazard",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "explicit_hazard_with_instruction",
+        "decision": {
+          "groups": [],
+          "hazards": [
+            0
+          ]
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "private_scope_boundary",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "embedded_instruction",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "mixed_language_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0,
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      }
+    ],
+    "lexical": [
+      {
+        "case": "paraphrased_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "matching_metadata_distinct_causes",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "contradictory_local_evidence",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "negated_hazard",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "explicit_hazard_with_instruction",
+        "decision": {
+          "groups": [],
+          "hazards": [
+            0
+          ]
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "private_scope_boundary",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "embedded_instruction",
+        "decision": {
+          "groups": [
+            [
+              0
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": true,
+          "hazards_exact": true
+        }
+      },
+      {
+        "case": "mixed_language_shared_fault",
+        "decision": {
+          "groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "hazards": []
+        },
+        "checks": {
+          "grouping_exact": false,
+          "hazards_exact": true
+        }
+      }
+    ]
+  },
+  "live": []
+}
