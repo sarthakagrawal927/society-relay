@@ -9,6 +9,11 @@ from pathlib import Path
 def take(kind, limit, seconds=86400):
     if os.getenv("RELAY_PUBLIC_DEMO") != "1":
         return
+    if os.getenv("RELAY_AWS"):
+        from .aws_jobs import take_persistent
+
+        take_persistent(kind, limit)
+        return
     path = os.getenv("RELAY_LIMIT_DB", "work/limits.db")
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     bucket = int(time.time()) // seconds

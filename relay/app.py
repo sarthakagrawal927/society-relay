@@ -25,9 +25,10 @@ workers = set()
 
 @asynccontextmanager
 async def lifespan(app):
-    scheduler = asyncio.create_task(schedule_due())
+    scheduler = asyncio.create_task(schedule_due()) if not os.getenv("RELAY_AWS") else None
     yield
-    scheduler.cancel()
+    if scheduler:
+        scheduler.cancel()
     for task in workers:
         task.cancel()
 
@@ -100,6 +101,10 @@ def session(request: Request, response: Response):
         take("new_workspaces", 100)
         token = secrets.token_hex(24)
         store.create(token, domain.new_workspace())
+        if os.getenv("RELAY_AWS"):
+            from .aws_jobs import register
+
+            register(store, token)
     response.set_cookie(
         "relay_workspace",
         token,
@@ -115,7 +120,12 @@ def session(request: Request, response: Response):
 def state(request: Request):
     token = workspace(request)
     result = store.read(token)[1]
-    result["running"] = token in active
+    if os.getenv("RELAY_AWS"):
+        from .aws_jobs import running
+
+        result["running"] = running(store, token)
+    else:
+        result["running"] = token in active
     result["provider"] = os.getenv("RELAY_MODEL_PROVIDER", "ollama")
     result["public_demo"] = os.getenv("RELAY_PUBLIC_DEMO") == "1"
     return result
@@ -126,6 +136,10 @@ def new_session(request: Request, response: Response):
     take("new_workspaces", 100)
     token = secrets.token_hex(24)
     store.create(token, domain.new_workspace())
+    if os.getenv("RELAY_AWS"):
+        from .aws_jobs import register
+
+        register(store, token)
     response.set_cookie(
         "relay_workspace",
         token,
@@ -334,6 +348,10 @@ async def schedule_due():
 @app.post("/api/agent")
 async def agent(request: Request):
     token = workspace(request)
+    if os.getenv("RELAY_AWS"):
+        from .aws_jobs import dispatch
+
+        return dispatch(store, token)
     if token in active:
         return {"started": False, "message": "Relay is already working on this workspace."}
     data = store.read(token)[1]

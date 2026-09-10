@@ -395,6 +395,10 @@ def run_agent(store, workspace_id, incident_ids, mode=None):
             elif mode == "bedrock":
                 from strands.models import BedrockModel
 
+                if os.getenv("RELAY_AWS"):
+                    from .aws_model import BoundedBedrockModel
+
+                    BedrockModel = BoundedBedrockModel
                 model_id = os.environ["RELAY_MODEL_ID"]
                 model = BedrockModel(
                     model_id=model_id,
