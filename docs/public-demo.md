@@ -1,6 +1,6 @@
 # Public demo hosting
 
-The primary demo now runs on [AWS](https://s5yxc4zxd7avumdlujounefyyu0vvpeu.lambda-url.us-east-1.on.aws/), using Lambda, AgentCore, Nova Pro, DynamoDB, and EventBridge Scheduler. See [AWS evidence and setup](aws.md).
+The primary demo now runs on [AWS](https://relay.sarthakagrawal.dev/), using Lambda, AgentCore, Nova Pro, DynamoDB, and EventBridge Scheduler. See [AWS evidence and setup](aws.md).
 
 ## Earlier Render preview
 

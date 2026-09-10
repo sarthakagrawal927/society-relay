@@ -4,7 +4,7 @@
 
 An apartment-society maintenance agent built with **Strands Agents SDK**, for the Agents for Humans hackathon's **Good Neighbor** track. Residents, committee members and facility teams share one incident lifecycle.
 
-[Try the public interactive demo](https://s5yxc4zxd7avumdlujounefyyu0vvpeu.lambda-url.us-east-1.on.aws/) · [Watch the public working-app demo (3:39)](https://youtu.be/UXrkD4t4G3Y)
+[Try the public interactive demo](https://relay.sarthakagrawal.dev/) · [Watch the public working-app demo (3:39)](https://youtu.be/UXrkD4t4G3Y)
 
 The live AWS preview uses Lambda, AgentCore, Amazon Nova Pro, and DynamoDB. Workspaces persist across web-process restarts; EventBridge Scheduler checks for due work every minute. AI usage is shared and limited. Use fictional data. [Deployment and usage limits](docs/aws-deployment-plan.md).
 

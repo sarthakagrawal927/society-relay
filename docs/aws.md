@@ -1,8 +1,12 @@
 # Verified AWS deployment
 
-[Open Society Relay](https://s5yxc4zxd7avumdlujounefyyu0vvpeu.lambda-url.us-east-1.on.aws/)
+[Open Society Relay](https://relay.sarthakagrawal.dev/)
 
 The AWS stack was deployed and tested on September 10, 2026 in us-east-1.
+Cloudflare serves the custom hostname through a small streaming Worker proxy;
+all application state and agent execution remain on AWS. The proxy checks the
+browser Origin before translating it for the AWS host, preserves workspace
+cookies, and disables shared caching. See [domain acceptance](cloudflare-domain-evidence.json).
 A Lambda Function URL serves FastAPI. Its private Lambda dispatcher invokes the
 IAM-protected `society_relay_live` AgentCore runtime, running Strands with Amazon
 Nova Pro. DynamoDB persists workspaces, version checks, job leases, and shared

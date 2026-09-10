@@ -40,7 +40,7 @@ Report similarity is not proof of a common physical cause. Independent review he
 
 ## Try it
 
-[Open the public interactive demo](https://s5yxc4zxd7avumdlujounefyyu0vvpeu.lambda-url.us-east-1.on.aws/). No login is required. Use fictional information. Workspaces persist in DynamoDB, and an external scheduler resumes due work. Shared AI capacity is limited; failed agent runs preserve completed work for a manual retry. The public video demonstrates the same lifecycle on the earlier hosted build.
+[Open the public interactive demo](https://relay.sarthakagrawal.dev/). No login is required. Use fictional information. Workspaces persist in DynamoDB, and an external scheduler resumes due work. Shared AI capacity is limited; failed agent runs preserve completed work for a manual retry. The public video demonstrates the same lifecycle on the earlier hosted build.
 
 ## What we verified
 

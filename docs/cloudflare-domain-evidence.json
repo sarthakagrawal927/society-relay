@@ -1,0 +1,14 @@
+{
+  "url": "https://relay.sarthakagrawal.dev",
+  "verified_at": "2026-09-10T15:19:50Z",
+  "worker_version": "7b655ba7-0213-4246-a3f6-ea3270d8fae2",
+  "checks": [
+    "HTTPS",
+    "health and static assets",
+    "secure HttpOnly workspace cookie",
+    "same-origin JSON mutation",
+    "persisted state through domain",
+    "uncached workspace response",
+    "cross-origin mutation rejected"
+  ]
+}
